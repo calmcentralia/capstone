@@ -22,5 +22,5 @@
 [new-session]: ./wireframes/sign_in.png
 [splash]: ./wireframes/splash_page.png
 [add-song]: ./wireframes/add_song.png
-[add-artist]: ./wireframes/add-artist.png
-[song-page]: ./wireframes/song-page.png
+[add-artist]: ./wireframes/add_artist.png
+[song-page]: ./wireframes/song_page.png
