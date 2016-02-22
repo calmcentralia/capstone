@@ -1,32 +1,28 @@
-# FresherNote
+# MusicGenius
 
-[Heroku link][heroku] **NB:** This should be a link to your production site
+[Heroku link][heroku] 
 
 [heroku]: http://www.herokuapp.com
 
 ## Minimum Viable Product
 
-FresherNote is a web application inspired by Evernote built using Ruby on Rails
-and React.js. FresherNote allows users to:
+MusicGenius is a web application inspired by RapGenius built using Ruby on Rails
+and React.js. MusicGenius allows users to:
 
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [ ] Create an account
 - [ ] Log in / Log out
-- [ ] Create, read, edit, and delete notes
-- [ ] Organize notes within Notebooks
-- [ ] Tag notes with multiple tags
-- [ ] Apply complex styling to notes while editing
+- [ ] Create, read, edit, and delete song lyrics
+- [ ] annotate lyrics through highlighting
+- [ ] add new artists with descriptions
 
 ## Design Docs
 * [View Wireframes][views]
 * [DB schema][schema]
 
 [views]: ./docs/views.md
-[components]: ./docs/components.md
-[stores]: ./docs/stores.md
-[api-endpoints]: ./docs/api-endpoints.md
 [schema]: ./docs/schema.md
 
 ## Implementation Timeline
@@ -41,90 +37,69 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] user signup/signin pages
 - [ ] blank landing page after signin
 
-### Phase 2: Notes Model, API, and basic APIUtil (1.5 days)
+### Phase 2: Artist Model, Album Model, Song Model, API, and basic APIUtil (2 days)
 
-**Objective:** Notes can be created, read, edited and destroyed through
-the API.
+**Objective:** Artists, Albums, and Songs can all be created
 
-- [ ] create `Note` model
+- [ ] create `Artist`, `Album`, and `Song` models
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for notes (`NotesController`)
-- [ ] jBuilder views for notes
+- [ ] allow for creation of artists and songs
+- [ ] must be logged in to add song or artist
+- [ ] jBuilder views for add artist and add song
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
-### Phase 3: Flux Architecture and Router (1.5 days)
+### Phase 3: Splash Page Setup and Styling (1 day)
 
-**Objective:** Notes can be created, read, edited and destroyed with the
-user interface.
+**Objective:** Nav Bar linking to add artist and add user, Songs Listed in most recently created order
 
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
-- implement each note component, building out the flux loop as needed.
-  - [ ] `NotesIndex`
-  - [ ] `NoteIndexItem`
-  - [ ] `NoteForm`
-- [ ] save Notes to the DB when the form loses focus or is left idle
-  after editing.
+- [ ] nav bar with functional links for add artist and add song pages
+- [ ] Displays most recently created songs (broken links for now)
+- [ ] CSS styling to make it all look pretty
+- [ ] CSS for other pages as well
 
-### Phase 4: Start Styling (0.5 days)
+### Phase 4: Song Page Basic Setup (1 day)
 
-**Objective:** Existing pages (including singup/signin) will look good.
+**Objective:** Statically displays lyrics and artist descriptions
 
-- [ ] create a basic style guide
+- [ ] present data using the song > album > artist hierarchy
 - [ ] position elements on the page
-- [ ] add basic colors & styles
+- [ ] Add Song page now routes here
+- [ ] fix splash page links to route here
 
-### Phase 5: Notebooks (1 day)
+### Phase 5: Annotations (2 day)
 
-**Objective:** Notes belong to Notebooks, and can be viewed by notebook.
+**Objective:** Annotations belong to Users and Songs.  Components for creating and viewing annotations
 
-- [ ] create `Notebook` model
+- [ ] create `Annotation` model
 - build out API, Flux loop, and components for:
-  - [ ] Notebook CRUD
-  - [ ] adding notes requires a notebook
-  - [ ] moving notes to a different notebook
-  - [ ] viewing notes by notebook
-- Use CSS to style new views
+  - [ ] Annotation CRUD
+  - [ ] Adding Annotations requires being logged in
+  - [ ] Can view annotations and who created them
+  - [ ] Can create annotations on highlighted sections that do not already have annotations
 
-Phase 3 adds organization to the Notes. Notes belong to a Notebook,
-which has its own `Index` view.
+### Phase 6: Searching (1.5 days)
 
-### Phase 6: Tags (1.5 days)
+**Objective:** Search properly returns relevant information. Search results page stylized
 
-**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
+- [ ] Make search return useful songs/artists/albums
+- [ ] Data displayed nicely (CSS)
+- [ ] If search matches an artist exactly displays artist description
+- [ ] Results link to song pages
 
-- [ ] create `Tag` model and join table
-- build out API, Flux loop, and components for:
-  - [ ] fetching tags for notebook
-  - [ ] adding tags to notebook
-  - [ ] creating tags while adding to notebooks
-  - [ ] searching notebooks by tag
-- [ ] Style new elements
+### Phase 7: Clean Up (1.0 days)
 
-### Phase 7: Allow Complex Styling in Notes (0.5 days)
+**objective:** Fix any issues, mess with css styling until perfect
 
-**objective:** Enable complex styling of notes.
-
-- [ ] Integrate `react-quill` (based on Quill.js).
-- [ ] Use Rails helpers to sanitize HTML before rendering.
-- [ ] Style the new Quill elements.
-
-### Phase 8: Styling Cleanup and Seeding (1 day)
-
-**objective:** Make the site feel more cohesive and awesome.
-
-- [ ] Get feedback on my UI from others
-- [ ] Refactor HTML classes & CSS rules
-- [ ] Add modals, transitions, and other styling flourishes.
+- [ ] if any minor errors persist, fix them
+- [ ] get styling perfect
 
 ### Bonus Features (TBD)
-- [ ] Search through notes for blocks of text
-- [ ] Pagination / infinite scroll for Notes Index
-- [ ] Set reminders on notes
-- [ ] Changelogs for Notes
-- [ ] Multiple sessions
+- [ ] Users can upvote annotations
+- [ ] comment section at bottom of song page
+- [ ] users can have profiles
+- [ ] Artists have images associated with them that display on song and search pages
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
