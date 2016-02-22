@@ -1,46 +1,38 @@
 # Schema Information
 
-## notes
+## artists
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-title       | string    | not null
-body        | text      | not null
-author_id   | integer   | not null, foreign key (references users), indexed
-notebook_id | integer   | not null, foreign key (references notebooks), indexed
-archived    | boolean   | not null, default: false
+name        | string    | not null
+description | text      |
 
-## notebooks
+
+## albums
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-author_id   | integer   | not null, foreign key (references users), indexed
+artist_id   | integer   | not null, foreign key (references artists), indexed
 title       | string    | not null
-description | string    | 
+description | string    |
 
-## reminders
+## songs
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 user_id     | integer   | not null, foreign key (references users), indexed
-note_id     | string    | not null, foreign key (references notes), indexed
-date        | datetime  | not null
-type        | string    | not null
-prev_id     | integer   | foreign key (references reminders), indexed
+album_id    | integer   | not null, foreign key (references albums), indexed
+title       | string    | not null
+lyrics      | text      | not null
 
-## tags
+## annotations
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-name        | string    | not null
-
-## taggings
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-name        | string    | not null
-note_id     | integer   | not null, foreign key (references notes), indexed, unique [tag_id]
-tag_id      | integer   | not null, foreign key (references tags), indexed
+user_id     | integer   | not null, foreign key (references users), indexed
+song_id     | integer   | not null, foreign key (references songs), indexed
+body        | text      | not null
+lyric_piece | string    | not null
 
 ## users
 column name     | data type | details

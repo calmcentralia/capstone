@@ -6,17 +6,21 @@
 ## New Session
 ![new-session]
 
-## NotesIndex / NoteIndexItem / NoteForm
-![notes]
+## Splash Page
+![splash]
 
-## NotebooksIndex / NotebookIndexItem
-![notebooks]
+## Add Song
+![add-song]
 
-## NotebookForm
-![notebook-form]
+## Add Artist
+![add-artist]
 
-[new-user]: ./wireframes/new_user.png
-[new-session]: ./wireframes/new_session.png
-[notes]: ./wireframes/root_notes.png
-[notebooks]: ./wireframes/root_notebooks.png
-[notebook-form]: ./wireframes/notebook_form.png
+## Song Page
+![song-page]
+
+[new-user]: ./wireframes/sign_up.png
+[new-session]: ./wireframes/sign_in.png
+[splash]: ./wireframes/splash_page.png
+[add-song]: ./wireframes/add_song.png
+[add-artist]: ./wireframes/add-artist.png
+[song-page]: ./wireframes/song-page.png
