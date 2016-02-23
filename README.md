@@ -39,9 +39,9 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 ### Phase 2: Artist Model, Song Model, API, and basic APIUtil (2 days)
 
-**Objective:** Artists, Albums, and Songs can all be created
+**Objective:** Artists, and Songs can all be created
 
-- [ ] create `Artist` and `Song` models
+- [x] create `Artist` and `Song` models
 - [ ] seed the database with a small amount of test data
 - [ ] allow for creation of artists and songs
 - [ ] must be logged in to add song or artist

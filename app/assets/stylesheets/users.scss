@@ -1,3 +1,121 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.header{
+  font-family: 'Indie Flower', cursive;
+  color: white;
+  text-shadow: 1px 1px black;
+  text-align: center;
+  font-size: 36px;
+  background-color: #9999cc;
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  border: 2px solid #b399cc;
+  border-left: 4px solid #b399cc;
+  border-right: 4px solid #b399cc;
+
+
+}
+.login_border{
+  width: 70%;
+  height: 800px;
+  display: block;
+  margin: 0 auto;
+  background-color: #67758A;
+  border: 2px solid #b399cc;
+  border-left: 4px solid #b399cc;
+  border-right: 4px solid #b399cc;
+
+}
+.username{
+  display: block;
+  height: 80px;
+  text-align: center;
+  padding-top: 200px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 24px;
+  color: white;
+  text-shadow: 1px 1px black;
+}
+
+.user_input{
+  display: block;
+  margin: 0 auto;
+  border: 1px inset;
+  border-color: #b399cc;
+  width: 150px;
+  height: 15px;
+}
+
+.password{
+  display: block;
+  height: 80px;
+  text-align: center;
+  padding-top: 0px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 24px;
+  color: white;
+  text-shadow: 1px 1px black;
+}
+.password_input{
+  display: block;
+  margin: 0 auto;
+  border: 1px inset;
+  border-color: #b399cc;
+  width: 150px;
+  height: 15px;
+}
+.submit{
+  display: block;
+  vertical-align: middle;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  border: none;
+  border: 2px solid #b399cc;
+  margin: auto;
+  font-size: 24px;
+  color: #cccc99;
+  background-color: #9999cc;
+  width: 180px;
+  font-family: monospace;
+}
+
+.background{
+  height: 100%;
+  width: 100%;
+  background-color: #9999cc
+}
+
+.submit:hover,
+.submit:focus,
+.submit:active{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.text{
+  text-align: center;
+  color: white;
+}
+a{
+  text-decoration: none;
+  color: #cccc99;
+}
+
+a:hover,
+a:focus,
+a:active{
+-webkit-stroke-width: 5.3px;
+-webkit-stroke-color: #cccc99;
+-webkit-fill-color: #cccc99;
+text-shadow: 1px 0px 20px #cccc99;
+-webkit-transition: width 0.3s; /*Safari & Chrome*/
+transition: width 0.3s;
+-moz-transition: width 0.3s; /* Firefox 4 */
+-o-transition: width 0.3s; /* Opera */
+}
