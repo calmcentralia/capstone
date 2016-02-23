@@ -1,6 +1,6 @@
 # MusicGenius
 
-[Heroku link][heroku] 
+[Heroku link][heroku]
 
 [heroku]: http://www.herokuapp.com
 
@@ -31,17 +31,17 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Functioning rails project with Authentication
 
-- [ ] create new project
-- [ ] create `User` model
-- [ ] authentication
-- [ ] user signup/signin pages
-- [ ] blank landing page after signin
+- [x] create new project
+- [x] create `User` model
+- [x] authentication
+- [x] user signup/signin pages
+- [x] blank landing page after signin
 
-### Phase 2: Artist Model, Album Model, Song Model, API, and basic APIUtil (2 days)
+### Phase 2: Artist Model, Song Model, API, and basic APIUtil (2 days)
 
 **Objective:** Artists, Albums, and Songs can all be created
 
-- [ ] create `Artist`, `Album`, and `Song` models
+- [ ] create `Artist` and `Song` models
 - [ ] seed the database with a small amount of test data
 - [ ] allow for creation of artists and songs
 - [ ] must be logged in to add song or artist
