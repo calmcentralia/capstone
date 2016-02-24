@@ -22,4 +22,10 @@ class Api::ArtistsController < ApplicationController
     render json: @artist
   end
 
+  private
+
+  def artist_params
+    params.require(:artist).permit(:name, :decription)
+  end
+
 end

@@ -1,5 +1,9 @@
 <div class="background">
-  <h2 class ="header">Sign In And Begin Annotating!</h2>
+  <h2 class ="header">
+    <a class="logo" href="<%= root_url  %>">
+      <img src="../../../assets/MusicGenius-logo.png" /></a>
+    <div class="headerWords"> Sign Up And Begin Annotating!</div>
+  </h2>
 
   <form action="<%= session_url %>" method="post">
     <%= auth_token_input %>

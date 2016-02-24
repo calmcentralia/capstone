@@ -42,7 +42,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 **Objective:** Artists, and Songs can all be created
 
 - [x] create `Artist` and `Song` models
-- [ ] seed the database with a small amount of test data
+- [x] seed the database with a small amount of test data
 - [ ] allow for creation of artists and songs
 - [ ] must be logged in to add song or artist
 - [ ] jBuilder views for add artist and add song

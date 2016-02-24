@@ -1,21 +1,34 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
-var root = document.getElementById('content');
+
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
-var Splash = require('./components/Splash');
+// var Splash = require('./components/Splash');
 var ArtistForm = require('./components/ArtistForm');
-var SongForm = require('./components/SongForm');
-var SongShow = require('./components/SongShow');
+// var SongForm = require('./components/SongForm');
+// var SongShow = require('./components/SongShow');
 
 
 var App = React.createClass({
   render: function() {
     return (
       <div>
-        <header> </header>
+        <header>
+          <ul className="nav">
+            <li>
+              <a href="#/" ><img src="../assets/MusicGenius-logo"/></a>
+            </li>
+            <li></li>
+            <li></li>
+            <li>
+              <a href="#/artists/new">Add Artist</a>
+              </li>
+            <li></li>
+            <li></li>
+            </ul>
+         </header>
         {this.props.children}
       </div>
     );
@@ -24,11 +37,13 @@ var App = React.createClass({
 
 var routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={Splash}/>
+    {/*}<IndexRoute component={Splash}/>*/}
     <Route path="artists/new" component={ArtistForm}/>
-    <Route path="songs/new" component={SongForm}/>
-    <Route path="songs/:songId" component={SongShow}/>
+    {/*}<Route path="songs/new" component={SongForm}/>
+  <Route path="songs/:songId" component={SongShow}/>*/}
   </Route>
 );
-
-ReactDOM.render(<Router>{routes}</Router>, root);
+$(document).ready( function() {
+  var root = document.getElementById("content");
+  ReactDOM.render(<Router>{routes}</Router>, root);
+});

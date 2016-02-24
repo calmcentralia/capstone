@@ -1,6 +1,6 @@
 
 var AppDispatcher = require('../dispatcher/dispatcher');
-var ArtistConstants = require('../constants/bench_constants');
+var ArtistConstants = require('../constants/artist_constants');
 
 
 var ArtistActions = {

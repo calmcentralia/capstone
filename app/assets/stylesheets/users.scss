@@ -5,15 +5,17 @@
   font-family: 'Indie Flower', cursive;
   color: white;
   text-shadow: 1px 1px black;
-  text-align: center;
+  text-align: right;
   font-size: 36px;
   background-color: #9999cc;
   display: block;
+
   width: 70%;
   margin: 0 auto;
   border: 2px solid #b399cc;
   border-left: 4px solid #b399cc;
   border-right: 4px solid #b399cc;
+
 
 
 }
@@ -118,4 +120,15 @@ text-shadow: 1px 0px 20px #cccc99;
 transition: width 0.3s;
 -moz-transition: width 0.3s; /* Firefox 4 */
 -o-transition: width 0.3s; /* Opera */
+}
+
+.logo{
+  float:left;
+}
+
+body{
+  margin: 0px;
+}
+.headerWords{
+  text-align: center;
 }
