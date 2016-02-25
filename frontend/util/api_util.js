@@ -2,9 +2,6 @@ var ArtistActions = require('../actions/artist_actions');
 // var SongActions = require('../actions/song_actions');
 var ApiUtil = {
   createArtist: function(data, callback) {
-    $.post('api/artists', { artist: data }, function(artist) {
-      ArtistActions.receiveOne(artist);
-    });
     $.ajax({
       url: "api/artists",
       method: "POST",
