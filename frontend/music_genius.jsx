@@ -7,8 +7,8 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 // var Splash = require('./components/Splash');
 var ArtistForm = require('./components/ArtistForm');
-// var SongForm = require('./components/SongForm');
-// var SongShow = require('./components/SongShow');
+var SongForm = require('./components/SongForm');
+var SongShow = require('./components/SongShow');
 
 
 var App = React.createClass({
@@ -26,10 +26,10 @@ var App = React.createClass({
 
 var routes = (
   <Route path="/" component={App}>
-    {/*}<IndexRoute component={Splash}/>*/}
+  <IndexRoute component={Splash}/>
     <Route path="artists/new" component={ArtistForm}/>
-    {/*}<Route path="songs/new" component={SongForm}/>
-  <Route path="songs/:songId" component={SongShow}/>*/}
+    <Route path="songs/new" component={SongForm}/>
+    <Route path="songs/:songId" component={SongShow}/>
   </Route>
 );
 $(document).ready( function() {

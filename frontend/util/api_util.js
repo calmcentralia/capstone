@@ -1,5 +1,5 @@
 var ArtistActions = require('../actions/artist_actions');
-// var SongActions = require('../actions/song_actions');
+var SongActions = require('../actions/song_actions');
 var ApiUtil = {
   createArtist: function(data, callback) {
     $.ajax({

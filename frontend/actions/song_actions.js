@@ -9,3 +9,5 @@ var SongActions = {
     });
   }
 };
+
+module.exports = SongActions;
