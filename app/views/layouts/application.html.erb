@@ -7,9 +7,42 @@
   <%= csrf_meta_tags %>
   <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 </head>
-<body>
+
+
+
+<body class="background">
+  <ul class="nav">
+    <li class="nav-logo">
+      <a href="<%="#{root_url}#/"%>" ><img src="../assets/MusicGenius-logo"/></a>
+    </li>
+    <li>
+      <% unless signed_in? %>
+      <a href="<%=new_user_url%>"> Create Account </a>
+      <% end %>
+    </li>
+
+    <li>
+      <% unless signed_in? %>
+      <a href="<%=new_session_url%>"> Log In </a>
+      <% else %>
+      <%= link_to "Log Out", session_url, method: :delete %>
+      <% end %>
+    </li>
+    <li>
+    <%= link_to "Add Artist", "#{root_url}#/artists/new" %>
+    </li>
+    <li>
+      <a>Add Song</a>
+    </li>
+    <li>
+      <input type="search" placeholder="search music" class="search-bar" />
+    </li>
+  </ul>
+
+
 
 <%= yield %>
-
+<div id="content">
+</div>
 </body>
 </html>

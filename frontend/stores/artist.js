@@ -20,7 +20,10 @@ ArtistStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case ArtistConstants.ARTIST_RECEIVED:
       addArtist(payload.artist);
+      break;
+    case "error":
       ArtistStore.__emitChange();
+      break;
   }
 };
 

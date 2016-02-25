@@ -14,20 +14,9 @@ var ArtistForm = require('./components/ArtistForm');
 var App = React.createClass({
   render: function() {
     return (
-      <div>
+      <div className="page">
         <header>
-          <ul className="nav">
-            <li>
-              <a href="#/" ><img src="../assets/MusicGenius-logo"/></a>
-            </li>
-            <li></li>
-            <li></li>
-            <li>
-              <a href="#/artists/new">Add Artist</a>
-              </li>
-            <li></li>
-            <li></li>
-            </ul>
+
          </header>
         {this.props.children}
       </div>

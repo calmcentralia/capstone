@@ -9,9 +9,10 @@ class Api::SongsController < ApplicationController
     render json: {errors: "artist must exist"}, status: 422 unless @artist
     @song = @artist.songs.new(song_params)
     if @song.save
-      render :show
+      render json: @song
     else
       render json: {errors: @song.errors.full_messages}, status: 422
     end
   end
+
 end
