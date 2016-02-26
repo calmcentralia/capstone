@@ -23,9 +23,9 @@
    width: 800px;
    height: 61px;
    background-color: #9999cc;
-   border-left: 2px solid #67758A;
-   border-right: 2px solid #67758A;
-   border-bottom: 2px solid #67758A;
+   border-left: 2px solid #b399cc;
+   border-right: 2px solid #b399cc;
+   border-bottom: 2px solid #b399cc;
  }
 
  .nav-logo{
@@ -37,7 +37,7 @@
    height: 41px;
    padding-top: 20px;
    margin: auto auto;
-   border-left: 2px solid #67758A;
+   border-left: 2px solid #b399cc;
  }
 
  .nav > li:not(.nav-logo) > a {
@@ -47,7 +47,7 @@
 
  .page {
    display: block;
-   background-color: #67758A;
+   background-color: #9999cc;
    height:100%;
  }
  .search-bar {

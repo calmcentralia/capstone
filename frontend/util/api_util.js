@@ -17,7 +17,7 @@ var ApiUtil = {
   },
   createSong: function(data, callback) {
     $.ajax({
-      url: "api/song",
+      url: "api/songs",
       method: "POST",
       data: {song: data},
       success: function(song) {
@@ -25,6 +25,27 @@ var ApiUtil = {
         callback && callback(song.id);
       },
       error: function(request, status, error) {
+      }
+    });
+  },
+
+  fetchSomeSongs: function(flag) {
+    $.ajax({
+      url: "api/songs",
+      method: "GET",
+      data: flag,
+      success: function(songs) {
+        SongActions.receiveSome(songs);
+      }
+    });
+  },
+
+  fetchSong: function(id) {
+    $.ajax({
+      url: "api/songs/" + id,
+      method: "GET",
+      success: function(song) {
+        SongActions.receiveOne(song);
       }
     });
   }

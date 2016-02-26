@@ -18,9 +18,9 @@ var SongForm = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
     var song = {artist: this.state.artist, title: this.state.title, lyrics: this.state.lyrics, album_name: this.state.albumName};
-    ApiUtil.createArtist(song, function(id){
+    ApiUtil.createSong(song, function(id){
       this.history.push({
-        pathname: "/artist/" + id
+        pathname: "/songs/" + id
     });
 
   });
@@ -29,18 +29,22 @@ var SongForm = React.createClass({
 
   render: function(){
     return (
-      <div>
-        <h3>Add a Song!</h3>
+      <div className="form-box">
+        <h3 className="form-header">Add a Song!</h3>
         <form onSubmit={this.handleSubmit}>
-          <label>Artist</label>
-          <input type="text" valueLink={this.linkState('artist')}/>
-          <label>title</label>
-          <input type="text"  valueLink={this.linkState('title')}/>
-          <label>Album Name</label>
-          <input type="text" valueLink={this.linkState('albumName')}/>
-          <label>Lyrics</label>
-          <textarea valueLink={this.linkState('lyrics')}></textarea>
+          <label className="artist-name-label">Artist
+          <input className="artist-name-input" type="text" valueLink={this.linkState('artist')}/>
+          </label>
+          <label className="song-label">Song Title
+          <input className="song-input" type="text"  valueLink={this.linkState('title')}/>
+          </label>
+          <label className="album-label">Album Name
+          <input type="text" className="album-input" valueLink={this.linkState('albumName')}/>
+          </label>
+          <label className="lyrics-label">Lyrics
+          <textarea className="lyrics-input" valueLink={this.linkState('lyrics')}></textarea>
           <input type="submit" value="Add Song!" />
+          </label>
         </form>
       </div>
     );

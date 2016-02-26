@@ -6,35 +6,36 @@
   color: white;
   text-shadow: 1px 1px black;
   text-align: right;
-  font-size: 36px;
-  background-color: #9999cc;
+  font-size: 24px;
+  background-color: #67758A;
   display: block;
 
-  width: 70%;
+
+  width: 800px;
   margin: 0 auto;
   border: 2px solid #b399cc;
-  border-left: 4px solid #b399cc;
-  border-right: 4px solid #b399cc;
+  border-left: 2px solid #b399cc;
+  border-right: 2px solid #b399cc;
 
 
 
 }
 .login_border{
-  width: 70%;
+  width: 800px;
   height: 800px;
   display: block;
   margin: 0 auto;
   background-color: #67758A;
   border: 2px solid #b399cc;
-  border-left: 4px solid #b399cc;
-  border-right: 4px solid #b399cc;
+  border-left: 2px solid #b399cc;
+  border-right: 2px solid #b399cc;
 
 }
 .username{
   display: block;
   height: 80px;
   text-align: center;
-  padding-top: 200px;
+  padding-top: 80px;
   font-family: 'Indie Flower', cursive;
   font-size: 24px;
   color: white;
@@ -68,24 +69,7 @@
   width: 150px;
   height: 15px;
 }
-.submit{
-  display: block;
-  vertical-align: middle;
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  transition-duration: 0.3s;
-  transition-property: transform;
-  border: none;
-  border: 2px solid #b399cc;
-  margin: auto;
-  font-size: 24px;
-  color: #cccc99;
-  background-color: #9999cc;
-  width: 180px;
-  font-family: monospace;
-}
+
 
 .background{
   height: 100%;
@@ -93,12 +77,6 @@
   background-color: #9999cc
 }
 
-.submit:hover,
-.submit:focus,
-.submit:active{
-  transform: scale(1.1);
-  cursor: pointer;
-}
 
 .text{
   text-align: center;
@@ -112,10 +90,10 @@ a{
 a:hover,
 a:focus,
 a:active{
--webkit-stroke-width: 5.3px;
+-webkit-stroke-width: 5.1px;
 -webkit-stroke-color: #cccc99;
 -webkit-fill-color: #cccc99;
-text-shadow: 1px 0px 20px #cccc99;
+text-shadow: 0px 0px 10px #cccc99;
 -webkit-transition: width 0.3s; /*Safari & Chrome*/
 transition: width 0.3s;
 -moz-transition: width 0.3s; /* Firefox 4 */

@@ -1,25 +1,34 @@
 class Api::SongsController < ApplicationController
   def index
-    @songs = Song.all
+    if params[:flag]=="Recently Added"
+      @songs = Song.recenty_added
+    else
+      @songs = Song.all
+    end
     render :index
   end
 
   def create
-    if signed_in
-      @artist = Artist.find_by(name: params[:name])
-      render json: {errors: "artist must exist"}, status: 422 unless @artist
-      @song = @artist.songs.new(lyrics: params[:lyrics], title: params[:title], album_name: params[:album_name], user_id: current_user.id)
+    if signed_in?
+      @artist = Artist.find_by(name: params[:song][:artist])
+      @song = Song.new(lyrics: params[:song][:lyrics], title: params[:song][:title], album_name: params[:song][:album_name], user_id: current_user.id, artist: @artist)
       if @song.save
         render :show
       else
         render json: {errors: @song.errors.full_messages}, status: 422
       end
     else
-      render json: {errors: "must be logged in"} status: 422
+      render json: {errors: "must be logged in"}, status: 422
     end
   end
-private
 
-def song_params
-  params.require(:song).permit(:lyrics, :title, :album_name)
+  def show
+    @song = Song.find_by_id(params[:id])
+    if @song
+      render :show
+  private
+
+  def song_params
+    params.require(:song).permit(:lyrics, :title, :album_name)
+  end
 end
