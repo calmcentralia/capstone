@@ -17,7 +17,7 @@ SongStore.__onDispatch = function(payload) {
 };
 
 var addSong = function(song) {
-  _songs.push(song);
+  _songs = [song];
 };
 
 var resetSongs = function(songs) {

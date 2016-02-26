@@ -26,6 +26,10 @@ class Api::SongsController < ApplicationController
     @song = Song.find_by_id(params[:id])
     if @song
       render :show
+    else
+      render json: {errors: "song doesn't exist" }, status: 422
+    end
+  end
   private
 
   def song_params

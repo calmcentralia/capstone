@@ -45,6 +45,7 @@ var ApiUtil = {
       url: "api/songs/" + id,
       method: "GET",
       success: function(song) {
+        debugger;
         SongActions.receiveOne(song);
       }
     });
