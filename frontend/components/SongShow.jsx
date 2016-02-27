@@ -1,7 +1,6 @@
 var React = require('react');
 var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var HistoryMixin = require('react-router').History;
 var SongStore = require('../stores/song');
 
 var SongShow = React.createClass( {
@@ -15,6 +14,10 @@ var SongShow = React.createClass( {
     this.setState({song: SongStore.find(this.props.params.songId)});
   },
 
+  handleSelect: function() {
+    debugger;
+  },
+
   componentDidMount: function() {
     ApiUtil.fetchSong(this.props.params.songId);
     this.songToken = SongStore.addListener(this._onChange);
@@ -26,7 +29,14 @@ var SongShow = React.createClass( {
 
   render: function() {
     return(
-    <div>{this.state.song.title}</div>
+
+    <div className="lyrics-box">
+      <header className="song-header">{this.state.song.title}  {this.state.song.artist}</header>
+      <header className="about-the-artist">About the Artist</header>
+      <div className="song-lyrics" onSelect={this.handleSelect}>{this.state.song.lyrics}</div>
+
+      <div className="artist-description"> {this.state.song.description}</div>
+    </div>
     );
   }
 });

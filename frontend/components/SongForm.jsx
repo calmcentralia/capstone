@@ -1,10 +1,10 @@
 var React = require('react');
 var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var HistoryMixin = require('react-router').History;
+var hashHistory = require('react-router').hashHistory;
 
 var SongForm = React.createClass({
-  mixins: [LinkedStateMixin, HistoryMixin],
+  mixins: [LinkedStateMixin],
 
   getInitialState: function(){
     return {
@@ -16,10 +16,12 @@ var SongForm = React.createClass({
   },
 
   handleSubmit: function(e){
+    debugger;
     e.preventDefault();
     var song = {artist: this.state.artist, title: this.state.title, lyrics: this.state.lyrics, album_name: this.state.albumName};
+    var that = this;
     ApiUtil.createSong(song, function(id){
-      this.history.push({
+      hashHistory.push({
         pathname: "/songs/" + id
     });
 

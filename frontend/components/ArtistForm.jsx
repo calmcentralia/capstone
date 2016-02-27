@@ -1,11 +1,11 @@
 var React = require('react');
 var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var HistoryMixin = require('react-router').History;
+var hashHistory = require('react-router').hashHistory;
 var ArtistStore = require('../stores/artist');
 
 var ArtistForm = React.createClass({
-  mixins: [LinkedStateMixin, HistoryMixin],
+  mixins: [LinkedStateMixin],
 
   getInitialState: function(){
     return {
@@ -28,7 +28,7 @@ var ArtistForm = React.createClass({
     var artist = {name: this.state.name, decription: this.state.description};
     var that = this;
     ApiUtil.createArtist(artist, function() {
-      that.history.push({
+      hashHistory.push({
         pathname: '/'
       });
     });

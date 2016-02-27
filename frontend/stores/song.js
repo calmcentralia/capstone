@@ -7,6 +7,7 @@ var _songs = [];
 SongStore.__onDispatch = function(payload) {
   switch(payload.actionType){
   case "SONG RECEIVED":
+  SongStore.__emitChange();
     addSong(payload.song);
     break;
   case "SONGS RECEIVED":
@@ -31,8 +32,11 @@ SongStore.all = function() {
 
 SongStore.find = function(id) {
   var song = {};
-  if(_songs.indexOf(id) !== -1){
-  song = _songs[_songs.indexOf(id)];
+
+  for (var i = 0; i < _songs.length; i++) {
+    if (_songs[i].id === parseInt(id)) {
+      song = _songs[i];
+    }
   }
   return song;
 };

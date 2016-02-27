@@ -43,30 +43,30 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [x] create `Artist` and `Song` models
 - [x] seed the database with a small amount of test data
-- [ ] allow for creation of artists and songs
-- [ ] must be logged in to add song or artist
-- [ ] jBuilder views for add artist and add song
-- [ ] setup Webpack & Flux scaffold
-- [ ] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
+- [x] allow for creation of artists and songs
+- [x] must be logged in to add song or artist
+- [x] jBuilder views for add artist and add song
+- [x] setup Webpack & Flux scaffold
+- [x] setup `APIUtil` to interact with the API
+- [x] test out API interaction in the console.
 
 ### Phase 3: Splash Page Setup and Styling (1 day)
 
 **Objective:** Nav Bar linking to add artist and add user, Songs Listed in most recently created order
 
-- [ ] nav bar with functional links for add artist and add song pages
-- [ ] Displays most recently created songs (broken links for now)
-- [ ] CSS styling to make it all look pretty
-- [ ] CSS for other pages as well
+- [x] nav bar with functional links for add artist and add song pages
+- [x] Displays most recently created songs (broken links for now)
+- [x] CSS styling to make it all look pretty
+- [x] CSS for other pages as well
 
 ### Phase 4: Song Page Basic Setup (1 day)
 
 **Objective:** Statically displays lyrics and artist descriptions
 
-- [ ] present data using the song > album > artist hierarchy
-- [ ] position elements on the page
-- [ ] Add Song page now routes here
-- [ ] fix splash page links to route here
+- [x] present data using the song > album > artist hierarchy
+- [x] position elements on the page
+- [x] Add Song page now routes here
+- [x] fix splash page links to route here
 
 ### Phase 5: Annotations (2 day)
 

@@ -21,6 +21,7 @@ var ApiUtil = {
       method: "POST",
       data: {song: data},
       success: function(song) {
+        debugger;
         SongActions.receiveOne(song);
         callback && callback(song.id);
       },
@@ -45,7 +46,6 @@ var ApiUtil = {
       url: "api/songs/" + id,
       method: "GET",
       success: function(song) {
-        debugger;
         SongActions.receiveOne(song);
       }
     });

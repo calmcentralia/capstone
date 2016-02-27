@@ -31,7 +31,7 @@ var routes = (
     <Route path="songs/:songId" component={SongShow}/>
   </Route>
 );
-$(document).ready( function() {
+document.addEventListener("DOMContentLoaded", function() {
   var root = document.getElementById("content");
   ReactDOM.render(<Router>{routes}</Router>, root);
 });
