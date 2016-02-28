@@ -10,31 +10,44 @@ var SongShow = React.createClass( {
     };
   },
 
-  _onChange: function() {
+  _songOnChange: function() {
     this.setState({song: SongStore.find(this.props.params.songId)});
   },
+  _annotationOnChange: function() {
+    this.setState({annotations: AnnotationStore.all()});
+  }
 
-  handleSelect: function(e) {
+  handleClick: function(e) {
   },
 
   componentDidMount: function() {
     ApiUtil.fetchSong(this.props.params.songId);
-    this.songToken = SongStore.addListener(this._onChange);
+    ApiUtil.fetchAnnotations(this.props.params.songId);
+    this.songToken = SongStore.addListener(this._songOnChange);
+    this.annotationToken = AnnotationStore.addListener(this._annotationOnChange);
   },
 
   componentWillUnmount: function() {
     this.songToken.remove();
+    this.annotationToken.remove();
   },
 
   render: function() {
+    var that = this;
+  var lines =  this.state.lyrics.split("/n").map(function(line, idx) {
+      return <LyricLineItem key={idx} line={line} lineNumber={idx} annotations={that.state.annotations}/>
+    })
     return(
 
     <div className="lyrics-box">
       <header className="song-header">{this.state.song.title}  {this.state.song.artist}</header>
       <header className="about-the-artist">About the Artist</header>
-      <div className="song-lyrics" onMouseDown={this.handleSelect}>{this.state.song.lyrics}</div>
+      <div className="song-lyrics">
+        {lines}
+      </div>
 
       <div className="artist-description"> {this.state.song.description}</div>
+      {this.props.children}
     </div>
     );
   }

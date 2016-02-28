@@ -9,6 +9,8 @@ var Splash = require('./components/Splash');
 var ArtistForm = require('./components/ArtistForm');
 var SongForm = require('./components/SongForm');
 var SongShow = require('./components/SongShow');
+var AnnotationShow = require('./components/AnnotationShow');
+var AnnotationForm = require('.components/AnnotationForm');
 
 
 var App = React.createClass({
@@ -28,7 +30,10 @@ var routes = (
     <IndexRoute component={Splash}/>
     <Route path="artists/new" component={ArtistForm}/>
     <Route path="songs/new" component={SongForm}/>
-    <Route path="songs/:songId" component={SongShow}/>
+    <Route path="songs/:songId" component={SongShow}>
+      <Route path="annotations/:annotationId" component={AnnotationShow} />
+      <Route path="annotations/new" component={AnnotationForm} />
+    </Route>
   </Route>
 );
 document.addEventListener("DOMContentLoaded", function() {
