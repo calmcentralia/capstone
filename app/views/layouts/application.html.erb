@@ -31,11 +31,8 @@
     <li>
     <%= link_to "Add Artist", "#{root_url}#/artists/new" %>
     </li>
-    <li>
+    <li class="last-item">
     <%= link_to "Add Song", "#{root_url}#/songs/new" %>
-    </li>
-    <li>
-      <input type="search" placeholder="search music" class="search-bar" />
     </li>
   </ul>
   <%=  flash[:errors] %>

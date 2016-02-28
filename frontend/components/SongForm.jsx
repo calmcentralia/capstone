@@ -31,8 +31,11 @@ var SongForm = React.createClass({
 
   render: function(){
     return (
-      <div className="form-box">
-        <h3 className="form-header">Add a Song!</h3>
+
+      <div>
+      <div className="form-header">Add a Song!</div>
+      <div className="song-box">
+
         <form onSubmit={this.handleSubmit}>
           <label className="artist-name-label">Artist
           <input className="artist-name-input" type="text" valueLink={this.linkState('artist')}/>
@@ -49,6 +52,7 @@ var SongForm = React.createClass({
           </label>
         </form>
       </div>
+    </div>
     );
   }
 });

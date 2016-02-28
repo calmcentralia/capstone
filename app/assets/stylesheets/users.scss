@@ -1,36 +1,52 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.header{
-  font-family: 'Indie Flower', cursive;
+
+.page-background > .header{
   color: white;
-  text-shadow: 1px 1px black;
+  text-shadow: 2px 2px 1px black;
   text-align: right;
   font-size: 24px;
-  background-color: #67758A;
+  background-color: #4b307b;
   display: block;
-
-
-  width: 800px;
+  height: 50px;
+  width: 25%;
   margin: 0 auto;
-  border: 2px solid #b399cc;
-  border-left: 2px solid #b399cc;
-  border-right: 2px solid #b399cc;
-
-
-
+  margin-top: 80px;
+  border: 2px solid #483d8b;
+  border-left: 2px solid #483d8b;
+  border-right: 2px solid #483d8b;
+  box-shadow: 5px 5px 5px 0px #947DC4;
 }
+  .headerWords {
+    padding-top: 10px;
+  }
+
 .login_border{
-  width: 800px;
-  height: 800px;
+  position: relative;
+  overflow: hidden;
+  width: 25%;
+  min-height: 100px;
   display: block;
-  margin: 0 auto;
-  background-color: #67758A;
-  border: 2px solid #b399cc;
-  border-left: 2px solid #b399cc;
-  border-right: 2px solid #b399cc;
-
+  margin: 50px auto;
+  background-color: #e6e8fa;
+  box-shadow: 5px 16px 8px -5px #c7c5e6;
 }
+
+.login_border:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 16px 16px 0;
+ border-style: solid;
+ border-color: #828be5 #edf0f5;
+ -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+ -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+ box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+}
+
+
 .username{
   display: block;
   height: 80px;
@@ -38,7 +54,7 @@
   padding-top: 80px;
   font-family: 'Indie Flower', cursive;
   font-size: 24px;
-  color: white;
+  color: black;
   text-shadow: 1px 1px black;
 }
 
@@ -58,7 +74,7 @@
   padding-top: 0px;
   font-family: 'Indie Flower', cursive;
   font-size: 24px;
-  color: white;
+  color: black;
   text-shadow: 1px 1px black;
 }
 .password_input{
@@ -74,26 +90,36 @@
 .background{
   height: 100%;
   width: 100%;
-  background-color: #9999cc
+  background-color: #9999cc;
 }
 
 
 .text{
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  background-color: #815fc0;
   text-align: center;
   color: white;
+  width: 350px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid #483d8b;
+  text-shadow: 1px 1px black;
+  box-shadow: 2px 2px 2px #947DC4;
 }
 a{
   text-decoration: none;
-  color: #cccc99;
+  color: white;
 }
 
 a:hover,
 a:focus,
 a:active{
 -webkit-stroke-width: 5.1px;
--webkit-stroke-color: #cccc99;
--webkit-fill-color: #cccc99;
-text-shadow: 0px 0px 10px #cccc99;
+-webkit-stroke-color: white;
+-webkit-fill-color: white;
+text-shadow: 0px 0px 10px white;
 -webkit-transition: width 0.3s; /*Safari & Chrome*/
 transition: width 0.3s;
 -moz-transition: width 0.3s; /* Firefox 4 */

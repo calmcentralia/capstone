@@ -35,12 +35,15 @@ var Splash = React.createClass({
     {this.state.songs[i].title + " " + this.state.songs[i].artist}</a></li>);
   }
     return(
-    <div className="form-box">
+    <div>
       <header className="welcome">Welcome to MusicGenius</header>
-      <header className="recently-added-header"> Recently Added Songs</header>
-      <ul className="song-list">
-        {songRows}
-      </ul>
+      <div className="splash-box">
+
+        <header className="recently-added-header"> Recently Added Songs</header>
+        <ul className="song-list">
+          {songRows}
+        </ul>
+      </div>
     </div>
     );
   }

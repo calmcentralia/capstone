@@ -14,8 +14,7 @@ var SongShow = React.createClass( {
     this.setState({song: SongStore.find(this.props.params.songId)});
   },
 
-  handleSelect: function() {
-    debugger;
+  handleSelect: function(e) {
   },
 
   componentDidMount: function() {
@@ -33,7 +32,7 @@ var SongShow = React.createClass( {
     <div className="lyrics-box">
       <header className="song-header">{this.state.song.title}  {this.state.song.artist}</header>
       <header className="about-the-artist">About the Artist</header>
-      <div className="song-lyrics" onSelect={this.handleSelect}>{this.state.song.lyrics}</div>
+      <div className="song-lyrics" onMouseDown={this.handleSelect}>{this.state.song.lyrics}</div>
 
       <div className="artist-description"> {this.state.song.description}</div>
     </div>

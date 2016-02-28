@@ -38,8 +38,9 @@ var ArtistForm = React.createClass({
 
   render: function(){
     return (
-      <div className="form-box">
-        <h3 className="form-header">Create an Artist!</h3>
+      <div>
+        <div className="form-header">Create an Artist!</div>
+        <div className="form-box">
         <form className="form" onSubmit={this.handleSubmit} >
           <label className="artist-name-label">Name
           <input className="artist-name-input" type="text" valueLink={this.linkState('name')}/><div className={this.state.error} >Artist already exists</div>
@@ -51,6 +52,7 @@ var ArtistForm = React.createClass({
           </label>
         </form>
       </div>
+    </div>
     );
   }
 });
