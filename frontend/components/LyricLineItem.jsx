@@ -1,4 +1,4 @@
-React = require('react');
+var React = require('react');
 var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var AnnotationStore = require('../stores/annotation');
@@ -13,28 +13,37 @@ var LyricLineItem= React.createClass( {
     };
   },
 
-  handleLineClick: function() {
+  handleLineClick: function(e) {
+    e.preventDefault();
     if(this.state.isAnnotated) {
       hashHistory.push("annotations/" + this.state.annotation.id, {});
     } else {
-      this.setState(newAnnotationButton: "button-on")
+      this.setState({newAnnotationButton: "button-on"});
     }
   },
 
-  handleButtonClick: function() {
-
-  }
+  handleButtonClick: function(e) {
+    e.preventDefault();
+    hashHistory.push({
+      pathname: "songs/" + this.props.songId + "/annotations/new",
+       query: {lineNumber: this.props.lineNumber}
+    });
+  },
 
   render: function() {
+    return(
     <div>
       <div className={this.state.isAnnotated + " song-line"} onClick={this.handleLineClick}>
       {this.props.line}
       </div>
-      <img className={this.state.newAnnotationButton} onClick={this.handleButtonClick} src="">
-      </img>
+      <button type="button" className={this.state.newAnnotationButton} onClick={this.handleButtonClick}>
+        Annotate This Line?
+      </button>
     </div>
-  }
-})
+  );
+}
+
+});
 
 
 module.exports = LyricLineItem;

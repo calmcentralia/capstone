@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   namespace :api, defaults: {format: :json} do
     resources :artists, only: [:index, :create, :destroy, :update, :show]
-    resources :songs, only: [:index, :create, :destroy, :update, :show]
+    resources :songs, only: [:index, :create, :destroy, :update, :show] do
+      resources :annotations, only: [:index, :create, :show]
+    end
   end
 end

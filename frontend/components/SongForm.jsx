@@ -16,7 +16,6 @@ var SongForm = React.createClass({
   },
 
   handleSubmit: function(e){
-    debugger;
     e.preventDefault();
     var song = {artist: this.state.artist, title: this.state.title, lyrics: this.state.lyrics, album_name: this.state.albumName};
     var that = this;

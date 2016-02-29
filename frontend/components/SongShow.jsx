@@ -2,7 +2,8 @@ var React = require('react');
 var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var SongStore = require('../stores/song');
-
+var AnnotationStore = require("../stores/annotation");
+var LyricLineItem = require("./LyricLineItem");
 var SongShow = React.createClass( {
   getInitialState: function() {
     return {
@@ -15,9 +16,10 @@ var SongShow = React.createClass( {
   },
   _annotationOnChange: function() {
     this.setState({annotations: AnnotationStore.all()});
-  }
+  },
 
   handleClick: function(e) {
+
   },
 
   componentDidMount: function() {
@@ -33,10 +35,13 @@ var SongShow = React.createClass( {
   },
 
   render: function() {
+    debugger;
     var that = this;
-  var lines =  this.state.lyrics.split("/n").map(function(line, idx) {
-      return <LyricLineItem key={idx} line={line} lineNumber={idx} annotations={that.state.annotations}/>
-    })
+    if(this.state.song.lyrics !== undefined){
+      var lines =  this.state.song.lyrics.split("\n").map(function(line, idx) {
+        return (<LyricLineItem key={idx} line={line} lineNumber={idx} annotations={that.state.annotations} songId={that.props.params.songId}/>);
+      });
+    }
     return(
 
     <div className="lyrics-box">

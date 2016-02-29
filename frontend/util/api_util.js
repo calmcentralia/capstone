@@ -1,5 +1,6 @@
 var ArtistActions = require('../actions/artist_actions');
 var SongActions = require('../actions/song_actions');
+var AnnotationActions = require('../actions/annotation_actions');
 var ApiUtil = {
   createArtist: function(data, callback) {
     $.ajax({
@@ -47,6 +48,39 @@ var ApiUtil = {
       method: "GET",
       success: function(song) {
         SongActions.receiveOne(song);
+      }
+    });
+  },
+
+  createAnnotation: function(data, callback) {
+    $.ajax({
+      url: "api/songs/" + data.song_id + "/annotations",
+      method: "POST",
+      data: {annotation: data},
+      success: function(annotation) {
+        AnnotationActions.receiveOne(annotation);
+        callback && callback();
+      }
+    });
+  },
+
+  fetchAnnotation: function(songId, id) {
+    $.ajax({
+      url: "api/songs/" + songId + "/annotations" + id,
+      method: "GET",
+      success: function(annotation) {
+        AnnotationActions.receiveOne(annotation);
+      }
+    });
+  },
+
+  fetchAnnotations: function(songId) {
+    $.ajax({
+      url: "api/songs/" + songId + "/annotations",
+      method: "GET",
+      data: { song_id : songId},
+      success: function(annotations) {
+        AnnotationActions.receiveAll(annotations);
       }
     });
   }
