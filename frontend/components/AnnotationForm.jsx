@@ -29,15 +29,15 @@ var AnnotationForm = React.createClass({
 
   render: function(){
     return (
-      <div>
+      <div className="annotations-form-box">
         <div className="annotation-header">
           What Does it Mean?
         </div>
 
         <form className="annotations-form" onSubmit={this.handleSubmit}>
           <textarea className="annotation-input" valueLink={this.linkState('body')}/>
-          <input type="submit" value="Confirm Annotation"/>
-          <button onClick={this.handleCancel}>Cancel</button>
+          <button className="cancel-button" onClick={this.handleCancel}>x</button>
+          <input id="add-annotation" type="submit" value="+"/>
         </form>
       </div>
     );

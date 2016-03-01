@@ -9,31 +9,35 @@ var LyricLineItem= React.createClass( {
     return{
     isAnnotated: AnnotationStore.doesExist(this.props.lineNumber),
     annotation: AnnotationStore.find(this.props.lineNumber),
-    newAnnotationButton: "button-off"
-    };
-  },
+    newAnnotationButton: this.props.newAnnotationButton,
+    dontDoIt: false
 
-  handleLineClick: function(e) {
-    e.preventDefault();
-    if(this.state.isAnnotated) {
-      hashHistory.push("annotations/" + this.state.annotation.id, {});
-    } else {
-      this.setState({newAnnotationButton: "button-on"});
-    }
+    };
   },
 
   handleButtonClick: function(e) {
     e.preventDefault();
+    this.setState({newAnnotationButton: "button-off", dontDoIt: true});
     hashHistory.push({
       pathname: "songs/" + this.props.songId + "/annotations/new",
        query: {lineNumber: this.props.lineNumber}
     });
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({isAnnotated: AnnotationStore.doesExist(nextProps.lineNumber),
+      annotation: AnnotationStore.find(nextProps.lineNumber)
+    });
+    if(!this.state.dontDoIt){
+    this.setState({newAnnotationButton: nextProps.newAnnotationButton});
+    }
+    this.setState({ dontDoIt: false});
+  },
+
   render: function() {
     return(
     <div>
-      <div className={this.state.isAnnotated + " song-line"} onClick={this.handleLineClick}>
+      <div onClick={this.props.handleLineClick} className={this.props.isAnnotated + " song-line"}>
       {this.props.line}
       </div>
       <button type="button" className={this.state.newAnnotationButton} onClick={this.handleButtonClick}>

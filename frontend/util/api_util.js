@@ -66,7 +66,7 @@ var ApiUtil = {
 
   fetchAnnotation: function(songId, id) {
     $.ajax({
-      url: "api/songs/" + songId + "/annotations" + id,
+      url: "api/songs/" + songId + "/annotations/" + id,
       method: "GET",
       success: function(annotation) {
         AnnotationActions.receiveOne(annotation);

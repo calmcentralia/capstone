@@ -21,7 +21,7 @@ var Splash = React.createClass({
   },
   componentDidMount: function() {
     this.songToken = SongStore.addListener(this._onChange);
-    ApiUtil.fetchSomeSongs({flag: "Recently Added"});
+    ApiUtil.fetchSomeSongs({flag: "For Splash"});
   },
 
   componentWillUnmount: function() {

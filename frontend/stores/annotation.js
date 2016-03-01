@@ -21,7 +21,7 @@ AnnotationStore.__onDispatch = function (payload) {
 
 AnnotationStore.doesExist = function (lineNumber) {
   for (var i = 0; i < _annotations.length; i++) {
-    if (_annotations[i].lineNumber === lineNumber) {
+    if (_annotations[i].line_number === lineNumber) {
       return true;
     }
   }
@@ -30,7 +30,16 @@ AnnotationStore.doesExist = function (lineNumber) {
 
 AnnotationStore.find = function (lineNumber) {
   for (var i = 0; i < _annotations.length; i++) {
-    if (_annotations[i].lineNumber === lineNumber) {
+    if (_annotations[i].line_number === lineNumber) {
+      return _annotations[i];
+    }
+  }
+  return undefined;
+};
+
+AnnotationStore.findById = function (id) {
+  for (var i = 0; i < _annotations.length; i++) {
+    if (_annotations[i].id === id) {
       return _annotations[i];
     }
   }

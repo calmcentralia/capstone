@@ -1,6 +1,6 @@
 class Api::SongsController < ApplicationController
   def index
-    if params[:flag]=="Recently Added"
+    if params[:flag]=="For Splash"
       @songs = Song.recenty_added
     else
       @songs = Song.all

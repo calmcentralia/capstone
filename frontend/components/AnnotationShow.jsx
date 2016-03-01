@@ -1,12 +1,16 @@
 var React = require('react');
 var ApiUtil = require('../util/api_util');
-var AnnotationStore = require('../stores/song');
+var AnnotationStore = require('../stores/annotation');
 
 var AnnotationShow = React.createClass( {
   getInitialState: function() {
     return {
-      annotation: AnnotationStore.find(this.props.params.annotationId)
+      annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId))
     };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState( {annotation: AnnotationStore.findById(parseInt(nextProps.params.annotationId))});
   },
 
   componentDidMount: function() {
@@ -22,16 +26,24 @@ var AnnotationShow = React.createClass( {
   },
 
   _onChange:  function() {
-    this.setState({annotation: AnnotationStore.find(this.props.params.annotationId) });
+    this.setState({annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId)) });
   },
 
   render: function() {
+    if(this.state.annotation === undefined) {
+      return (
+        <div>
+
+        </div>
+      );
+    } else{
     return(
     <div className="annotation-box">
       {this.state.annotation.body}
     </div>
     );
   }
+}
 });
 
 module.exports = AnnotationShow;

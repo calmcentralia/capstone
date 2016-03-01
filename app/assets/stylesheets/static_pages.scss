@@ -21,7 +21,7 @@
   box-shadow: 5px 16px 8px -5px #c7c5e6;
 }
 
-.form-box:before, .lyrics-box:before{
+.form-box:before, .lyrics-box:before, .about-the-artist-box:before, .annotations-form-box:after{
   content: "";
   position: absolute;
   top: 0;
@@ -168,7 +168,7 @@ input:focus, textarea:focus{
   height: 450px;
 }
 
-input[type="submit"]{
+input[type="submit"], .cancel-button{
   z-index: -1;
   display: block;
   vertical-align: middle;
@@ -189,7 +189,8 @@ input[type="submit"]{
 
 input[type="submit"]:active,
 input[type="submit"]:hover,
-input[type="submit"]:focus{
+input[type="submit"]:focus,
+{
   z-index: -1;
   transform: scale(1.1);
   cursor: pointer;
@@ -270,8 +271,8 @@ input[type="submit"]:focus{
 }
 
 .song-header{
-  display: inline-block;
-  width: 47%;
+  display: block;
+  width: 100%;
   border: 2px solid #483d8b;
   font-size: 28px;
   color: white;
@@ -279,6 +280,7 @@ input[type="submit"]:focus{
   padding-bottom: 4px;
   padding-top: 4px;
   background-color: #815fc0;
+  min-height: 36px;
 }
 
 .song-lyrics{
@@ -286,7 +288,7 @@ input[type="submit"]:focus{
   display: inline-block;
   padding-top: 20px;
   padding-left: 50px;
-  width: 47%;
+  width: 100%;
   min-height: 100px;
   color: black;
   font-size: 16px;
@@ -294,19 +296,33 @@ input[type="submit"]:focus{
 .lyrics-box{
   position: relative;
   overflow: hidden;
-  display: block;
-  width: 70%;
+  display: inline-block;
+  width: 30%;
   min-height: 100px;
   background-color: #e6e8fa;
-  margin: 100px auto;
+  margin-top: 100px;
+  margin-left: 15%;
+  padding: 30px;
+  box-shadow: 5px 16px 8px -5px #c7c5e6;
+}
+
+.about-the-artist-box{
+  float: right;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 30%;
+  min-height: 350px;
+  background-color: #e6e8fa;
+  margin-top: 100px;
+  margin-right: 15%;
   padding: 30px;
   box-shadow: 5px 16px 8px -5px #c7c5e6;
 }
 
 .about-the-artist{
-  float: right;
-  display: inline-block;
-  width: 47%;
+  display: block;
+  width: 100%;
   border: 2px solid #483d8b;
   font-size: 28px;
   color: white;
@@ -314,6 +330,7 @@ input[type="submit"]:focus{
   padding-bottom: 4px;
   padding-top: 4px;
   background-color: #815fc0;
+  min-height: 36px;
 }
 
 .artist-description{
@@ -375,4 +392,212 @@ input[type="submit"]:focus{
  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
  -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
  box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+}
+
+//annotations styling
+
+.button-off{
+  display: none;
+}
+
+.button-on{
+  position: relative;
+  top: -10px;
+  margin-right: 10%;
+  float: right;
+  width: 120px;
+  height: 40px;
+  background-color: #4b307b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+.button-on:hover {
+  background-color: #7852bb;
+  cursor: pointer;
+}
+
+.song-line {
+  display: inline-block;
+  transition: all 0.5s
+}
+
+.song-line:hover{
+  background-color: #b8b9c8;
+  cursor: pointer;
+}
+
+.true{
+  background-color: #FFEB7F;
+  display: inline-block;
+  transition: all 0.3s
+}
+
+.true:hover{
+  background-color: #CCBC65;
+}
+
+.annotations-form-box{
+  float: right;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 30%;
+  min-height: 350px;
+  background-color: #e6e8fa;
+  margin-top: 10%;
+  margin-right: 15%;
+  padding: 30px;
+  box-shadow: 5px 16px 8px -5px #c7c5e6;
+}
+
+.annotation-header{
+  display: block;
+  width: 100%;
+  border: 2px solid #483d8b;
+  font-size: 28px;
+  color: white;
+  text-align: center;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  background-color: #815fc0;
+  min-height: 36px;
+}
+
+#add-annotation{
+  box-shadow: none;
+  display: inline-block;
+  background-color: #082c08;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  border-radius: 50%;
+  float: right;
+  margin-right: 30%;
+  transition: background-color 0.3s
+}
+
+#add-annotation:hover{
+  background-color: #395639;
+}
+
+.cancel-button {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  box-shadow: none;
+  background-color: #770000;
+  font-size: 20px;
+  border-radius: 50%;
+  float: left;
+  margin-left: 30%;
+}
+
+.cancel-button:hover {
+  background-color: #ff2929;
+  cursor: pointer;
+}
+
+.annotation-input{
+  display: block;
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 250px;
+  height: 300px;
+  resize: none;
+  font-size: 14px;
+  font-family: serif;
+}
+
+
+@-webkit-keyframes hvr-bob {
+  0% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+
+  50% {
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+  }
+
+  100% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes hvr-bob {
+  0% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+
+  50% {
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+  }
+
+  100% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+}
+
+@-webkit-keyframes hvr-bob-float {
+  100% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes hvr-bob-float {
+  100% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+}
+
+.cancel-button, #add-annotation  {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cancel-button:hover, .cancel-button:focus, .cancel-button:active, #add-annotation:hover,
+#add-annotation:focus, #add-annotation:active {
+  -webkit-animation-name: hvr-bob-float, hvr-bob;
+  animation-name: hvr-bob-float, hvr-bob;
+  -webkit-animation-duration: .3s, 0.5s;
+  animation-duration: .3s, 0.5s;
+  -webkit-animation-delay: 0s, .3s;
+  animation-delay: 0s, .3s;
+  -webkit-animation-timing-function: ease-out, ease-in-out;
+  animation-timing-function: ease-out, ease-in-out;
+  -webkit-animation-iteration-count: 1, infinite;
+  animation-iteration-count: 1, infinite;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-direction: normal, alternate;
+  animation-direction: normal, alternate;
+}
+
+.annotation-box{
+  float: right;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 30%;
+  min-height: 350px;
+  background-color: #e6e8fa;
+  margin-top: 10%;
+  margin-right: 15%;
+  padding: 30px;
+  box-shadow: 5px 16px 8px -5px #c7c5e6;
 }
