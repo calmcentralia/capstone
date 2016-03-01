@@ -8,12 +8,12 @@ class Song < ActiveRecord::Base
   def Song.recently_added
     Song.order(created_at: :desc).take(17)
   end
-
-  def Song.recently_annotated
-    most_recently_annotated = []
-    Song.all.each do |song|
-      song.annotations.last
-    end
-  end
+  # 
+  # def Song.recently_annotated
+  #   most_recently_annotated = []
+  #   Song.all.each do |song|
+  #     song.annotations.last
+  #   end
+  # end
 
 end

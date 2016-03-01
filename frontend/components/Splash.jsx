@@ -32,7 +32,7 @@ var Splash = React.createClass({
     var songRows = [];
     for (var i = 0 ; i < this.state.songs.length; i++) {
     songRows.push(<li key={i} className="individual-song" id={this.state.songs[i].id} onClick={this.handleClick}> <a>
-    {this.state.songs[i].title + " " + this.state.songs[i].artist}</a></li>);
+    {this.state.songs[i].title}<span className="break"></span>{this.state.songs[i].artist}</a></li>);
   }
     return(
     <div>

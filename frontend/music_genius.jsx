@@ -11,6 +11,7 @@ var SongForm = require('./components/SongForm');
 var SongShow = require('./components/SongShow');
 var AnnotationShow = require('./components/AnnotationShow');
 var AnnotationForm = require('./components/AnnotationForm');
+var EditArtist = require('./components/EditArtist');
 
 
 var App = React.createClass({
@@ -33,6 +34,7 @@ var routes = (
     <Route path="songs/:songId" component={SongShow}>
       <Route path="annotations/new" component={AnnotationForm} />
       <Route path="annotations/:annotationId" component={AnnotationShow} />
+      <Route path="artists/:artistId" component={EditArtist} />
     </Route>
   </Route>
 );

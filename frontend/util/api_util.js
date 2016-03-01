@@ -22,7 +22,6 @@ var ApiUtil = {
       method: "POST",
       data: {song: data},
       success: function(song) {
-        debugger;
         SongActions.receiveOne(song);
         callback && callback(song.id);
       },
@@ -81,6 +80,18 @@ var ApiUtil = {
       data: { song_id : songId},
       success: function(annotations) {
         AnnotationActions.receiveAll(annotations);
+      }
+    });
+  },
+
+  editArtist: function(artistId, description, callback) {
+    $.ajax({
+      url: "api/artists/" + artistId,
+      method: "PATCH",
+      data: {description: description},
+      success: function(artist){
+        ArtistActions.updateArtist(artist);
+        callback && callback();
       }
     });
   }

@@ -53,6 +53,10 @@ var SongShow = React.createClass( {
     }
   },
 
+  editArtistDescription: function() {
+    hashHistory.push("songs/" + this.props.params.songId + "/artists/" + this.state.song.artist_id)
+  },
+
   componentWillReceiveProps(newProps) {
     this.setState(AnnotationStore.all());
   },
@@ -77,13 +81,14 @@ var SongShow = React.createClass( {
 
 
       var renderSelect = location.hash.split("?")[0] === ("#/songs/" + this.props.params.songId) ?
-      <div className="about-the-artist-box"><header className="about-the-artist">About the Artist</header><div className="artist-description"> {this.state.song.description}</div></div> :
+      <div className="about-the-artist-box"><header className="about-the-artist">About the Artist</header><div className="artist-description">
+        {this.state.song.description}</div> <button type="button" onClick={this.editArtistDescription}></button> </div> :
         this.props.children;
     }
     return(
     <div onClick={this.cancelClick}>
     <div className="lyrics-box">
-      <header className="song-header">{this.state.song.title}  {this.state.song.artist}</header>
+      <header className="song-header">{this.state.song.title} <span className="break"> </span> {this.state.song.artist}</header>
       <div className="song-lyrics">
         {lines}
       </div>
