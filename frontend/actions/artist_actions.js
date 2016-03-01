@@ -14,13 +14,6 @@ var ArtistActions = {
       actionType: ArtistConstants.ARTIST_RECEIVED,
       artist: artist
     });
-  },
-
-  updateArtist: function(artist) {
-    AppDispatcher.dispatch({
-      actionType: "UPDDATE_ARTIST"
-      artist: artist
-    });
   }
 };
 

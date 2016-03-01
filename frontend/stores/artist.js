@@ -12,13 +12,7 @@ var addArtist = function(artist) {
   _artists.push(artist);
 };
 
-var updateArtist = function(artist) {
-  for (var i = 0; i < _artists.length; i++) {
-    if(_artists[i].id === artist.id) {
-      _artists[i] = artist;
-    }
-  }
-};
+
 
 ArtistStore.all = function () {
   return _artists.slice();
@@ -32,8 +26,6 @@ ArtistStore.__onDispatch = function (payload) {
     case "error":
       ArtistStore.__emitChange();
       break;
-    case "UPDDATE_ARTIST":
-      updateArtist(payload.artist);
   }
 };
 

@@ -84,13 +84,15 @@ var ApiUtil = {
     });
   },
 
-  editArtist: function(artistId, description, callback) {
+  editArtist: function(songId, artistId, description, callback) {
     $.ajax({
       url: "api/artists/" + artistId,
       method: "PATCH",
       data: {description: description},
       success: function(artist){
-        ArtistActions.updateArtist(artist);
+        debugger;
+
+        SongActions.updateArtist(songId, artist);
         callback && callback();
       }
     });

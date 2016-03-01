@@ -14,6 +14,9 @@ SongStore.__onDispatch = function(payload) {
     resetSongs(payload.songs);
     SongStore.__emitChange();
     break;
+  case "UPDDATE_ARTIST":
+    updateArtist(payload.artist, payload.songId);
+    SongStore.__emitChange();
   }
 };
 
@@ -25,7 +28,15 @@ var resetSongs = function(songs) {
   _songs = songs.slice();
 };
 
+var updateArtist = function(artist, songId) {
+  for (var i = 0; i < _songs.length; i++) {
+    if(_songs[i].id === parseInt(songId)) {
 
+      _songs[i].description = artist.decription;
+
+    }
+  }
+};
 SongStore.all = function() {
   return _songs.slice();
 };

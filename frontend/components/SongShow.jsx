@@ -54,11 +54,12 @@ var SongShow = React.createClass( {
   },
 
   editArtistDescription: function() {
-    hashHistory.push("songs/" + this.props.params.songId + "/artists/" + this.state.song.artist_id)
+    hashHistory.push("songs/" + this.props.params.songId + "/artists/" + this.state.song.artist_id);
   },
 
-  componentWillReceiveProps(newProps) {
-    this.setState(AnnotationStore.all());
+  componentWillReceiveProps: function(newProps) {
+    this.setState({annotations: AnnotationStore.all()});
+    this.setState({song: SongStore.find(newProps.params.songId)});
   },
 
   render: function() {

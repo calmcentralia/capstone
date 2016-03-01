@@ -14,6 +14,13 @@ var SongActions = {
       actionType: "SONGS RECEIVED",
       songs: songs
     });
+  },
+  updateArtist: function(songId, artist) {
+    AppDispatcher.dispatch({
+      actionType: "UPDDATE_ARTIST",
+      artist: artist,
+      songId: songId
+    });
   }
 };
 
