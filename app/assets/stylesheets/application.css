@@ -31,7 +31,7 @@
    border-left: 1px solid  #483d8b;
    border-right: 1px solid  #483d8b;
    border-bottom: 1px solid  #483d8b;
-   box-shadow: 5px 5px 5px 0px #947DC4;
+   box-shadow: 0px 5px 5px 0px #947DC4;
  }
  .nav-logo{
    padding-left: 5px;
@@ -39,16 +39,16 @@
    border-left: 1px solid #483d8b;
    float: left;
  }
- .nav > li:not(.nav-logo){
+ .main-nav > li:not(.nav-logo){
    float: left;
-   width: 126px;
+   min-width: 126px;
    height: 41px;
    padding-top: 20px;
    margin: auto auto;
    border-left: 1px solid  #483d8b;
  }
 
- .nav > li:not(.nav-logo) > a {
+ .main-nav > li:not(.nav-logo) > a {
    display: block;
    text-align: center;
  }
@@ -66,4 +66,8 @@
 
 .last-item {
   border-right: 1px solid #483d8b;
+}
+
+.main-nav {
+  min-width: 600px;
 }

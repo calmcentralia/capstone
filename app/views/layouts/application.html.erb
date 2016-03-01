@@ -12,6 +12,7 @@
 
 <body class="background">
   <ul class="nav">
+    <span class="main-nav">
     <li class="nav-logo">
       <a href="<%="#{root_url}"%>" ><img src="../assets/MusicGenius-logo"/></a>
     </li>
@@ -34,6 +35,7 @@
     <li class="last-item">
     <%= link_to "Add Song", "#{root_url}#/songs/new" %>
     </li>
+  </span>
   </ul>
   <%=  flash[:errors] %>
 

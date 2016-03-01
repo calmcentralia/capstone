@@ -90,7 +90,6 @@ var ApiUtil = {
       method: "PATCH",
       data: {description: description},
       success: function(artist){
-        debugger;
 
         SongActions.updateArtist(songId, artist);
         callback && callback();
