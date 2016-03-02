@@ -22,6 +22,7 @@ var EditArtist = React.createClass({
   render: function() {
     return(
       <div className="edit-artist-box">
+        <div className="edit-header">Edit Description</div>
         <form onSubmit={this.handleSubmit}>
         <textarea className="edit-artist" valueLink={this.linkState('description')}></textarea>
         <input type="submit" value="confirm changes"></input>

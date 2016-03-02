@@ -3,6 +3,7 @@ var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var hashHistory = require('react-router').hashHistory;
 var SongStore = require('../stores/song');
+var SearchBar = require('./SearchBar');
 
 var Splash = React.createClass({
 
@@ -37,6 +38,7 @@ var Splash = React.createClass({
     return(
     <div>
       <header className="welcome">Welcome to MusicGenius</header>
+      <SearchBar></SearchBar>
       <div className="splash-box">
 
         <header className="recently-added-header"> Recently Added Songs</header>

@@ -12,7 +12,7 @@ var SongShow = require('./components/SongShow');
 var AnnotationShow = require('./components/AnnotationShow');
 var AnnotationForm = require('./components/AnnotationForm');
 var EditArtist = require('./components/EditArtist');
-
+// var SearchPage = require('./components/Search');
 
 var App = React.createClass({
   render: function() {

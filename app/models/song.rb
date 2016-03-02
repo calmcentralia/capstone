@@ -5,13 +5,17 @@ class Song < ActiveRecord::Base
   has_many :annotations
 
 
-  def Song.recently_added
+  def self.recently_added
     Song.order(created_at: :desc).take(17)
   end
 
-  def Song.recently_annotated
+  def self.recently_annotated
     Song.joins(:annotations).order("annotations.created_at desc")
   end
 
+  def self.fuzzy_search(search_string)
+      search_string = "%" + search_string + "%"
+      self.where("title LIKE ? or price LIKE ?", search_string, search_string)
+  end
 
 end

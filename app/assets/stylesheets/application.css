@@ -59,10 +59,7 @@
    z-index: -1;
    height:100%;
  }
- .search-bar {
-   width: 150px;
-   margin: auto auto;
- }
+
 
 .last-item {
   border-right: 1px solid #483d8b;
