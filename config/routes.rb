@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :artists, only: [:index, :create, :destroy, :update, :show]
     resources :songs, only: [:index, :create, :destroy, :update, :show] do
-      resources :annotations, only: [:index, :create, :show]
+      resources :annotations, only: [:index, :create, :show] do
+        resources :comments, only: [:index, :create]
+      end
     end
   end
 end

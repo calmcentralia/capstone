@@ -105,6 +105,16 @@ var ApiUtil = {
         SongActions.receiveAll(songs);
       }
     });
+  },
+
+  fetchComments: function(songId, annotationId) {
+    $.ajax({
+      url: "api/songs/" + songId + "/annotations/" + annotationId + "/comments",
+      method: "GET",
+      success: function(comments){
+        CommentActions.receiveAll(comments);
+      }
+    });
   }
 };
 module.exports = ApiUtil;
