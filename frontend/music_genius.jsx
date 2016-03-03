@@ -12,7 +12,7 @@ var SongShow = require('./components/SongShow');
 var AnnotationShow = require('./components/AnnotationShow');
 var AnnotationForm = require('./components/AnnotationForm');
 var EditArtist = require('./components/EditArtist');
-// var SearchPage = require('./components/Search');
+var CommentForm = require('./components/CommentForm');
 
 var App = React.createClass({
   render: function() {
@@ -33,7 +33,9 @@ var routes = (
     <Route path="songs/new" component={SongForm}/>
     <Route path="songs/:songId" component={SongShow}>
       <Route path="annotations/new" component={AnnotationForm} />
-      <Route path="annotations/:annotationId" component={AnnotationShow} />
+      <Route path="annotations/:annotationId" component={AnnotationShow}>
+        <Route path="comments/new" component={CommentForm} />
+      </Route>
       <Route path="artists/:artistId" component={EditArtist} />
     </Route>
   </Route>

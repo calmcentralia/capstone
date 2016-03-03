@@ -6,6 +6,13 @@ var CommentActions = {
       actionType: "COMMENTS_RECEIVED",
       comments: comments
     });
+  },
+
+  receiveOne: function(comment) {
+    AppDispatcher.dispatch({
+      actionType: "COMMENT_RECEIVED",
+      comment: comment
+    });
   }
 };
 

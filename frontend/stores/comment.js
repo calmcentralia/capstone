@@ -13,9 +13,16 @@ CommentStore.__onDispatch = function(payload) {
     resetComments(payload.comments);
     CommentStore.__emitChange();
     break;
+  case "COMMENT RECEIVED":
+    addComent(payload.comment);
+    CommentStore.__emitChange();
+    break;
   }
 };
 
+var addComment = function(comment) {
+  _comments.push(comment);
+}
 
 var resetComments = function(comments) {
   _comments = comments;

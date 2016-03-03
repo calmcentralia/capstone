@@ -1,6 +1,7 @@
 var React = require('react');
 var ApiUtil = require('../util/api_util');
 var AnnotationStore = require('../stores/annotation');
+var Comments = require("./Comments");
 
 var AnnotationShow = React.createClass( {
   getInitialState: function() {
@@ -28,6 +29,9 @@ var AnnotationShow = React.createClass( {
   _onChange:  function() {
     this.setState({annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId)) });
   },
+  addComent: function() {
+    hashHistory.push("/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId +"/comments/new");
+  }
 
   render: function() {
     if(this.state.annotation === undefined) {
@@ -53,7 +57,10 @@ var AnnotationShow = React.createClass( {
         Edit?
       </button> :
       <div></div>}
-      {/*  <Comments /> */}
+      <Comments />
+      <button className="add-comment" onClick={this.addComment}>
+      </button>
+      {this.props.children}
     </div>
     );
   }

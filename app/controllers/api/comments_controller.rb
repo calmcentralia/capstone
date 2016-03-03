@@ -21,6 +21,7 @@ class Api::CommentsController < ApplicationController
     else
       render json: "you need to be logged in to leave a comment", status: 422
     end
+  end
 
 
 end

@@ -16,12 +16,16 @@ var ArtistForm = React.createClass({
   },
 
   componentDidMount: function() {
-    ArtistStore.addListener(this._onChange);
+    this.artistToken = ArtistStore.addListener(this._onChange);
   },
 
   _onChange: function() {
     this.setState({ error: "error"});
   },
+
+  componentWillUnmount: function() {
+    this.artistToken.remove();
+  }
 
   handleSubmit: function(e){
     e.preventDefault();

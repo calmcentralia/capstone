@@ -115,6 +115,17 @@ var ApiUtil = {
         CommentActions.receiveAll(comments);
       }
     });
+  },
+
+  createComment: function(data) {
+    $.ajax({
+      url: "api/songs/" + songId + "/annotations/" + annotationId + "/comments",
+      method: "POST",
+      data: {comment: data}
+      success: function(comment){
+        CommentActions.receiveOne(comment);
+      }
+    });
   }
 };
 module.exports = ApiUtil;
