@@ -39,7 +39,21 @@ var AnnotationShow = React.createClass( {
     } else{
     return(
     <div className="annotation-box">
-      {this.state.annotation.body}
+      <div className="created-by">
+        {this.state.annotation.username}
+      </div>
+      <div className="annotation-body">
+        {this.state.annotation.body}
+        <div className="image">
+        <img src={this.state.annotation.image_url} />
+        </div>
+      </div>
+      {this.state.annotation.is_correct_user ?
+      <button className="edit" onClick={this.edit}>
+        Edit?
+      </button> :
+      <div></div>}
+        <Comments />
     </div>
     );
   }

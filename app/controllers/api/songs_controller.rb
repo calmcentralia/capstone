@@ -1,11 +1,12 @@
 class Api::SongsController < ApplicationController
   def index
-    if params[:flag]=="For Splash"
-      @songs = Song.recently_added
+    if params[:flag] == "For Splash"
+      @recent_songs = Song.recently_added
+      @recently_annotated = Song.recently_annotated
+      render :index
     else
-      @songs = Song.all
+      render json: Song.all
     end
-    render :index
   end
 
   def create

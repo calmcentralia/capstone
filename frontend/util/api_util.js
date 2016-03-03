@@ -95,6 +95,16 @@ var ApiUtil = {
         callback && callback();
       }
     });
+  },
+
+  getAllSearchOptions: function() {
+    $.ajax({
+      url: "api/songs",
+      method: "GET",
+      success: function(songs){
+        SongActions.receiveAll(songs);
+      }
+    });
   }
 };
 module.exports = ApiUtil;

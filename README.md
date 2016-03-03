@@ -12,11 +12,11 @@ and React.js. MusicGenius allows users to:
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
-- [ ] Create an account
-- [ ] Log in / Log out
-- [ ] Create, read, edit, and delete song lyrics
-- [ ] annotate lyrics through highlighting
-- [ ] add new artists with descriptions
+- [x] Create an account
+- [x] Log in / Log out
+- [x] Create, read, edit, and delete song lyrics
+- [x] annotate lyrics through highlighting
+- [x] add new artists with descriptions
 
 ## Design Docs
 * [View Wireframes][views]
@@ -72,21 +72,21 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Annotations belong to Users and Songs.  Components for creating and viewing annotations
 
-- [ ] create `Annotation` model
+- [x] create `Annotation` model
 - build out API, Flux loop, and components for:
-  - [ ] Annotation CRUD
-  - [ ] Adding Annotations requires being logged in
+  - [x] Annotation CRUD
+  - [x] Adding Annotations requires being logged in
   - [ ] Can view annotations and who created them
-  - [ ] Can create annotations on highlighted sections that do not already have annotations
+  - [x] Can create annotations on highlighted sections that do not already have annotations
 
 ### Phase 6: Searching (1.5 days)
 
 **Objective:** Search properly returns relevant information. Search results page stylized
 
-- [ ] Make search return useful songs/artists/albums
-- [ ] Data displayed nicely (CSS)
-- [ ] If search matches an artist exactly displays artist description
-- [ ] Results link to song pages
+- [x] Make search return useful songs/artists/albums
+- [x] Data displayed nicely (CSS)
+- [x] If search matches an artist exactly displays artist description
+- [x] Results link to song pages
 
 ### Phase 7: Clean Up (1.0 days)
 

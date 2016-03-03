@@ -21,6 +21,13 @@ var SongActions = {
       artist: artist,
       songId: songId
     });
+  },
+
+  receiveAll: function(songs) {
+    AppDispatcher.dispatch({
+      actionType: "SEARCH RECEIVED",
+      songs: songs
+    });
   }
 };
 

@@ -11,7 +11,8 @@ class Api::AnnotationsController < ApplicationController
       body: params[:annotation][:body],
       line_number: params[:annotation][:line_number],
       user_id: current_user.id,
-      song_id: params[:annotation][:song_id])
+      song_id: params[:annotation][:song_id],
+      image_url: params[:annotation][:image_url])
       if @annotation.save
         render :show
       else

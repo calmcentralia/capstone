@@ -1,4 +1,10 @@
 json.body @annotation.body
 json.line_number @annotation.line_number
-json.user_id @annotation.user_id
+json.username @annotation.user.username
 json.id @annotation.id
+json.image_url @annotation.image_url
+if @annotation.user.id == current_user.id
+  json.is_correct_user true
+else
+  json.is_correct_user false
+end

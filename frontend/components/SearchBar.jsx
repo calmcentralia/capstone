@@ -7,12 +7,13 @@ var fuzzy = require('fuzzy');
 
 
 var SearchBar = React.createClass({
-
+  mixins: [LinkedStateMixin],
   getInitialState: function(){
     return {
-      query: "",
-      allItems: SearchStore.all(),
-      matches: []
+      allItems: SearchStore.titles(),
+      matches: [],
+      songs: SearchStore.all(),
+      shouldAppear: "dont-appear"
     };
   },
 
@@ -22,35 +23,40 @@ var SearchBar = React.createClass({
   },
 
   _onChange: function() {
-    this.setState({results: SearchStore.all});
+    this.setState({songs: SearchStore.all()});
+    this.setState({allItems: SearchStore.titles()});
   },
 
   componentWillUnmount: function() {
     this.searchToken.remove();
   },
 
-  getResults: function() {
-    var results = fuzzy.filter(this.state.query, this.state.allItems);
-    this.setState({matches: results.map(function(el) {return el.string;})});
+  getResults: function(e) {
+    var results = fuzzy.filter(e.target.value, this.state.allItems);
+    if(e.target.value === ""){
+      this.setState({shouldAppear: "dont-appear", matches: []});
+    } else {
+    this.setState({shouldAppear: "appear", matches: SearchStore.findByTitle(results.map(function(el) {return el.string;}))});
+  }
   },
 
   handleClick: function(e) {
-    hashHistory.push("/songs/" + e.currentTarget.songId);
+    hashHistory.push("/songs/" + e.currentTarget.id);
   },
 
   render: function() {
-    var matchLines = this.state.matches.map(function(match, idx) {
-      return (
-        <li key={idx} className="matches" onClick={this.handleClick}>
-          {match}
-        </li>
-      );
-    });
+    var that = this;
+    var matchLines = [];
+    for (var i = 0; (i < 5) && (i < this.state.matches.length); i++) {
+      matchLines.push(<li id={this.state.matches[i].id} key={i} className="matches" onClick={that.handleClick}>
+        <a>{this.state.matches[i].title}</a>
+      </li>);
+    }
     return(
     <div className="search-box">
-      <input className="search-bar" type="search" placeholder="search songs and artists" valueLink={this.linkState('query')} onChange={this.getResults} >
+      <input className="search-bar" type="search" placeholder="search songs and artists" onChange={this.getResults} >
       </input>
-      <ul>
+      <ul className={"search-results " + this.state.shouldAppear}>
         {matchLines}
       </ul>
     </div>

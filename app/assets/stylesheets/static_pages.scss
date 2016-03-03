@@ -197,11 +197,11 @@ input[type="submit"]:focus,
   background-color: #815fc0;
 }
 
-.song-list {
+.song-list, .annotated-song-list {
   border: 1px solid #483d8b;
   list-style: none;
   display: block;
-  width: 50%;
+  width: 100%;
   min-height: 100px;
   text-align: center;
   font-size: 16px;
@@ -209,7 +209,7 @@ input[type="submit"]:focus,
   padding-left: 0;
   background-color: #4b307b;
 }
-.individual-song {
+.individual-song-right, .individual-song-left {
   border-bottom: 1px solid #483d8b;
   padding: 10px;
   vertical-align: middle;
@@ -228,11 +228,17 @@ input[type="submit"]:focus,
   transition: all 0.3s;
 }
 
-.individual-song:hover {
+.individual-song-left:hover {
   cursor: pointer;
   -webkit-transform: skew(10deg);
  transform: skew(10deg);
 
+}
+
+.individual-song-right:hover {
+  cursor: pointer;
+  -webkit-transform: skew(-10deg);
+ transform: skew(-10deg);
 }
 
 .welcome {
@@ -254,11 +260,11 @@ input[type="submit"]:focus,
 
 }
 
-.recently-added-header{
+.recently-added-header, .recently-annotated-header{
 
   background-color: #815fc0;
-  display: block;
-  width: 50%;
+  float: left;
+  width: 100%;
   border-right: 2px solid #483d8b;
   border-top: 2px solid #483d8b;
   border-left: 2px solid #483d8b;
@@ -311,7 +317,6 @@ input[type="submit"]:focus,
 .about-the-artist-box, .edit-artist-box{
   float: right;
   position: relative;
-  overflow: hidden;
   display: inline-block;
   width: 30%;
   min-height: 350px;
@@ -615,7 +620,7 @@ input[type="submit"]:focus,
   position: relative;
   background-color: #ffffc4;
   margin: 0 auto;
-  top: 120px;
+  bottom: 20px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -642,6 +647,7 @@ input[type="submit"]:focus,
 }
 
 .search-box{
+  position: relative;
   height: 50px;
   width: 30%;
   margin: 2% auto;
@@ -672,4 +678,56 @@ input::-webkit-input-placeholder {
 }
 input[type="search"]::-webkit-search-cancel-button, {
   display: none;
+}
+
+.recently-added-box, .recently-annotated-box {
+  display: inline-block;
+  margin: 2%;
+  width: 45%;
+}
+
+.search-results{
+  list-style: none;
+  position: absolute;
+  z-index: 3;
+  background-color: #A6ADED;
+  box-shadow: 5px 5px 5px #848ABD;
+  left: 25%;
+  text-align: center;
+  padding-left: 0px;
+  font-size: 20px;
+  width: 350px;
+  min-height: 50px;
+}
+
+.dont-appear{
+  display: none;
+}
+
+.matches:hover{
+  cursor: pointer;
+}
+
+.created-by{
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  display: block;
+  background-color: #848ABD;
+}
+
+.annotation-body{
+  width: 100%;
+  min-height: 200px;
+  background-color: #9ca1ca;
+  font-size: 16px;
+  padding-top: 16px;
+}
+
+.image{
+  text-align: center;
+  padding: 50px 0;
 }

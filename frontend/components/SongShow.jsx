@@ -34,23 +34,25 @@ var SongShow = React.createClass( {
     this.annotationToken.remove();
   },
 
-  handleLineClick: function(idx) {
+  handleLineClick: function(idx, e) {
+    e.stopPropagation();
     if(AnnotationStore.doesExist(idx)) {
       this.setState({lineClicked: -1});
       hashHistory.push("songs/" + this.props.params.songId + "/annotations/" + AnnotationStore.find(idx).id, {});
     } else {
+      if(location.hash.split("?")[0] !== ("#/songs/" + this.props.params.songId) ) {
+      hashHistory.push("songs/" + this.props.params.songId);
+        }
     this.setState({lineClicked: idx});
-    if(location.hash.split("?")[0] !== ("#/songs/" + this.props.params.songId) ) {
-    hashHistory.push("songs/" + this.props.params.songId);
-      }
     }
   },
 
   cancelClick: function(e) {
 
-    if([].slice.call(e.target.classList,0).indexOf("song-line") === -1){
+
+    // if([].slice.call(e.target.classList,0).indexOf("song-line") === -1){
     this.setState({ lineClicked: -1});
-    }
+  // }
   },
 
   editArtistDescription: function() {

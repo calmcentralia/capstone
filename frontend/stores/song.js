@@ -25,7 +25,11 @@ var addSong = function(song) {
 };
 
 var resetSongs = function(songs) {
-  _songs = songs.slice();
+
+  var temp = [];
+  temp.push(songs.recently_added);
+  temp.push(songs.recently_annotated);
+  _songs = temp;
 };
 
 var updateArtist = function(artist, songId) {

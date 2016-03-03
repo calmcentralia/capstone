@@ -10,7 +10,13 @@ class Song < ActiveRecord::Base
   end
 
   def self.recently_annotated
-    Song.joins(:annotations).order("annotations.created_at desc")
+    unique_songs = {}
+    Song.joins(:annotations).order("annotations.created_at desc").each do |song|
+      unique_songs[song.id] = {artist: song.artist.name, title: song.title, id: song.id}
+    end
+    unique_songs.values
+
+
   end
 
   def self.fuzzy_search(search_string)
