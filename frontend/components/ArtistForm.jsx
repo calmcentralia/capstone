@@ -29,7 +29,8 @@ var ArtistForm = React.createClass({
     var that = this;
     ApiUtil.createArtist(artist, function() {
       hashHistory.push({
-        pathname: '/'
+        pathname: '/songs/new',
+        query: {name: that.state.name}
       });
     });
 

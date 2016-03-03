@@ -48,9 +48,14 @@
    border-left: 1px solid  #483d8b;
  }
 
- .main-nav > li:not(.nav-logo) > a {
+ .main-nav > li:not(.nav-logo) > a, .yup{
    display: block;
    text-align: center;
+ }
+
+ .yup{
+   font-size: 20px;
+   color: #41a564;
  }
 
  .page {

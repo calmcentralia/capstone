@@ -53,7 +53,7 @@ var AnnotationShow = React.createClass( {
         Edit?
       </button> :
       <div></div>}
-        <Comments />
+      {/*  <Comments /> */}
     </div>
     );
   }

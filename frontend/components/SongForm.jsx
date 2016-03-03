@@ -8,7 +8,7 @@ var SongForm = React.createClass({
 
   getInitialState: function(){
     return {
-      artist: "",
+      artist: this.props.location.query.name,
       title: "",
       lyrics: "",
       albumName: ""
