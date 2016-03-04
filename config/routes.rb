@@ -9,5 +9,6 @@ Rails.application.routes.draw do
         resources :comments, only: [:index, :create]
       end
     end
+    resources :comments, only: :update
   end
 end

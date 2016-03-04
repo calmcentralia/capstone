@@ -13,6 +13,7 @@ var AnnotationShow = require('./components/AnnotationShow');
 var AnnotationForm = require('./components/AnnotationForm');
 var EditArtist = require('./components/EditArtist');
 var CommentForm = require('./components/CommentForm');
+// var EditComment = require('./components/EditComment');
 
 var App = React.createClass({
   render: function() {
@@ -35,6 +36,7 @@ var routes = (
       <Route path="annotations/new" component={AnnotationForm} />
       <Route path="annotations/:annotationId" component={AnnotationShow}>
         <Route path="comments/new" component={CommentForm} />
+
       </Route>
       <Route path="artists/:artistId" component={EditArtist} />
     </Route>

@@ -39,8 +39,12 @@ var Comments = React.createClass({
           <div className="comment-image">
           <img src={comment.image_url} />
           </div>
-
         </div>
+        {comment.is_correct_user ?
+        <button className="edit-annotation" onClick={this.edit}>
+          Edit?
+        </button> :
+        <div></div>}
         </li>
       );
     });

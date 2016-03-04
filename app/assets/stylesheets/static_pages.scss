@@ -352,6 +352,7 @@ input[type="submit"]:focus,
   width: 100%;
   min-height: 100px;
   color: black;
+  padding-bottom: 30px;
   font-size: 16px;
 }
 
@@ -633,7 +634,8 @@ input[type="submit"]:focus,
   position: absolute;
   background-color: #ffffc4;
   margin: 0 auto;
-  left: 40%;
+  left: 0;
+  bottom: 0;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -668,7 +670,6 @@ input[type="submit"]:focus,
   cursor: pointer;
   border-radius: 0;
   width: 80px;
-  left:  37%;
 }
 
 .edit-artist{
@@ -799,4 +800,21 @@ img{
 .comment-list{
   list-style: none;
   padding: 0;
+}
+
+.add-comment{
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  border-radius: 50%;
+  background-color: #6441a5;
+  border: none;
+  height: 27px;
+  color: white;
+  transition: all 0.3s;
+}
+
+.add-comment:hover{
+cursor: pointer;
+background-color: #8d6ec6;
 }
