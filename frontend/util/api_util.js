@@ -1,6 +1,8 @@
 var ArtistActions = require('../actions/artist_actions');
 var SongActions = require('../actions/song_actions');
 var AnnotationActions = require('../actions/annotation_actions');
+var CommentActions = require('../actions/comment_actions');
+var ErrorActions = require('../actions/error_actions');
 var ApiUtil = {
   createArtist: function(data, callback) {
     $.ajax({
@@ -12,7 +14,7 @@ var ApiUtil = {
         callback && callback();
       },
       error: function(request, status, error) {
-        ArtistActions.error();
+        ErrorActions.receiveArtistErrors(JSON.parse(request.responseText));
       }
     });
   },
@@ -26,6 +28,7 @@ var ApiUtil = {
         callback && callback(song.id);
       },
       error: function(request, status, error) {
+        ErrorActions.receiveSongErrors(JSON.parse(request.responseText));
       }
     });
   },
@@ -112,18 +115,20 @@ var ApiUtil = {
       url: "api/songs/" + songId + "/annotations/" + annotationId + "/comments",
       method: "GET",
       success: function(comments){
+
         CommentActions.receiveAll(comments);
       }
     });
   },
 
-  createComment: function(data) {
+  createComment: function(data, songId, callback) {
     $.ajax({
-      url: "api/songs/" + songId + "/annotations/" + annotationId + "/comments",
+      url: "api/songs/" + songId + "/annotations/" + data.annotatio_id + "/comments",
       method: "POST",
-      data: {comment: data}
+      data: {comment: data},
       success: function(comment){
         CommentActions.receiveOne(comment);
+        callback && callback();
       }
     });
   }

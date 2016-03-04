@@ -4,20 +4,24 @@ var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var hashHistory = require('react-router').hashHistory;
 
 var CommentForm = React.createClass({
-  mixins: [LinkedStateMixin]
+  mixins: [LinkedStateMixin],
   getInitialState: function(){
     return {
-      body: ""
+      body: "",
+      image_url: ""
     };
   },
 
-  handleSubmit: function() {
+  handleSubmit: function(e) {
+    e.preventDefault();
     var comment = {
+      image_url: this.state.image_url,
       body: this.state.body,
       annotation_id: this.props.params.annotationId
     };
-    ApiUtil.createComment(comment function(){
-      hashHistory.push("/songs/" + this.props.params.songId + "/annotations/" + this.props.annotations.annotationId);
+    var that = this;
+    ApiUtil.createComment(comment, this.props.params.songId, function(){
+      hashHistory.push("/songs/" + that.props.params.songId + "/annotations/" + that.props.params.annotationId);
     });
   },
 
@@ -26,12 +30,15 @@ var CommentForm = React.createClass({
     return (
 
       <form onSubmit={this.handleSubmit}>
-      <input type="text" valueLink={linkState('body')} />
+      <textarea valueLink={this.linkState('body')} />
+      <input type="text" valueLink={this.linkState('image_url')} />
       </form>
-    )
+    );
   }
 
 
 
 
 });
+
+module.exports = CommentForm;

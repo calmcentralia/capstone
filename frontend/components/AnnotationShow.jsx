@@ -2,11 +2,13 @@ var React = require('react');
 var ApiUtil = require('../util/api_util');
 var AnnotationStore = require('../stores/annotation');
 var Comments = require("./Comments");
+var hashHistory = require("react-router").hashHistory
 
 var AnnotationShow = React.createClass( {
   getInitialState: function() {
     return {
-      annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId))
+      annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId)),
+      edit: "no"
     };
   },
 
@@ -29,9 +31,13 @@ var AnnotationShow = React.createClass( {
   _onChange:  function() {
     this.setState({annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId)) });
   },
-  addComent: function() {
+  addComment: function() {
     hashHistory.push("/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId +"/comments/new");
-  }
+  },
+
+  edit: function() {
+    this.setState({edit: "yes"});
+  },
 
   render: function() {
     if(this.state.annotation === undefined) {
@@ -50,14 +56,15 @@ var AnnotationShow = React.createClass( {
         {this.state.annotation.body}
         <div className="image">
         <img src={this.state.annotation.image_url} />
-        </div>
+
       </div>
       {this.state.annotation.is_correct_user ?
-      <button className="edit" onClick={this.edit}>
+      <button className="edit-annotation" onClick={this.edit}>
         Edit?
       </button> :
       <div></div>}
-      <Comments />
+      </div> }
+      <Comments songId={this.props.params.songId} annotationId={this.props.params.annotationId} />
       <button className="add-comment" onClick={this.addComment}>
       </button>
       {this.props.children}

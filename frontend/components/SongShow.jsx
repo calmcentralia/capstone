@@ -85,11 +85,11 @@ var SongShow = React.createClass( {
 
       var renderSelect = location.hash.split("?")[0] === ("#/songs/" + this.props.params.songId) ?
       <div className="about-the-artist-box"><header className="about-the-artist">About the Artist</header><div className="artist-description">
-        {this.state.song.description}</div> <button className="edit" type="button" onClick={this.editArtistDescription}>Edit?</button> </div> :
+        {this.state.song.description}<button className="edit" type="button" onClick={this.editArtistDescription}>Edit?</button> </div> </div> :
         this.props.children;
     }
     return(
-    <div onClick={this.cancelClick}>
+    <div className="song-show" onClick={this.cancelClick}>
     <div className="lyrics-box">
       <header className="song-header">{this.state.song.title} <span className="break"> </span> {this.state.song.artist}</header>
       <div className="song-lyrics">

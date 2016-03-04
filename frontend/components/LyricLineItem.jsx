@@ -36,7 +36,7 @@ var LyricLineItem= React.createClass( {
 
   render: function() {
     return(
-    <div>
+    <div className="song-relative">
       <div onClick={this.props.handleLineClick} className={this.props.isAnnotated + " song-line"}>
       {this.props.line}
       </div>

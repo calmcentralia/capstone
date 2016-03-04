@@ -1,7 +1,7 @@
 class Api::CommentsController < ApplicationController
 
   def index
-    @commments = Annotation.find_by_id(params[:annotation_id]).comments
+    @comments = Annotation.find_by_id(params[:annotation_id]).comments
     render :index
   end
 

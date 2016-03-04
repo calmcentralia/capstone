@@ -44,6 +44,12 @@ var SearchBar = React.createClass({
     hashHistory.push("/songs/" + e.currentTarget.id);
   },
 
+  goToTopResult: function(e) {
+    if(e.keyCode === 13 && this.state.matches.length !== 0){
+    hashHistory.push("/songs/" + this.state.matches[0].id);
+  }
+  },
+
   render: function() {
     var that = this;
     var matchLines = [];
@@ -54,7 +60,7 @@ var SearchBar = React.createClass({
     }
     return(
     <div className="search-box">
-      <input className="search-bar" type="search" placeholder="search songs and artists" onChange={this.getResults} >
+      <input className="search-bar" type="search" placeholder="search songs and artists" onChange={this.getResults} onKeyDown={this.goToTopResult}>
       </input>
       <ul className={"search-results " + this.state.shouldAppear}>
         {matchLines}

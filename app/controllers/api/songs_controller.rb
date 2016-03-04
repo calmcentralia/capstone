@@ -12,11 +12,15 @@ class Api::SongsController < ApplicationController
   def create
     if signed_in?
       @artist = Artist.find_by(name: params[:song][:artist])
-      @song = Song.new(lyrics: params[:song][:lyrics], title: params[:song][:title], album_name: params[:song][:album_name], user_id: current_user.id, artist: @artist)
-      if @song.save
-        render :show
+      unless @artist
+        render json: {errors: "Artist must Exist"}, status: 422
       else
-        render json: {errors: @song.errors.full_messages}, status: 422
+        @song = Song.new(lyrics: params[:song][:lyrics], title: params[:song][:title], album_name: params[:song][:album_name], user_id: current_user.id, artist: @artist)
+        if @song.save
+          render :show
+        else
+          render json: {errors: @song.errors.full_messages}, status: 422
+        end
       end
     else
       render json: {errors: "must be logged in"}, status: 422

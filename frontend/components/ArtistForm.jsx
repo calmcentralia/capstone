@@ -3,6 +3,7 @@ var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var hashHistory = require('react-router').hashHistory;
 var ArtistStore = require('../stores/artist');
+var ErrorStore = require('../stores/error')
 
 var ArtistForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -11,21 +12,22 @@ var ArtistForm = React.createClass({
     return {
       name: "",
       description: "",
-      error: "no"
+      errors: ErrorStore.all()
     };
   },
 
   componentDidMount: function() {
-    this.artistToken = ArtistStore.addListener(this._onChange);
+    this.errorToken = ErrorStore.addListener(this._onError);
+    ErrorStore.clear();
   },
 
-  _onChange: function() {
-    this.setState({ error: "error"});
+  _onError: function() {
+    this.setState({ errors: ErrorStore.all()});
   },
 
   componentWillUnmount: function() {
-    this.artistToken.remove();
-  }
+    this.errorToken.remove();
+  },
 
   handleSubmit: function(e){
     e.preventDefault();
@@ -42,13 +44,17 @@ var ArtistForm = React.createClass({
   },
 
   render: function(){
+    var errors = this.state.errors.map(function(error, idx) {
+      return <div key={idx}> {error} </div>;
+      });
     return (
       <div>
         <div className="form-header">Create an Artist!</div>
         <div className="form-box">
+        <div className="song-errors">{errors}</div>
         <form className="form" onSubmit={this.handleSubmit} >
           <label className="artist-name-label">Name
-          <input className="artist-name-input" type="text" valueLink={this.linkState('name')}/><div className={this.state.error} >Artist already exists</div>
+          <input className="artist-name-input" type="text" valueLink={this.linkState('name')}/>
           </label>
           <label className="artist-description-label">About the Artist
           <textarea className="artist-description-input" valueLink={this.linkState('description')}/>

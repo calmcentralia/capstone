@@ -24,9 +24,11 @@
    display: block;
    list-style-type: none;
    margin: 0 auto;
-   padding-left:33%;
    width: 100%;
+   min-width: 1000px;
    height: 61px;
+   padding-left: 30%;
+   padding-right: 30%;
    background-color: #6441a5;
    border-left: 1px solid  #483d8b;
    border-right: 1px solid  #483d8b;
@@ -55,7 +57,7 @@
 
  .yup{
    font-size: 20px;
-   color: #41a564;
+   color: #41a564
  }
 
  .page {

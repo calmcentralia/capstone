@@ -2,6 +2,7 @@ var React = require('react');
 var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var hashHistory = require('react-router').hashHistory;
+var ErrorStore = require('../stores/error');
 
 var SongForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -11,8 +12,22 @@ var SongForm = React.createClass({
       artist: this.props.location.query.name,
       title: "",
       lyrics: "",
-      albumName: ""
+      albumName: "",
+      errors: ErrorStore.all()
     };
+  },
+
+  _onError: function() {
+    this.setState({errors: ErrorStore.all()});
+  },
+
+  componentDidMount: function() {
+    this.errorToken = ErrorStore.addListener(this._onError);
+    ErrorStore.clear();
+  },
+
+  componentWillUnmount: function() {
+    this.errorToken.remove();
   },
 
   handleSubmit: function(e){
@@ -29,12 +44,15 @@ var SongForm = React.createClass({
   },
 
   render: function(){
+    var errors = this.state.errors.map(function(error, idx) {
+      return <div key={idx}> {error} </div>
+    })
     return (
 
       <div>
       <div className="form-header">Add a Song!</div>
       <div className="song-box">
-
+        <div className="song-errors">{errors}</div>
         <form onSubmit={this.handleSubmit}>
           <label className="artist-name-label">Artist
           <input className="artist-name-input" type="text" valueLink={this.linkState('artist')}/>

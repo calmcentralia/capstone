@@ -76,7 +76,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - build out API, Flux loop, and components for:
   - [x] Annotation CRUD
   - [x] Adding Annotations requires being logged in
-  - [ ] Can view annotations and who created them
+  - [x] Can view annotations and who created them
   - [x] Can create annotations on highlighted sections that do not already have annotations
 
 ### Phase 6: Searching (1.5 days)
@@ -97,9 +97,18 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 ### Bonus Features (TBD)
 - [ ] Users can upvote annotations
-- [ ] comment section at bottom of song page
+- [x] comment section at bottom of annotations
 - [ ] users can have profiles
 - [ ] Artists have images associated with them that display on song and search pages
+- [x] Comments and Annotations can share images
+
+things to finish that I have started:
+
+- [x] styling of comments
+- [ ] delete buttons for comments and annotations
+- [ ] the rest of the error handling
+- [ ] edit annotations and comments
+- [ ] cloudinary?  
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md

@@ -17,7 +17,7 @@ var SongActions = {
   },
   updateArtist: function(songId, artist) {
     AppDispatcher.dispatch({
-      actionType: "UPDDATE_ARTIST",
+      actionType: "UPDATE_ARTIST",
       artist: artist,
       songId: songId
     });

@@ -16,7 +16,13 @@
     <li class="nav-logo">
       <a href="<%="#{root_url}"%>" ><img src="../assets/MusicGenius-logo"/></a>
     </li>
-    <li class="yup">
+    <% if signed_in? %>
+      <% stuff = "yup" %>
+      <% else %>
+        <% stuff = "nope" %>
+
+    <% end %>
+    <li class=<%= stuff  %> >
       <% unless signed_in? %>
       <%= link_to "Create Account", new_user_url%>
       <% else %>

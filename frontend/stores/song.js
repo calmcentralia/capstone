@@ -14,7 +14,7 @@ SongStore.__onDispatch = function(payload) {
     resetSongs(payload.songs);
     SongStore.__emitChange();
     break;
-  case "UPDDATE_ARTIST":
+  case "UPDATE_ARTIST":
     updateArtist(payload.artist, payload.songId);
     SongStore.__emitChange();
   }

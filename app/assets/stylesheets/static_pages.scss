@@ -14,8 +14,9 @@
   position: relative;
   overflow: hidden;
   display: block;
-  width: 33%;
+  width: 40%;
   min-height: 600px;
+  min-width: 376px;
   background-color: #e6e8fa;
   margin: 50px auto;
   box-shadow: 5px 16px 8px -5px #c7c5e6;
@@ -44,6 +45,7 @@
   display: block;
   height: 40px;
   width: 25%;
+  min-width: 291px;
   margin: 0 auto;
   margin-top: 80px;
   border: 2px solid #483d8b;
@@ -251,6 +253,7 @@ input[type="submit"]:focus,
   display: block;
   height: 50px;
   width: 25%;
+  min-width: 272px;
   margin: 0 auto;
   margin-top: 80px;
   border: 2px solid #483d8b;
@@ -342,6 +345,7 @@ input[type="submit"]:focus,
 }
 
 .artist-description{
+  position: relative;
   white-space: pre-wrap;
   float: left;
   padding-top: 20px;
@@ -355,7 +359,8 @@ input[type="submit"]:focus,
   position: relative;
   overflow: hidden;
   display: block;
-  width: 33%;
+  width: 40%;
+  min-width: 515px;
   min-height: 900px;
   background-color: #e6e8fa;
   margin: 50px auto;
@@ -383,6 +388,7 @@ input[type="submit"]:focus,
   display: block;
   width: 40%;
   min-height: 50px;
+  min-width: 741px;
   background-color: #e6e8fa;
   margin: 50px auto;
   box-shadow: 5px 16px 8px -5px #c7c5e6;
@@ -409,10 +415,10 @@ input[type="submit"]:focus,
 
 .button-on{
   z-index: 2;
-  position: relative;
+  position: absolute;
   top: -10px;
   float: right;
-  left: 5%;
+  left: -131px;
   width: 120px;
   height: 40px;
   background-color: #4b307b;
@@ -428,9 +434,15 @@ input[type="submit"]:focus,
   cursor: pointer;
 }
 
+.song-relative{
+  position: relative;
+
+}
+
 .song-line {
   display: inline-block;
-  transition: all 0.5s
+  transition: all 0.5s;
+  position: relative;
 }
 
 .song-line:hover{
@@ -607,6 +619,7 @@ input[type="submit"]:focus,
   background-color: #e6e8fa;
   margin-top: 10%;
   margin-right: 15%;
+  margin-bottom: 10%;
   padding: 30px;
   box-shadow: 5px 16px 8px -5px #c7c5e6;
 }
@@ -617,10 +630,10 @@ input[type="submit"]:focus,
 
 .edit{
   display: block;
-  position: relative;
+  position: absolute;
   background-color: #ffffc4;
   margin: 0 auto;
-  bottom: 20px;
+  left: 40%;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -629,10 +642,33 @@ input[type="submit"]:focus,
   transition: all 0.5s;
 }
 
+.edit-annotation{
+  display: block;
+  position: absolute;
+  background-color: #ffffc4;
+  margin: 0 auto;
+  left: 0%;
+  bottom: 0%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-style: none;
+  border: 1px solid #ededd6;
+  transition: all 0.5s;
+}
+
+.edit-annotation:hover, .edit-annotation:active, .edit-annotation:focus{
+  cursor: pointer;
+  border-radius: 0;
+  width: 80px;
+}
+
+
 .edit:hover{
   cursor: pointer;
   border-radius: 0;
   width: 80px;
+  left:  37%;
 }
 
 .edit-artist{
@@ -659,6 +695,7 @@ input[type="submit"]:focus,
   display: block;
   height: 100%;
   width: 100%;
+  min-width: 576px;
   background-color: #815fc0;
   border: none;
   margin: 0 auto;
@@ -684,6 +721,7 @@ input[type="search"]::-webkit-search-cancel-button, {
   display: inline-block;
   margin: 2%;
   width: 45%;
+  min-width: 310px;
 }
 
 .search-results{
@@ -692,7 +730,8 @@ input[type="search"]::-webkit-search-cancel-button, {
   z-index: 3;
   background-color: #A6ADED;
   box-shadow: 5px 5px 5px #848ABD;
-  left: 25%;
+  left: 20%;
+  right: 20%;
   text-align: center;
   padding-left: 0px;
   font-size: 20px;
@@ -708,7 +747,7 @@ input[type="search"]::-webkit-search-cancel-button, {
   cursor: pointer;
 }
 
-.created-by{
+.created-by, .comment-username{
   width: 100%;
   height: 20px;
   margin: 0;
@@ -719,15 +758,45 @@ input[type="search"]::-webkit-search-cancel-button, {
   background-color: #848ABD;
 }
 
-.annotation-body{
+.annotation-body, .comment-body{
+  position: relative;
   width: 100%;
   min-height: 200px;
   background-color: #9ca1ca;
   font-size: 16px;
   padding-top: 16px;
+  margin-bottom: 20px;
 }
 
-.image{
+.comment-body{
+  background-color:#c7c9e0;
+}
+
+.image, .comment-image{
   text-align: center;
   padding: 50px 0;
+}
+
+img{
+  height: auto;
+  width: auto;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.song-show{
+  min-width: 1433px;
+}
+
+.song-errors{
+  color: red;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  position: absolute;
+}
+
+.comment-list{
+  list-style: none;
+  padding: 0;
 }
