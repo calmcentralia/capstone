@@ -63,7 +63,7 @@ var AnnotationShow = React.createClass( {
         Edit?
       </button> :
       <div></div>}
-      </div> }
+      </div> 
       <Comments songId={this.props.params.songId} annotationId={this.props.params.annotationId} />
       <button className="add-comment" onClick={this.addComment}>
       </button>
