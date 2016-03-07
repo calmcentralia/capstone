@@ -13,6 +13,20 @@ var CommentActions = {
       actionType: "COMMENT_RECEIVED",
       comment: comment
     });
+  },
+
+  updateComment: function(comment) {
+    AppDispatcher.dispatch({
+      actionType: "COMMENT_UPDATED",
+      comment: comment
+    });
+  },
+
+  deleteComment: function(comment) {
+    AppDispatcher.dispatch({
+      actionType: "COMMENT_DELETED",
+      comment: comment
+    });
   }
 };
 

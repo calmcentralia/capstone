@@ -13,6 +13,13 @@ var AnnotationActions = {
       actionType: "ANNOTATIONS_RECEIVED",
       annotations: annotations
     });
+  },
+
+  editAnnotation: function(annotation) {
+    AppDispatcher.dispatch({
+      actionType: "ANNOTATION_UPDATED",
+      annotation: annotation
+    });
   }
 };
 

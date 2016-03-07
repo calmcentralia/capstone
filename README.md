@@ -102,13 +102,12 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Artists have images associated with them that display on song and search pages
 - [x] Comments and Annotations can share images
 
-things to finish that I have started:
+###things to finish that I have started:
 
 - [x] styling of comments
-- [ ] delete buttons for comments and annotations
+- [x] delete buttons for comments
 - [ ] the rest of the error handling
-- [ ] edit annotations and comments
-- [ ] cloudinary?  
+- [x] edit annotations and comments
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md

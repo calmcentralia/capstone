@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         resources :comments, only: [:index, :create]
       end
     end
-    resources :comments, only: :update
+    resources :comments, only: [:update, :destroy]
+    resources :annotations, only: :update
   end
 end

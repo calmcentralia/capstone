@@ -1,6 +1,7 @@
 
-
+json.logged_in signed_in?
 json.array!(@annotations) do |annotation|
+  json.logged_in signed_in?
   json.line_number annotation.line_number
   json.id annotation.id
   json.body annotation.body

@@ -79,7 +79,8 @@ var SongShow = React.createClass( {
                                lineNumber={idx}
                                annotations={that.state.annotations}
                                songId={that.props.params.songId}
-                               isAnnotated={AnnotationStore.doesExist(idx)} />);
+                               isAnnotated={AnnotationStore.doesExist(idx)}
+                             loggedIn={that.state.song.logged_in}/>);
       });
 
 

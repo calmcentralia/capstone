@@ -2,10 +2,9 @@
   <div class ="header">
     <div class="headerWords"> Sign In And Begin Annotating!</div>
   </div>
-
+  <div class="login_border">
   <form action="<%= session_url %>" method="post">
     <%= auth_token_input %>
-    <div class="login_border">
     <label class="username">
       Username
       <input class="user_input" type="text" name="user[username]" value="">
@@ -16,11 +15,17 @@
       <input class="password_input" type="password" name="user[password]" value="">
     </label>
       <input class="submit" type="submit" value="Sign In">
-      <p class="text">
-        New User? You Can Sign Up <span class ="link"><%= link_to "Here", new_user_url %></span>
-      </p>
-    </div>
 
   </form>
+  <p class="text">
+    New User? You Can Sign Up <span class ="link"><%= link_to "Here", new_user_url %></span><br>
+    Or You Can Sign in as a Guest
+  </p>
 
+  <form action="<%= session_url %>" method="post">
+    <%= auth_token_input %>
+    <input type="hidden" name="user[username]" value="guest">
+    <input type="hidden" name="user[password]" value="123456">
+    <input type ="submit" value="Guest Sign In">
+  </div>
 </div>

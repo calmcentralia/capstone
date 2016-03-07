@@ -16,6 +16,12 @@ AnnotationStore.__onDispatch = function (payload) {
     case "ANNOTATIONS_RECEIVED":
       resetAnnotations(payload.annotations);
       AnnotationStore.__emitChange();
+      break;
+    case "ANNOTATION_UPDATED":
+      updateAnnotation(payload.annotation);
+      AnnotationStore.__emitChange();
+      break;
+
   }
 };
 
@@ -38,12 +44,13 @@ AnnotationStore.find = function (lineNumber) {
 };
 
 AnnotationStore.findById = function (id) {
+  var annotation = {};
   for (var i = 0; i < _annotations.length; i++) {
     if (_annotations[i].id === id) {
-      return _annotations[i];
+      annotation = _annotations[i];
     }
   }
-  return undefined;
+  return annotation;
 };
 
 var addAnnotation = function(annotation){
@@ -53,5 +60,13 @@ var addAnnotation = function(annotation){
 var resetAnnotations = function(annotations) {
   _annotations = annotations;
 };
+
+var updateAnnotation = function(annotation) {
+  for (var i = 0; i < _annotations.length; i++) {
+    if(_annotations[i].id === annotation.id) {
+      _annotations[i] = annotation;
+      }
+    }
+  };
 
 module.exports = AnnotationStore;

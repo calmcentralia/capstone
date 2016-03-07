@@ -29,9 +29,12 @@ var CommentForm = React.createClass({
 
     return (
 
-      <form onSubmit={this.handleSubmit}>
-      <textarea valueLink={this.linkState('body')} />
-      <input type="text" valueLink={this.linkState('image_url')} />
+      <form className="new-comment" onSubmit={this.handleSubmit}>
+      <label className="labels">Comment</label>
+      <textarea className="comment-input" valueLink={this.linkState('body')} />
+      <label className="labels">Image Url (optional)</label>
+      <input type="text" className="image-input" valueLink={this.linkState('image_url')} />
+      <input type="submit" value="Add Comment"></input>
       </form>
     );
   }

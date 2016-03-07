@@ -18,6 +18,11 @@ class SessionsController < ApplicationController
  end
 
  def destroy
+   if current_user.username == "guest"
+    current_user.annotations.destroy_all
+    current_user.comments.destroy_all
+    current_user.songs.destroy_all
+   end
    sign_out
    redirect_to root_url
  end

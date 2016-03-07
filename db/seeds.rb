@@ -34,5 +34,6 @@ Song.create!([
 ])
 User.create!([
   {username: "admin", password_digest: "$2a$10$6vfDeJozBlW8kb09yOo6duZX4a.MNJUpeltLvKywMv69kO.FitX42", session_token: "lNGmSITI1eA5UJk9clYu4Q"},
-  {username: "muffin", password_digest: "$2a$10$4l6ZNv/nuJeNaIsLc8lrU.zF1FYGSA5wj9RpVa0DnsqVxI9EISsoi", session_token: "5AT2Mx7cToe1VTEMu2a_-Q"}
+  {username: "muffin", password_digest: "$2a$10$4l6ZNv/nuJeNaIsLc8lrU.zF1FYGSA5wj9RpVa0DnsqVxI9EISsoi", session_token: "5AT2Mx7cToe1VTEMu2a_-Q"},
+  {username: "guest", password_digest: "$2a$10$tuvs/zDaSn0ta.MgUyvqxO46EDmVKjtvGkuqIX//BpHLgx9MHUdN2", session_token: "Cp48whbyf_Gfh9hjBjtxkA"}
 ])

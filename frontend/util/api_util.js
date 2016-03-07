@@ -131,6 +131,39 @@ var ApiUtil = {
         callback && callback();
       }
     });
+  },
+
+  editComment: function(data, commentId, callback) {
+    $.ajax({
+      url: "api/comments/" + commentId,
+      method: "PATCH",
+      data: {comment: data},
+      success: function(comment) {
+        CommentActions.updateComment(comment);
+        callback && callback();
+      }
+    });
+  },
+
+  deleteComment: function(commentId) {
+    $.ajax({
+    url: "api/comments/" + commentId,
+    method: "DELETE",
+    success: function(comment) {
+      CommentActions.deleteComment(comment);
+      }
+    });
+  },
+
+  editAnnotation: function(data, annotationId, callback) {
+    $.ajax({
+      url: "api/annotations/" + annotationId,
+      method: "PATCH",
+      data: {annotation: data},
+      success: function(annotation) {
+        AnnotationActions.editAnnotation(annotation);
+      }
+    });
   }
 };
 module.exports = ApiUtil;

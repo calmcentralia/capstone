@@ -31,4 +31,13 @@ class Api::AnnotationsController < ApplicationController
       render json: {errors: "annotation doesn't exist"}, status: 422
     end
   end
+
+  def update
+    @annotation = Annotation.find_by_id(params[:id])
+    if @annotation.update(body: params[:annotation][:body], image_url: params[:annotation][:image_url])
+      render json: @annotation
+    else
+      render json: {errors: @annotation.errors.full_messages}, status: 422
+    end
+  end
 end

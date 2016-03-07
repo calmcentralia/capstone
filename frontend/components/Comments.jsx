@@ -25,12 +25,20 @@ var Comments = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    CommentStore.clear();
     ApiUtil.fetchComments(nextProps.songId, nextProps.annotationId);
+  },
+
+  delete: function(commentId) {
+    ApiUtil.deleteComment(commentId);
+  },
+
+  edit: function(commentId) {
+    hashHistory.push("songs/" + this.props.songId + "/annotations/" + this.props.annotationId + "/comments/" + commentId + "/edit");
   },
 
   render: function() {
 
+    var that = this;
     var commentRows = this.state.comments.map(function(comment, idx) {
       return (
         <li key={idx}>
@@ -39,12 +47,17 @@ var Comments = React.createClass({
           <div className="comment-image">
           <img src={comment.image_url} />
           </div>
+          {comment.is_correct_user ?
+          <div>
+          <button className="edit-annotation" onClick={that.edit.bind(null, comment.id)}>
+            Edit?
+          </button>
+          <button className="delete" onClick={that.delete.bind(null, comment.id)}>
+            Delete?
+          </button> </div>:
+          <div></div>}
         </div>
-        {comment.is_correct_user ?
-        <button className="edit-annotation" onClick={this.edit}>
-          Edit?
-        </button> :
-        <div></div>}
+
         </li>
       );
     });

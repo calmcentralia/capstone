@@ -10,3 +10,4 @@ if current_user
     json.is_correct_user false
   end
 end
+json.logged_in signed_in?

@@ -182,11 +182,10 @@ input[type="submit"], .cancel-button{
   transition: all 0.3s ease 0s;
   border: none;
   margin: 20px auto;
-  font-size: 22px;
+  font-size: 20px;
   color: white;
   background-color: #6441a5;
   width: 200px;
-  font-family: monospace;
 }
 
 input[type="submit"]:active,
@@ -297,7 +296,7 @@ input[type="submit"]:focus,
   white-space: pre-wrap;
   display: inline-block;
   padding-top: 20px;
-  padding-left: 50px;
+  padding-left: 20px;
   width: 100%;
   min-height: 100px;
   color: black;
@@ -306,6 +305,7 @@ input[type="submit"]:focus,
 .lyrics-box{
   position: relative;
   display: inline-block;
+  float: left;
   width: 30%;
   min-height: 100px;
   min-width: 450px;
@@ -526,6 +526,7 @@ input[type="submit"]:focus,
   display: block;
   margin: 0 auto;
   margin-top: 50px;
+  margin-bottom: 30px;
   width: 250px;
   height: 300px;
   resize: none;
@@ -676,6 +677,7 @@ input[type="submit"]:focus,
   display: block;
   margin: 0 auto;
   margin-top: 50px;
+  margin-bottom: 30px;
   width: 250px;
   height: 300px;
   resize: none;
@@ -686,7 +688,7 @@ input[type="submit"]:focus,
 .search-box{
   position: relative;
   height: 50px;
-  width: 30%;
+  width: 100%;
   margin: 2% auto;
   text-align: center;
 
@@ -695,7 +697,7 @@ input[type="submit"]:focus,
 .search-bar{
   display: block;
   height: 100%;
-  width: 100%;
+  width: 30%;
   min-width: 576px;
   background-color: #815fc0;
   border: none;
@@ -731,8 +733,8 @@ input[type="search"]::-webkit-search-cancel-button, {
   z-index: 3;
   background-color: #A6ADED;
   box-shadow: 5px 5px 5px #848ABD;
-  left: 20%;
-  right: 20%;
+  left: 40%;
+  right: 40%;
   text-align: center;
   padding-left: 0px;
   font-size: 20px;
@@ -759,7 +761,7 @@ input[type="search"]::-webkit-search-cancel-button, {
   background-color: #848ABD;
 }
 
-.annotation-body, .comment-body{
+.annotation-body, .comment-body, .new-comment{
   position: relative;
   width: 100%;
   min-height: 200px;
@@ -769,8 +771,12 @@ input[type="search"]::-webkit-search-cancel-button, {
   margin-bottom: 20px;
 }
 
-.comment-body{
+.comment-body, .new-comment{
   background-color:#c7c9e0;
+}
+
+.new-comment{
+  padding-bottom: 20px;
 }
 
 .image, .comment-image{
@@ -817,4 +823,58 @@ img{
 .add-comment:hover{
 cursor: pointer;
 background-color: #8d6ec6;
+}
+
+.delete{
+  display: block;
+  position: absolute;
+  background-color: #ffffc4;
+  margin: 0 auto;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-style: none;
+  border: 1px solid #ededd6;
+  transition: all 0.5s;
+}
+
+.delete:hover{
+  cursor: pointer;
+  border-radius: 0;
+  width: 80px;
+}
+
+.off{
+  display: none;
+}
+
+.edit-annotation-box{
+  float: left;
+}
+
+.comment-input{
+  font-size: 14px;
+  display: block;
+  resize: none;
+  width: 300px;
+  height: 250px;
+  margin: 30px auto;
+}
+
+.image-input{
+  font-size: 14px;
+  display: block;
+  width: 250px;
+  height: 20px;
+  margin: 20px auto;
+}
+
+.labels{
+  display: block;
+  text-align: center;
+  margin: auto;
+  font-size: 20px;
+  font-weight: bold;
 }

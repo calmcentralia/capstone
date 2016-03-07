@@ -23,5 +23,19 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update(body: params[:comment][:body], image_url: params[:comment][:image_url])
+      render json: @comment
+    else
+      render json: {errors: @comment.errors.full_messages}, status: 422
+    end
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    render json: @comment
+  end
 
 end

@@ -36,6 +36,7 @@ var AnnotationForm = React.createClass({
 
         <form className="annotations-form" onSubmit={this.handleSubmit}>
           <textarea className="annotation-input" valueLink={this.linkState('body')}/>
+          <label className="labels">Image Url (optional)</label>
           <input type="text" className="image-input" valueLink={this.linkState('imageUrl')}></input>
           <button className="cancel-button" onClick={this.handleCancel}>x</button>
           <input id="add-annotation" type="submit" value="+"/>
