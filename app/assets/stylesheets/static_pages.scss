@@ -721,7 +721,7 @@ input[type="search"]::-webkit-search-cancel-button, {
 }
 
 .recently-added-box, .recently-annotated-box {
-  display: inline-block;
+  float: left;
   margin: 2%;
   width: 45%;
   min-width: 310px;
