@@ -23,7 +23,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+group :production do
 gem 'rails_12factor'
+gem 'newrelic_rpm'
+end
 gem 'seed_dump'
 
 # Use Unicorn as the app server
