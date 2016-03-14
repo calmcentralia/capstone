@@ -60,7 +60,7 @@ var SearchBar = React.createClass({
     }
     return(
     <div className="search-box">
-      <input className="search-bar" type="search" placeholder="search songs and artists" onChange={this.getResults} onKeyDown={this.goToTopResult}>
+      <input className="search-bar" type="search" placeholder="search song titles" onChange={this.getResults} onKeyDown={this.goToTopResult}>
       </input>
       <ul className={"search-results " + this.state.shouldAppear}>
         {matchLines}
