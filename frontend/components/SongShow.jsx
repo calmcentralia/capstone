@@ -76,7 +76,11 @@ var SongShow = React.createClass( {
       var lines =  this.state.song.lyrics.split("\n").map(function(line, idx) {
         var buttonToggle = "button-off";
         if(that.state.lineClicked === idx){
+          if(that.state.song.logged_in) {
           buttonToggle = "button-on";
+          }
+          else {
+            buttonToggle = "button-logged";
           }
         return (<LyricLineItem handleLineClick={that.handleLineClick.bind(that, idx)}
                                key={idx}

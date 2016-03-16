@@ -6,7 +6,7 @@ var hashHistory = require('react-router').hashHistory;
 
 var LyricLineItem= React.createClass( {
   getInitialState: function() {
-    var buttonState = this.props.loggedIn ? this.props.newAnnotationButton : "button-logged";
+    var buttonState = this.props.newAnnotationButton;
     return{
     isAnnotated: AnnotationStore.doesExist(this.props.lineNumber),
     annotation: AnnotationStore.find(this.props.lineNumber),
@@ -31,7 +31,7 @@ var LyricLineItem= React.createClass( {
       annotation: AnnotationStore.find(nextProps.lineNumber)
     });
     if(!this.state.dontDoIt){
-    this.setState({newAnnotationButton: nextProps.loggedIn ? nextProps.newAnnotationButton : "button-logged"});
+    this.setState({newAnnotationButton: nextProps.newAnnotationButton);
     }
     this.setState({ dontDoIt: false});
   },
