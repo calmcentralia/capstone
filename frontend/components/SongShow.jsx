@@ -82,6 +82,7 @@ var SongShow = React.createClass( {
           else {
             buttonToggle = "button-logged";
           }
+        }
         return (<LyricLineItem handleLineClick={that.handleLineClick.bind(that, idx)}
                                key={idx}
                                newAnnotationButton={buttonToggle}
