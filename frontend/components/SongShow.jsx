@@ -39,8 +39,14 @@ var SongShow = React.createClass( {
     if(AnnotationStore.doesExist(idx)) {
       this.setState({lineClicked: -1});
       hashHistory.push("songs/" + this.props.params.songId + "/annotations/" + AnnotationStore.find(idx).id, {});
-    } else {
-      if(location.hash.split("?")[0] !== ("#/songs/" + this.props.params.songId) ) {
+    }
+
+    else if(!this.state.song.logged_in) {
+      return;
+    }
+
+    else{
+    if(location.hash.split("?")[0] !== ("#/songs/" + this.props.params.songId) {
       hashHistory.push("songs/" + this.props.params.songId);
         }
     this.setState({lineClicked: idx});

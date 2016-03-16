@@ -430,6 +430,21 @@ input[type="submit"]:focus,
   transition: all 0.3s;
 }
 
+.button-logged {
+  z-index: 2;
+  position: absolute;
+  top: -10px;
+  float: right;
+  left: -131px;
+  width: 150px;
+  height: 40px;
+  background-color: #4b307b;
+  color: white;
+  border: none;
+  box-shadow: 5px 5px 5px #c7c5e6;
+  border-radius: 10px;
+}
+
 .button-on:hover {
   background-color: #7852bb;
   cursor: pointer;
