@@ -3,6 +3,7 @@ var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var AnnotationStore = require('../stores/annotation');
 var hashHistory = require('react-router').hashHistory;
+var browserHistory = require('react-router').browserHistory;
 
 var LyricLineItem= React.createClass( {
   getInitialState: function() {
@@ -19,11 +20,17 @@ var LyricLineItem= React.createClass( {
 
   handleButtonClick: function(e) {
     e.preventDefault();
-    this.setState({newAnnotationButton: "button-off", dontDoIt: true});
-    hashHistory.push({
-      pathname: "songs/" + this.props.songId + "/annotations/new",
-       query: {lineNumber: this.props.lineNumber}
-    });
+    if (this.state.newAnnotationButton === "button-logged") {
+      browserHistory.push({
+        pathname: "session/new"
+      });
+    } else{
+      this.setState({newAnnotationButton: "button-off", dontDoIt: true});
+      hashHistory.push({
+        pathname: "songs/" + this.props.songId + "/annotations/new",
+         query: {lineNumber: this.props.lineNumber}
+      });
+    }
   },
 
   componentWillReceiveProps: function(nextProps) {
