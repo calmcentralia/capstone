@@ -13,7 +13,7 @@ class Api::SongsController < ApplicationController
     if signed_in?
       @artist = Artist.find_by(name: params[:song][:artist])
       unless @artist
-        render json: {errors: "Artist must Exist"}, status: 422
+        @artist = Artist.new(name: params[:song][:artist])
       else
         @song = Song.new(lyrics: params[:song][:lyrics], title: params[:song][:title], album_name: params[:song][:album_name], user_id: current_user.id, artist: @artist)
         if @song.save
