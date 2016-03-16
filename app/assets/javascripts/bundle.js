@@ -32974,6 +32974,7 @@
 	var LinkedStateMixin = __webpack_require__(228);
 	var AnnotationStore = __webpack_require__(256);
 	var hashHistory = __webpack_require__(159).hashHistory;
+	var browserHistory = __webpack_require__(159).browserHistory;
 	
 	var LyricLineItem = React.createClass({
 	  displayName: 'LyricLineItem',
@@ -32991,11 +32992,15 @@
 	
 	  handleButtonClick: function (e) {
 	    e.preventDefault();
-	    this.setState({ newAnnotationButton: "button-off", dontDoIt: true });
-	    hashHistory.push({
-	      pathname: "songs/" + this.props.songId + "/annotations/new",
-	      query: { lineNumber: this.props.lineNumber }
-	    });
+	    if (this.state.newAnnotationButton === "button-logged") {
+	      window.location.href = "/session/new";
+	    } else {
+	      this.setState({ newAnnotationButton: "button-off", dontDoIt: true });
+	      hashHistory.push({
+	        pathname: "songs/" + this.props.songId + "/annotations/new",
+	        query: { lineNumber: this.props.lineNumber }
+	      });
+	    }
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {

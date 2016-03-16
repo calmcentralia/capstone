@@ -21,9 +21,7 @@ var LyricLineItem= React.createClass( {
   handleButtonClick: function(e) {
     e.preventDefault();
     if (this.state.newAnnotationButton === "button-logged") {
-      browserHistory.push({
-        pathname: "session/new"
-      });
+      window.location.href= "/session/new";
     } else{
       this.setState({newAnnotationButton: "button-off", dontDoIt: true});
       hashHistory.push({
