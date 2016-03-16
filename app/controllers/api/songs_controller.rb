@@ -14,13 +14,13 @@ class Api::SongsController < ApplicationController
       @artist = Artist.find_by(name: params[:song][:artist])
       unless @artist
         @artist = Artist.new(name: params[:song][:artist])
+        @artist.save
+      end
+      @song = Song.new(lyrics: params[:song][:lyrics], title: params[:song][:title], album_name: params[:song][:album_name], user_id: current_user.id, artist: @artist)
+      if @song.save
+        render :show
       else
-        @song = Song.new(lyrics: params[:song][:lyrics], title: params[:song][:title], album_name: params[:song][:album_name], user_id: current_user.id, artist: @artist)
-        if @song.save
-          render :show
-        else
-          render json: {errors: @song.errors.full_messages}, status: 422
-        end
+        render json: {errors: @song.errors.full_messages}, status: 422
       end
     else
       render json: {errors: "must be logged in"}, status: 422
