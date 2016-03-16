@@ -52,15 +52,15 @@
 	var Route = ReactRouter.Route;
 	var IndexRoute = ReactRouter.IndexRoute;
 	var Splash = __webpack_require__(216);
-	var ArtistForm = __webpack_require__(251);
-	var SongForm = __webpack_require__(254);
-	var SongShow = __webpack_require__(255);
-	var AnnotationShow = __webpack_require__(258);
-	var AnnotationForm = __webpack_require__(261);
-	var EditArtist = __webpack_require__(262);
-	var CommentForm = __webpack_require__(263);
-	var EditComment = __webpack_require__(264);
-	var EditAnnotation = __webpack_require__(265);
+	var ArtistForm = __webpack_require__(217);
+	var SongForm = __webpack_require__(250);
+	var SongShow = __webpack_require__(251);
+	var AnnotationShow = __webpack_require__(252);
+	var AnnotationForm = __webpack_require__(256);
+	var EditArtist = __webpack_require__(257);
+	var CommentForm = __webpack_require__(259);
+	var EditComment = __webpack_require__(260);
+	var EditAnnotation = __webpack_require__(261);
 	var App = React.createClass({
 	  displayName: 'App',
 	
@@ -24772,11 +24772,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var SongStore = __webpack_require__(232);
-	var SearchBar = __webpack_require__(248);
+	var SongStore = __webpack_require__(258);
+	var SearchBar = __webpack_require__(263);
 	
 	var Splash = React.createClass({
 	  displayName: 'Splash',
@@ -24888,11 +24888,110 @@
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArtistActions = __webpack_require__(218);
-	var SongActions = __webpack_require__(224);
-	var AnnotationActions = __webpack_require__(225);
-	var CommentActions = __webpack_require__(226);
-	var ErrorActions = __webpack_require__(227);
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var ArtistStore = __webpack_require__(233);
+	var ErrorStore = __webpack_require__(249);
+	
+	var ArtistForm = React.createClass({
+	  displayName: 'ArtistForm',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      name: "",
+	      description: "",
+	      errors: ErrorStore.all()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.errorToken = ErrorStore.addListener(this._onError);
+	    ErrorStore.clear();
+	  },
+	
+	  _onError: function () {
+	    this.setState({ errors: ErrorStore.all() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.errorToken.remove();
+	  },
+	
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	    var artist = { name: this.state.name, decription: this.state.description };
+	    var that = this;
+	    ApiUtil.createArtist(artist, function () {
+	      hashHistory.push({
+	        pathname: '/songs/new',
+	        query: { name: that.state.name }
+	      });
+	    });
+	  },
+	
+	  render: function () {
+	    var errors = this.state.errors.map(function (error, idx) {
+	      return React.createElement(
+	        'div',
+	        { key: idx },
+	        ' ',
+	        error,
+	        ' '
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'form-header' },
+	        'Create an Artist!'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'form-box' },
+	        React.createElement(
+	          'div',
+	          { className: 'song-errors' },
+	          errors
+	        ),
+	        React.createElement(
+	          'form',
+	          { className: 'form', onSubmit: this.handleSubmit },
+	          React.createElement(
+	            'label',
+	            { className: 'artist-name-label' },
+	            'Name',
+	            React.createElement('input', { className: 'artist-name-input', type: 'text', valueLink: this.linkState('name') })
+	          ),
+	          React.createElement(
+	            'label',
+	            { className: 'artist-description-label' },
+	            'About the Artist',
+	            React.createElement('textarea', { className: 'artist-description-input', valueLink: this.linkState('description') }),
+	            React.createElement('input', { type: 'submit', value: 'Create Artist!', className: 'artist-submit' })
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = ArtistForm;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ArtistActions = __webpack_require__(219);
+	var SongActions = __webpack_require__(225);
+	var AnnotationActions = __webpack_require__(226);
+	var CommentActions = __webpack_require__(227);
+	var ErrorActions = __webpack_require__(228);
 	var ApiUtil = {
 	  createArtist: function (data, callback) {
 	    $.ajax({
@@ -25059,12 +25158,12 @@
 	module.exports = ApiUtil;
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	var AppDispatcher = __webpack_require__(219);
-	var ArtistConstants = __webpack_require__(223);
+	var AppDispatcher = __webpack_require__(220);
+	var ArtistConstants = __webpack_require__(224);
 	
 	var ArtistActions = {
 	  error: function () {
@@ -25083,14 +25182,14 @@
 	module.exports = ArtistActions;
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Dispatcher = __webpack_require__(220).Dispatcher;
+	var Dispatcher = __webpack_require__(221).Dispatcher;
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25102,11 +25201,11 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Dispatcher = __webpack_require__(221);
+	module.exports.Dispatcher = __webpack_require__(222);
 
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25128,7 +25227,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(222);
+	var invariant = __webpack_require__(223);
 	
 	var _prefix = 'ID_';
 	
@@ -25343,7 +25442,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25398,7 +25497,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports) {
 
 	var ArtistConstants = {
@@ -25408,10 +25507,10 @@
 	module.exports = ArtistConstants;
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AppDispatcher = __webpack_require__(219);
+	var AppDispatcher = __webpack_require__(220);
 	
 	var SongActions = {
 	  receiveOne: function (song) {
@@ -25446,10 +25545,10 @@
 	module.exports = SongActions;
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AppDispatcher = __webpack_require__(219);
+	var AppDispatcher = __webpack_require__(220);
 	
 	var AnnotationActions = {
 	  receiveOne: function (annotation) {
@@ -25477,10 +25576,10 @@
 	module.exports = AnnotationActions;
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AppDispatcher = __webpack_require__(219);
+	var AppDispatcher = __webpack_require__(220);
 	
 	var CommentActions = {
 	  receiveAll: function (comments) {
@@ -25515,10 +25614,10 @@
 	module.exports = CommentActions;
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AppDispatcher = __webpack_require__(219);
+	var AppDispatcher = __webpack_require__(220);
 	
 	var ErrorActions = {
 	  receiveSongErrors: function (songErrors) {
@@ -25539,13 +25638,13 @@
 	module.exports = ErrorActions;
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(229);
+	module.exports = __webpack_require__(230);
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25562,8 +25661,8 @@
 	
 	'use strict';
 	
-	var ReactLink = __webpack_require__(230);
-	var ReactStateSetters = __webpack_require__(231);
+	var ReactLink = __webpack_require__(231);
+	var ReactStateSetters = __webpack_require__(232);
 	
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -25586,7 +25685,7 @@
 	module.exports = LinkedStateMixin;
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25660,7 +25759,7 @@
 	module.exports = ReactLink;
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports) {
 
 	/**
@@ -25769,69 +25868,42 @@
 	module.exports = ReactStateSetters;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(233).Store;
-	var AppDispatcher = __webpack_require__(219);
-	var SongStore = new Store(AppDispatcher);
-	var _songs = [];
+	var Store = __webpack_require__(234).Store;
+	var ArtistConstants = __webpack_require__(224);
+	var AppDispatcher = __webpack_require__(220);
+	var ArtistStore = new Store(AppDispatcher);
+	var _artists = [];
 	
-	SongStore.__onDispatch = function (payload) {
+	var resetArtists = function (artists) {
+	  _artists = artists.slice();
+	};
+	
+	var addArtist = function (artist) {
+	  _artists.push(artist);
+	};
+	
+	ArtistStore.all = function () {
+	  return _artists.slice();
+	};
+	
+	ArtistStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
-	    case "SONG RECEIVED":
-	      SongStore.__emitChange();
-	      addSong(payload.song);
+	    case ArtistConstants.ARTIST_RECEIVED:
+	      addArtist(payload.artist);
 	      break;
-	    case "SONGS RECEIVED":
-	      resetSongs(payload.songs);
-	      SongStore.__emitChange();
+	    case "error":
+	      ArtistStore.__emitChange();
 	      break;
-	    case "UPDATE_ARTIST":
-	      updateArtist(payload.artist, payload.songId);
-	      SongStore.__emitChange();
 	  }
 	};
 	
-	var addSong = function (song) {
-	  _songs = [song];
-	};
-	
-	var resetSongs = function (songs) {
-	
-	  var temp = [];
-	  temp.push(songs.recently_added);
-	  temp.push(songs.recently_annotated);
-	  _songs = temp;
-	};
-	
-	var updateArtist = function (artist, songId) {
-	  for (var i = 0; i < _songs.length; i++) {
-	    if (_songs[i].id === parseInt(songId)) {
-	
-	      _songs[i].description = artist.decription;
-	    }
-	  }
-	};
-	SongStore.all = function () {
-	  return _songs.slice();
-	};
-	
-	SongStore.find = function (id) {
-	  var song = {};
-	
-	  for (var i = 0; i < _songs.length; i++) {
-	    if (_songs[i].id === parseInt(id)) {
-	      song = _songs[i];
-	    }
-	  }
-	  return song;
-	};
-	
-	module.exports = SongStore;
+	module.exports = ArtistStore;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25843,15 +25915,15 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Container = __webpack_require__(234);
-	module.exports.MapStore = __webpack_require__(237);
-	module.exports.Mixin = __webpack_require__(247);
-	module.exports.ReduceStore = __webpack_require__(238);
-	module.exports.Store = __webpack_require__(239);
+	module.exports.Container = __webpack_require__(235);
+	module.exports.MapStore = __webpack_require__(238);
+	module.exports.Mixin = __webpack_require__(248);
+	module.exports.ReduceStore = __webpack_require__(239);
+	module.exports.Store = __webpack_require__(240);
 
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25873,10 +25945,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStoreGroup = __webpack_require__(235);
+	var FluxStoreGroup = __webpack_require__(236);
 	
-	var invariant = __webpack_require__(222);
-	var shallowEqual = __webpack_require__(236);
+	var invariant = __webpack_require__(223);
+	var shallowEqual = __webpack_require__(237);
 	
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -26034,7 +26106,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26053,7 +26125,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(222);
+	var invariant = __webpack_require__(223);
 	
 	/**
 	 * FluxStoreGroup allows you to execute a callback on every dispatch after
@@ -26115,7 +26187,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports) {
 
 	/**
@@ -26170,7 +26242,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26191,10 +26263,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxReduceStore = __webpack_require__(238);
-	var Immutable = __webpack_require__(246);
+	var FluxReduceStore = __webpack_require__(239);
+	var Immutable = __webpack_require__(247);
 	
-	var invariant = __webpack_require__(222);
+	var invariant = __webpack_require__(223);
 	
 	/**
 	 * This is a simple store. It allows caching key value pairs. An implementation
@@ -26320,7 +26392,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26341,10 +26413,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStore = __webpack_require__(239);
+	var FluxStore = __webpack_require__(240);
 	
-	var abstractMethod = __webpack_require__(245);
-	var invariant = __webpack_require__(222);
+	var abstractMethod = __webpack_require__(246);
+	var invariant = __webpack_require__(223);
 	
 	var FluxReduceStore = (function (_FluxStore) {
 	  _inherits(FluxReduceStore, _FluxStore);
@@ -26427,7 +26499,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26446,11 +26518,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _require = __webpack_require__(240);
+	var _require = __webpack_require__(241);
 	
 	var EventEmitter = _require.EventEmitter;
 	
-	var invariant = __webpack_require__(222);
+	var invariant = __webpack_require__(223);
 	
 	/**
 	 * This class should be extended by the stores in your application, like so:
@@ -26610,7 +26682,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26623,14 +26695,14 @@
 	 */
 	
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(241)
+	  EventEmitter: __webpack_require__(242)
 	};
 	
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26649,8 +26721,8 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var EmitterSubscription = __webpack_require__(242);
-	var EventSubscriptionVendor = __webpack_require__(244);
+	var EmitterSubscription = __webpack_require__(243);
+	var EventSubscriptionVendor = __webpack_require__(245);
 	
 	var emptyFunction = __webpack_require__(15);
 	var invariant = __webpack_require__(13);
@@ -26827,7 +26899,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26848,7 +26920,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventSubscription = __webpack_require__(243);
+	var EventSubscription = __webpack_require__(244);
 	
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -26880,7 +26952,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports) {
 
 	/**
@@ -26934,7 +27006,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -27043,7 +27115,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -27060,7 +27132,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(222);
+	var invariant = __webpack_require__(223);
 	
 	function abstractMethod(className, methodName) {
 	   true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Subclasses of %s must override %s() with their own implementation.', className, methodName) : invariant(false) : undefined;
@@ -27070,7 +27142,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -32057,7 +32129,7 @@
 	}));
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -32074,9 +32146,9 @@
 	
 	'use strict';
 	
-	var FluxStoreGroup = __webpack_require__(235);
+	var FluxStoreGroup = __webpack_require__(236);
 	
-	var invariant = __webpack_require__(222);
+	var invariant = __webpack_require__(223);
 	
 	/**
 	 * `FluxContainer` should be preferred over this mixin, but it requires using
@@ -32180,15 +32252,1095 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 248 */
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(234).Store;
+	var AppDispatcher = __webpack_require__(220);
+	var ErrorStore = new Store(AppDispatcher);
+	var _errors = [];
+	
+	ErrorStore.clear = function () {
+	  _errors = [];
+	};
+	
+	ErrorStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "SONG ERRORS":
+	      resetErrors(payload.errors);
+	      ErrorStore.__emitChange();
+	    case "ARTIST ERRORS":
+	      resetErrors(payload.errors);
+	      ErrorStore.__emitChange();
+	
+	  }
+	};
+	
+	ErrorStore.all = function () {
+	  return _errors.slice();
+	};
+	
+	var resetErrors = function (errors) {
+	  if (!(errors instanceof Array)) {
+	    _errors = [errors];
+	  } else {
+	
+	    _errors = errors;
+	  }
+	};
+	
+	module.exports = ErrorStore;
+
+/***/ },
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var SearchStore = __webpack_require__(249);
-	var fuzzy = __webpack_require__(250);
+	var ErrorStore = __webpack_require__(249);
+	
+	var SongForm = React.createClass({
+	  displayName: 'SongForm',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      artist: this.props.location.query.name,
+	      title: "",
+	      lyrics: "",
+	      albumName: "",
+	      errors: ErrorStore.all()
+	    };
+	  },
+	
+	  _onError: function () {
+	    this.setState({ errors: ErrorStore.all() });
+	  },
+	
+	  componentDidMount: function () {
+	    this.errorToken = ErrorStore.addListener(this._onError);
+	    ErrorStore.clear();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.errorToken.remove();
+	  },
+	
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	    var song = { artist: this.state.artist, title: this.state.title, lyrics: this.state.lyrics, album_name: this.state.albumName };
+	    var that = this;
+	    ApiUtil.createSong(song, function (id) {
+	      hashHistory.push({
+	        pathname: "/songs/" + id
+	      });
+	    });
+	  },
+	
+	  render: function () {
+	    var errors = this.state.errors.map(function (error, idx) {
+	      return React.createElement(
+	        'div',
+	        { key: idx },
+	        ' ',
+	        error,
+	        ' '
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'form-header' },
+	        'Add a Song!'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'song-box' },
+	        React.createElement(
+	          'div',
+	          { className: 'song-errors' },
+	          errors
+	        ),
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.handleSubmit },
+	          React.createElement(
+	            'label',
+	            { className: 'artist-name-label' },
+	            'Artist',
+	            React.createElement('input', { className: 'artist-name-input', type: 'text', valueLink: this.linkState('artist') })
+	          ),
+	          React.createElement(
+	            'label',
+	            { className: 'song-label' },
+	            'Song Title',
+	            React.createElement('input', { className: 'song-input', type: 'text', valueLink: this.linkState('title') })
+	          ),
+	          React.createElement(
+	            'label',
+	            { className: 'album-label' },
+	            'Album Name',
+	            React.createElement('input', { type: 'text', className: 'album-input', valueLink: this.linkState('albumName') })
+	          ),
+	          React.createElement(
+	            'label',
+	            { className: 'lyrics-label' },
+	            'Lyrics',
+	            React.createElement('textarea', { className: 'lyrics-input', valueLink: this.linkState('lyrics') }),
+	            React.createElement('input', { type: 'submit', value: 'Add Song!' })
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = SongForm;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var SongStore = __webpack_require__(258);
+	var AnnotationStore = __webpack_require__(253);
+	var LyricLineItem = __webpack_require__(262);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var SongShow = React.createClass({
+	  displayName: 'SongShow',
+	
+	  getInitialState: function () {
+	    return {
+	      song: SongStore.find(this.props.params.songId),
+	      lineClicked: -1,
+	      annotations: AnnotationStore.all()
+	    };
+	  },
+	
+	  _songOnChange: function () {
+	    this.setState({ song: SongStore.find(this.props.params.songId) });
+	  },
+	  _annotationOnChange: function () {
+	    this.setState({ annotations: AnnotationStore.all() });
+	  },
+	
+	  componentDidMount: function () {
+	    ApiUtil.fetchSong(this.props.params.songId);
+	    ApiUtil.fetchAnnotations(this.props.params.songId);
+	    this.songToken = SongStore.addListener(this._songOnChange);
+	    this.annotationToken = AnnotationStore.addListener(this._annotationOnChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.songToken.remove();
+	    this.annotationToken.remove();
+	  },
+	
+	  handleLineClick: function (idx, e) {
+	    e.stopPropagation();
+	    if (AnnotationStore.doesExist(idx)) {
+	      this.setState({ lineClicked: -1 });
+	      hashHistory.push("songs/" + this.props.params.songId + "/annotations/" + AnnotationStore.find(idx).id, {});
+	    } else if (!this.state.song.logged_in) {
+	      return;
+	    } else {
+	      if (location.hash.split("?")[0] !== "#/songs/" + this.props.params.songId) {
+	        hashHistory.push("songs/" + this.props.params.songId);
+	      }
+	      this.setState({ lineClicked: idx });
+	    }
+	  },
+	
+	  cancelClick: function (e) {
+	
+	    // if([].slice.call(e.target.classList,0).indexOf("song-line") === -1){
+	    this.setState({ lineClicked: -1 });
+	    // }
+	  },
+	
+	  editArtistDescription: function () {
+	    hashHistory.push("songs/" + this.props.params.songId + "/artists/" + this.state.song.artist_id);
+	  },
+	
+	  componentWillReceiveProps: function (newProps) {
+	    this.setState({ annotations: AnnotationStore.all() });
+	    this.setState({ song: SongStore.find(newProps.params.songId) });
+	  },
+	
+	  render: function () {
+	    var that = this;
+	    if (this.state.song.lyrics !== undefined) {
+	      var lines = this.state.song.lyrics.split("\n").map(function (line, idx) {
+	        var buttonToggle = "button-off";
+	        if (that.state.lineClicked === idx) {
+	          buttonToggle = "button-on";
+	        }
+	        return React.createElement(LyricLineItem, { handleLineClick: that.handleLineClick.bind(that, idx),
+	          key: idx,
+	          newAnnotationButton: buttonToggle,
+	          line: line,
+	          lineNumber: idx,
+	          annotations: that.state.annotations,
+	          songId: that.props.params.songId,
+	          isAnnotated: AnnotationStore.doesExist(idx),
+	          loggedIn: that.state.song.logged_in });
+	      });
+	
+	      var renderSelect = location.hash.split("?")[0] === "#/songs/" + this.props.params.songId ? React.createElement(
+	        'div',
+	        { className: 'about-the-artist-box' },
+	        React.createElement(
+	          'header',
+	          { className: 'about-the-artist' },
+	          'About the Artist'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'artist-description' },
+	          this.state.song.description
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'edit', type: 'button', onClick: this.editArtistDescription },
+	          'Edit?'
+	        ),
+	        ' '
+	      ) : this.props.children;
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'song-show', onClick: this.cancelClick },
+	      React.createElement(
+	        'div',
+	        { className: 'lyrics-box' },
+	        React.createElement(
+	          'header',
+	          { className: 'song-header' },
+	          this.state.song.title,
+	          ' ',
+	          React.createElement(
+	            'span',
+	            { className: 'break' },
+	            ' '
+	          ),
+	          ' ',
+	          this.state.song.artist
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'song-lyrics' },
+	          lines
+	        )
+	      ),
+	      renderSelect
+	    );
+	  }
+	});
+	
+	module.exports = SongShow;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var AnnotationStore = __webpack_require__(253);
+	var Comments = __webpack_require__(254);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	var AnnotationShow = React.createClass({
+	  displayName: 'AnnotationShow',
+	
+	  getInitialState: function () {
+	    return {
+	      annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId)),
+	      onOff: "on"
+	    };
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    this.setState({ annotation: AnnotationStore.findById(parseInt(nextProps.params.annotationId)) });
+	    if (location.hash.split("?")[0] === "#/songs/" + nextProps.params.songId + "/annotations/" + nextProps.params.annotationId) {
+	      this.setState({ onOff: this.state.annotation.logged_in ? "on" : "off" });
+	    }
+	  },
+	
+	  componentDidMount: function () {
+	    if (this.state.annotation === undefined) {
+	      ApiUtil.fetchAnnotation(this.props.params.songId, this.props.params.annotationId);
+	    } else {
+	      this.setState({ onOff: this.state.annotation.logged_in ? "on" : "off" });
+	    }
+	
+	    this.annotationToken = AnnotationStore.addListener(this._onChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.annotationToken.remove();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId)),
+	      onOff: this.state.annotation.logged_in ? "on" : "off" });
+	  },
+	  addComment: function () {
+	    this.setState({ onOff: "off" });
+	    hashHistory.push("/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId + "/comments/new");
+	  },
+	
+	  edit: function () {
+	    hashHistory.push("/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId + "/edit");
+	  },
+	
+	  render: function () {
+	    if (this.state.annotation === undefined) {
+	      return React.createElement('div', null);
+	    } else if (location.hash.split("?")[0] !== "#/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId && location.hash.split("?")[0] !== "#/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId + "/comments/new") {
+	      return React.createElement(
+	        'div',
+	        null,
+	        this.props.children
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'annotation-box' },
+	        React.createElement(
+	          'div',
+	          { className: 'created-by' },
+	          this.state.annotation.username
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'annotation-body' },
+	          this.state.annotation.body,
+	          React.createElement(
+	            'div',
+	            { className: 'image' },
+	            React.createElement('img', { src: this.state.annotation.image_url })
+	          ),
+	          this.state.annotation.is_correct_user ? React.createElement(
+	            'button',
+	            { className: 'edit-annotation', onClick: this.edit },
+	            'Edit?'
+	          ) : React.createElement('div', null)
+	        ),
+	        React.createElement(Comments, { correctUser: this.state.is_correct_user, songId: this.props.params.songId, annotationId: this.props.params.annotationId }),
+	        React.createElement(
+	          'button',
+	          { className: "add-comment " + this.state.onOff, onClick: this.addComment },
+	          'Add Comment?'
+	        ),
+	        this.props.children
+	      );
+	    }
+	  }
+	});
+	
+	module.exports = AnnotationShow;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(234).Store;
+	var AppDispatcher = __webpack_require__(220);
+	var AnnotationStore = new Store(AppDispatcher);
+	var _annotations = [];
+	
+	AnnotationStore.all = function () {
+	  return _annotations.slice();
+	};
+	
+	AnnotationStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "ANNOTATION_RECEIVED":
+	      addAnnotation(payload.annotation);
+	      AnnotationStore.__emitChange();
+	      break;
+	    case "ANNOTATIONS_RECEIVED":
+	      resetAnnotations(payload.annotations);
+	      AnnotationStore.__emitChange();
+	      break;
+	    case "ANNOTATION_UPDATED":
+	      updateAnnotation(payload.annotation);
+	      AnnotationStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	
+	AnnotationStore.doesExist = function (lineNumber) {
+	  for (var i = 0; i < _annotations.length; i++) {
+	    if (_annotations[i].line_number === lineNumber) {
+	      return true;
+	    }
+	  }
+	  return false;
+	};
+	
+	AnnotationStore.find = function (lineNumber) {
+	  for (var i = 0; i < _annotations.length; i++) {
+	    if (_annotations[i].line_number === lineNumber) {
+	      return _annotations[i];
+	    }
+	  }
+	  return undefined;
+	};
+	
+	AnnotationStore.findById = function (id) {
+	  var annotation = {};
+	  for (var i = 0; i < _annotations.length; i++) {
+	    if (_annotations[i].id === id) {
+	      annotation = _annotations[i];
+	    }
+	  }
+	  return annotation;
+	};
+	
+	var addAnnotation = function (annotation) {
+	  _annotations.push(annotation);
+	};
+	
+	var resetAnnotations = function (annotations) {
+	  _annotations = annotations;
+	};
+	
+	var updateAnnotation = function (annotation) {
+	  for (var i = 0; i < _annotations.length; i++) {
+	    if (_annotations[i].id === annotation.id) {
+	      _annotations[i] = annotation;
+	    }
+	  }
+	};
+	
+	module.exports = AnnotationStore;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var CommentStore = __webpack_require__(255);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	var Comments = React.createClass({
+	  displayName: 'Comments',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      comments: CommentStore.all()
+	    };
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ comments: CommentStore.all() });
+	  },
+	
+	  componentDidMount: function () {
+	    ApiUtil.fetchComments(this.props.songId, this.props.annotationId);
+	    this.commentTokens = CommentStore.addListener(this._onChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.commentTokens.remove();
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    ApiUtil.fetchComments(nextProps.songId, nextProps.annotationId);
+	  },
+	
+	  delete: function (commentId) {
+	    ApiUtil.deleteComment(commentId);
+	  },
+	
+	  edit: function (commentId) {
+	    hashHistory.push("songs/" + this.props.songId + "/annotations/" + this.props.annotationId + "/comments/" + commentId + "/edit");
+	  },
+	
+	  render: function () {
+	
+	    var that = this;
+	    var commentRows = this.state.comments.map(function (comment, idx) {
+	      return React.createElement(
+	        'li',
+	        { key: idx },
+	        React.createElement(
+	          'div',
+	          { className: 'comment-username' },
+	          comment.username
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'comment-body' },
+	          comment.body,
+	          React.createElement(
+	            'div',
+	            { className: 'comment-image' },
+	            React.createElement('img', { src: comment.image_url })
+	          ),
+	          comment.is_correct_user ? React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'button',
+	              { className: 'edit-annotation', onClick: that.edit.bind(null, comment.id) },
+	              'Edit?'
+	            ),
+	            React.createElement(
+	              'button',
+	              { className: 'delete', onClick: that.delete.bind(null, comment.id) },
+	              'Delete?'
+	            ),
+	            ' '
+	          ) : React.createElement('div', null)
+	        )
+	      );
+	    });
+	    return React.createElement(
+	      'ul',
+	      { className: 'comment-list' },
+	      commentRows
+	    );
+	  }
+	});
+	
+	module.exports = Comments;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(234).Store;
+	var AppDispatcher = __webpack_require__(220);
+	var CommentStore = new Store(AppDispatcher);
+	var _comments = [];
+	
+	CommentStore.all = function () {
+	  return _comments.slice();
+	};
+	
+	CommentStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "COMMENTS_RECEIVED":
+	      resetComments(payload.comments);
+	      CommentStore.__emitChange();
+	      break;
+	    case "COMMENT_RECEIVED":
+	      addComment(payload.comment);
+	      CommentStore.__emitChange();
+	      break;
+	    case "COMMENT_UPDATED":
+	      updateComment(payload.comment);
+	      CommentStore.__emitChange();
+	      break;
+	    case "COMMENT_DELETED":
+	      deleteComment(payload.comment);
+	      CommentStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	CommentStore.clear = function () {
+	  _comments = [];
+	};
+	
+	CommentStore.find = function (id) {
+	  var comment = {};
+	  for (var i = 0; i < _comments.length; i++) {
+	    if (_comments[i].id === parseInt(id)) {
+	      comment = _comments[i];
+	    }
+	  }
+	  return comment;
+	};
+	
+	var addComment = function (comment) {
+	  _comments.push(comment);
+	};
+	
+	var resetComments = function (comments) {
+	
+	  _comments = comments;
+	};
+	
+	var updateComment = function (comment) {
+	  for (var i = 0; i < _comments.length; i++) {
+	    if (_comments[i].id === comment.id) {
+	      _comments[i] = comment;
+	    }
+	  }
+	};
+	
+	var deleteComment = function (comment) {
+	  for (var i = 0; i < _comments.length; i++) {
+	    if (_comments[i].id === comment.id) {
+	      _comments.splice(i, 1);
+	      break;
+	    }
+	  }
+	};
+	
+	module.exports = CommentStore;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	var AnnotationForm = React.createClass({
+	  displayName: 'AnnotationForm',
+	
+	  mixins: [LinkedStateMixin],
+	  getInitialState: function () {
+	    return { body: "", imageUrl: "" };
+	  },
+	
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	    var annotation = { body: this.state.body, song_id: this.props.params.songId, line_number: this.props.location.query.lineNumber, image_url: this.state.imageUrl };
+	    var that = this;
+	    ApiUtil.createAnnotation(annotation, function () {
+	      hashHistory.push({
+	        pathname: "/songs/" + that.props.params.songId
+	      });
+	    });
+	  },
+	
+	  handleCancel: function (e) {
+	    e.preventDefault();
+	    hashHistory.push({
+	      pathname: "/songs/" + this.props.params.songId
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'annotations-form-box' },
+	      React.createElement(
+	        'div',
+	        { className: 'annotation-header' },
+	        'What Does it Mean?'
+	      ),
+	      React.createElement(
+	        'form',
+	        { className: 'annotations-form', onSubmit: this.handleSubmit },
+	        React.createElement('textarea', { className: 'annotation-input', valueLink: this.linkState('body') }),
+	        React.createElement(
+	          'label',
+	          { className: 'labels' },
+	          'Image Url (optional)'
+	        ),
+	        React.createElement('input', { type: 'text', className: 'image-input', valueLink: this.linkState('imageUrl') }),
+	        React.createElement(
+	          'button',
+	          { className: 'cancel-button', onClick: this.handleCancel },
+	          'x'
+	        ),
+	        React.createElement('input', { id: 'add-annotation', type: 'submit', value: '+' })
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = AnnotationForm;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var SongStore = __webpack_require__(258);
+	var EditArtist = React.createClass({
+	  displayName: 'EditArtist',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      description: SongStore.find(this.props.params.songId).description
+	    };
+	  },
+	
+	  handleSubmit: function () {
+	    var that = this;
+	    ApiUtil.editArtist(this.props.params.songId, this.props.params.artistId, this.state.description, function () {
+	      hashHistory.push("songs/" + that.props.params.songId);
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'edit-artist-box' },
+	      React.createElement(
+	        'div',
+	        { className: 'edit-header' },
+	        'Edit Description'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('textarea', { className: 'edit-artist', valueLink: this.linkState('description') }),
+	        React.createElement('input', { type: 'submit', value: 'confirm changes' })
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = EditArtist;
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(234).Store;
+	var AppDispatcher = __webpack_require__(220);
+	var SongStore = new Store(AppDispatcher);
+	var _songs = [];
+	
+	SongStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "SONG RECEIVED":
+	      SongStore.__emitChange();
+	      addSong(payload.song);
+	      break;
+	    case "SONGS RECEIVED":
+	      resetSongs(payload.songs);
+	      SongStore.__emitChange();
+	      break;
+	    case "UPDATE_ARTIST":
+	      updateArtist(payload.artist, payload.songId);
+	      SongStore.__emitChange();
+	  }
+	};
+	
+	var addSong = function (song) {
+	  _songs = [song];
+	};
+	
+	var resetSongs = function (songs) {
+	
+	  var temp = [];
+	  temp.push(songs.recently_added);
+	  temp.push(songs.recently_annotated);
+	  _songs = temp;
+	};
+	
+	var updateArtist = function (artist, songId) {
+	  for (var i = 0; i < _songs.length; i++) {
+	    if (_songs[i].id === parseInt(songId)) {
+	
+	      _songs[i].description = artist.decription;
+	    }
+	  }
+	};
+	SongStore.all = function () {
+	  return _songs.slice();
+	};
+	
+	SongStore.find = function (id) {
+	  var song = {};
+	
+	  for (var i = 0; i < _songs.length; i++) {
+	    if (_songs[i].id === parseInt(id)) {
+	      song = _songs[i];
+	    }
+	  }
+	  return song;
+	};
+	
+	module.exports = SongStore;
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	var CommentForm = React.createClass({
+	  displayName: 'CommentForm',
+	
+	  mixins: [LinkedStateMixin],
+	  getInitialState: function () {
+	    return {
+	      body: "",
+	      image_url: ""
+	    };
+	  },
+	
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	    var comment = {
+	      image_url: this.state.image_url,
+	      body: this.state.body,
+	      annotation_id: this.props.params.annotationId
+	    };
+	    var that = this;
+	    ApiUtil.createComment(comment, this.props.params.songId, function () {
+	      hashHistory.push("/songs/" + that.props.params.songId + "/annotations/" + that.props.params.annotationId);
+	    });
+	  },
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'form',
+	      { className: 'new-comment', onSubmit: this.handleSubmit },
+	      React.createElement(
+	        'label',
+	        { className: 'labels' },
+	        'Comment'
+	      ),
+	      React.createElement('textarea', { className: 'comment-input', valueLink: this.linkState('body') }),
+	      React.createElement(
+	        'label',
+	        { className: 'labels' },
+	        'Image Url (optional)'
+	      ),
+	      React.createElement('input', { type: 'text', className: 'image-input', valueLink: this.linkState('image_url') }),
+	      React.createElement('input', { type: 'submit', value: 'Add Comment' })
+	    );
+	  }
+	
+	});
+	
+	module.exports = CommentForm;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var CommentStore = __webpack_require__(255);
+	
+	var EditComment = React.createClass({
+	  displayName: 'EditComment',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    var comment = CommentStore.find(this.props.params.commentId);
+	    return {
+	      body: comment.body,
+	      image_url: comment.image_url
+	    };
+	  },
+	
+	  handleSubmit: function () {
+	    var comment = {
+	      body: this.state.body,
+	      image_url: this.state.image_url
+	    };
+	    var that = this;
+	    ApiUtil.editComment(comment, this.props.params.commentId, function () {
+	      hashHistory.push("songs/" + that.props.params.songId + "/annotations/" + that.props.params.annotationId);
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'edit-artist-box' },
+	      React.createElement(
+	        'div',
+	        { className: 'edit-header' },
+	        'Edit Comment'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('textarea', { className: 'edit-artist', valueLink: this.linkState('body') }),
+	        React.createElement(
+	          'label',
+	          { className: 'labels' },
+	          'Image Url (optional)'
+	        ),
+	        React.createElement('input', { className: 'image-input', type: 'text', valueLink: this.linkState('image_url') }),
+	        React.createElement('input', { type: 'submit', value: 'confirm changes' })
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = EditComment;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var AnnotationStore = __webpack_require__(253);
+	
+	var EditAnnotation = React.createClass({
+	  displayName: 'EditAnnotation',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    var annotation = AnnotationStore.findById(parseInt(this.props.params.annotationId));
+	    return {
+	      body: annotation.body,
+	      image_url: annotation.image_url
+	    };
+	  },
+	
+	  handleSubmit: function () {
+	    var annotation = {
+	      body: this.state.body,
+	      image_url: this.state.image_url
+	    };
+	    var that = this;
+	    ApiUtil.editAnnotation(annotation, this.props.params.annotationId, function () {
+	      hashHistory.push("songs/" + that.props.params.songId + "/annotations/" + that.props.params.annotationId);
+	    });
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ body: this.state.body, image_url: this.state.image_url });
+	  },
+	
+	  componentDidMount: function () {
+	    this.annotationToken = AnnotationStore.addListener(this._onChange);
+	    ApiUtil.fetchAnnotation(this.props.params.songId, this.props.params.annotationId);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.annotationToken.remove();
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'edit-artist-box' },
+	      React.createElement(
+	        'div',
+	        { className: 'edit-header' },
+	        'Edit Annotation'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('textarea', { className: 'edit-artist', valueLink: this.linkState('body') }),
+	        React.createElement(
+	          'label',
+	          { className: 'labels' },
+	          'Image Url (optional)'
+	        ),
+	        React.createElement('input', { className: 'image-input', type: 'text', valueLink: this.linkState('image_url') }),
+	        React.createElement('input', { type: 'submit', value: 'confirm changes' })
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = EditAnnotation;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var AnnotationStore = __webpack_require__(253);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	var LyricLineItem = React.createClass({
+	  displayName: 'LyricLineItem',
+	
+	  getInitialState: function () {
+	    var buttonState = this.props.loggedIn ? this.props.newAnnotationButton : "button-logged";
+	    return {
+	      isAnnotated: AnnotationStore.doesExist(this.props.lineNumber),
+	      annotation: AnnotationStore.find(this.props.lineNumber),
+	      newAnnotationButton: buttonState,
+	      dontDoIt: false
+	
+	    };
+	  },
+	
+	  handleButtonClick: function (e) {
+	    e.preventDefault();
+	    this.setState({ newAnnotationButton: "button-off", dontDoIt: true });
+	    hashHistory.push({
+	      pathname: "songs/" + this.props.songId + "/annotations/new",
+	      query: { lineNumber: this.props.lineNumber }
+	    });
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    this.setState({ isAnnotated: AnnotationStore.doesExist(nextProps.lineNumber),
+	      annotation: AnnotationStore.find(nextProps.lineNumber)
+	    });
+	    if (!this.state.dontDoIt) {
+	      this.setState({ newAnnotationButton: nextProps.loggedIn ? nextProps.newAnnotationButton : "button-logged" });
+	    }
+	    this.setState({ dontDoIt: false });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'song-relative' },
+	      React.createElement(
+	        'div',
+	        { onClick: this.props.handleLineClick, className: this.props.isAnnotated + " song-line" },
+	        this.props.line
+	      ),
+	      React.createElement(
+	        'button',
+	        { type: 'button', className: this.state.newAnnotationButton, onClick: this.handleButtonClick },
+	        this.props.loggedIn ? "Annotate This Line?" : "Please Log In To Annotate"
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = LyricLineItem;
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(218);
+	var LinkedStateMixin = __webpack_require__(229);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var SearchStore = __webpack_require__(264);
+	var fuzzy = __webpack_require__(265);
 	
 	var SearchBar = React.createClass({
 	  displayName: 'SearchBar',
@@ -32268,11 +33420,11 @@
 	module.exports = SearchBar;
 
 /***/ },
-/* 249 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(233).Store;
-	var AppDispatcher = __webpack_require__(219);
+	var Store = __webpack_require__(234).Store;
+	var AppDispatcher = __webpack_require__(220);
 	var SearchStore = new Store(AppDispatcher);
 	var _searchOptions = [];
 	
@@ -32316,7 +33468,7 @@
 	module.exports = SearchStore;
 
 /***/ },
-/* 250 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -32456,1156 +33608,6 @@
 	}());
 	
 
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	var ArtistStore = __webpack_require__(252);
-	var ErrorStore = __webpack_require__(253);
-	
-	var ArtistForm = React.createClass({
-	  displayName: 'ArtistForm',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      name: "",
-	      description: "",
-	      errors: ErrorStore.all()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.errorToken = ErrorStore.addListener(this._onError);
-	    ErrorStore.clear();
-	  },
-	
-	  _onError: function () {
-	    this.setState({ errors: ErrorStore.all() });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.errorToken.remove();
-	  },
-	
-	  handleSubmit: function (e) {
-	    e.preventDefault();
-	    var artist = { name: this.state.name, decription: this.state.description };
-	    var that = this;
-	    ApiUtil.createArtist(artist, function () {
-	      hashHistory.push({
-	        pathname: '/songs/new',
-	        query: { name: that.state.name }
-	      });
-	    });
-	  },
-	
-	  render: function () {
-	    var errors = this.state.errors.map(function (error, idx) {
-	      return React.createElement(
-	        'div',
-	        { key: idx },
-	        ' ',
-	        error,
-	        ' '
-	      );
-	    });
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'form-header' },
-	        'Create an Artist!'
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'form-box' },
-	        React.createElement(
-	          'div',
-	          { className: 'song-errors' },
-	          errors
-	        ),
-	        React.createElement(
-	          'form',
-	          { className: 'form', onSubmit: this.handleSubmit },
-	          React.createElement(
-	            'label',
-	            { className: 'artist-name-label' },
-	            'Name',
-	            React.createElement('input', { className: 'artist-name-input', type: 'text', valueLink: this.linkState('name') })
-	          ),
-	          React.createElement(
-	            'label',
-	            { className: 'artist-description-label' },
-	            'About the Artist',
-	            React.createElement('textarea', { className: 'artist-description-input', valueLink: this.linkState('description') }),
-	            React.createElement('input', { type: 'submit', value: 'Create Artist!', className: 'artist-submit' })
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = ArtistForm;
-
-/***/ },
-/* 252 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(233).Store;
-	var ArtistConstants = __webpack_require__(223);
-	var AppDispatcher = __webpack_require__(219);
-	var ArtistStore = new Store(AppDispatcher);
-	var _artists = [];
-	
-	var resetArtists = function (artists) {
-	  _artists = artists.slice();
-	};
-	
-	var addArtist = function (artist) {
-	  _artists.push(artist);
-	};
-	
-	ArtistStore.all = function () {
-	  return _artists.slice();
-	};
-	
-	ArtistStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case ArtistConstants.ARTIST_RECEIVED:
-	      addArtist(payload.artist);
-	      break;
-	    case "error":
-	      ArtistStore.__emitChange();
-	      break;
-	  }
-	};
-	
-	module.exports = ArtistStore;
-
-/***/ },
-/* 253 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(233).Store;
-	var AppDispatcher = __webpack_require__(219);
-	var ErrorStore = new Store(AppDispatcher);
-	var _errors = [];
-	
-	ErrorStore.clear = function () {
-	  _errors = [];
-	};
-	
-	ErrorStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "SONG ERRORS":
-	      resetErrors(payload.errors);
-	      ErrorStore.__emitChange();
-	    case "ARTIST ERRORS":
-	      resetErrors(payload.errors);
-	      ErrorStore.__emitChange();
-	
-	  }
-	};
-	
-	ErrorStore.all = function () {
-	  return _errors.slice();
-	};
-	
-	var resetErrors = function (errors) {
-	  if (!(errors instanceof Array)) {
-	    _errors = [errors];
-	  } else {
-	
-	    _errors = errors;
-	  }
-	};
-	
-	module.exports = ErrorStore;
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	var ErrorStore = __webpack_require__(253);
-	
-	var SongForm = React.createClass({
-	  displayName: 'SongForm',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      artist: this.props.location.query.name,
-	      title: "",
-	      lyrics: "",
-	      albumName: "",
-	      errors: ErrorStore.all()
-	    };
-	  },
-	
-	  _onError: function () {
-	    this.setState({ errors: ErrorStore.all() });
-	  },
-	
-	  componentDidMount: function () {
-	    this.errorToken = ErrorStore.addListener(this._onError);
-	    ErrorStore.clear();
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.errorToken.remove();
-	  },
-	
-	  handleSubmit: function (e) {
-	    e.preventDefault();
-	    var song = { artist: this.state.artist, title: this.state.title, lyrics: this.state.lyrics, album_name: this.state.albumName };
-	    var that = this;
-	    ApiUtil.createSong(song, function (id) {
-	      hashHistory.push({
-	        pathname: "/songs/" + id
-	      });
-	    });
-	  },
-	
-	  render: function () {
-	    var errors = this.state.errors.map(function (error, idx) {
-	      return React.createElement(
-	        'div',
-	        { key: idx },
-	        ' ',
-	        error,
-	        ' '
-	      );
-	    });
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'form-header' },
-	        'Add a Song!'
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'song-box' },
-	        React.createElement(
-	          'div',
-	          { className: 'song-errors' },
-	          errors
-	        ),
-	        React.createElement(
-	          'form',
-	          { onSubmit: this.handleSubmit },
-	          React.createElement(
-	            'label',
-	            { className: 'artist-name-label' },
-	            'Artist',
-	            React.createElement('input', { className: 'artist-name-input', type: 'text', valueLink: this.linkState('artist') })
-	          ),
-	          React.createElement(
-	            'label',
-	            { className: 'song-label' },
-	            'Song Title',
-	            React.createElement('input', { className: 'song-input', type: 'text', valueLink: this.linkState('title') })
-	          ),
-	          React.createElement(
-	            'label',
-	            { className: 'album-label' },
-	            'Album Name',
-	            React.createElement('input', { type: 'text', className: 'album-input', valueLink: this.linkState('albumName') })
-	          ),
-	          React.createElement(
-	            'label',
-	            { className: 'lyrics-label' },
-	            'Lyrics',
-	            React.createElement('textarea', { className: 'lyrics-input', valueLink: this.linkState('lyrics') }),
-	            React.createElement('input', { type: 'submit', value: 'Add Song!' })
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = SongForm;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var SongStore = __webpack_require__(232);
-	var AnnotationStore = __webpack_require__(256);
-	var LyricLineItem = __webpack_require__(257);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	var SongShow = React.createClass({
-	  displayName: 'SongShow',
-	
-	  getInitialState: function () {
-	    return {
-	      song: SongStore.find(this.props.params.songId),
-	      lineClicked: -1,
-	      annotations: AnnotationStore.all()
-	    };
-	  },
-	
-	  _songOnChange: function () {
-	    this.setState({ song: SongStore.find(this.props.params.songId) });
-	  },
-	  _annotationOnChange: function () {
-	    this.setState({ annotations: AnnotationStore.all() });
-	  },
-	
-	  componentDidMount: function () {
-	    ApiUtil.fetchSong(this.props.params.songId);
-	    ApiUtil.fetchAnnotations(this.props.params.songId);
-	    this.songToken = SongStore.addListener(this._songOnChange);
-	    this.annotationToken = AnnotationStore.addListener(this._annotationOnChange);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.songToken.remove();
-	    this.annotationToken.remove();
-	  },
-	
-	  handleLineClick: function (idx, e) {
-	    e.stopPropagation();
-	    if (AnnotationStore.doesExist(idx)) {
-	      this.setState({ lineClicked: -1 });
-	      hashHistory.push("songs/" + this.props.params.songId + "/annotations/" + AnnotationStore.find(idx).id, {});
-	    } else {
-	      if (location.hash.split("?")[0] !== "#/songs/" + this.props.params.songId) {
-	        hashHistory.push("songs/" + this.props.params.songId);
-	      }
-	      this.setState({ lineClicked: idx });
-	    }
-	  },
-	
-	  cancelClick: function (e) {
-	
-	    // if([].slice.call(e.target.classList,0).indexOf("song-line") === -1){
-	    this.setState({ lineClicked: -1 });
-	    // }
-	  },
-	
-	  editArtistDescription: function () {
-	    hashHistory.push("songs/" + this.props.params.songId + "/artists/" + this.state.song.artist_id);
-	  },
-	
-	  componentWillReceiveProps: function (newProps) {
-	    this.setState({ annotations: AnnotationStore.all() });
-	    this.setState({ song: SongStore.find(newProps.params.songId) });
-	  },
-	
-	  render: function () {
-	    var that = this;
-	    if (this.state.song.lyrics !== undefined) {
-	      var lines = this.state.song.lyrics.split("\n").map(function (line, idx) {
-	        var buttonToggle = "button-off";
-	        if (that.state.lineClicked === idx) {
-	          buttonToggle = "button-on";
-	        }
-	        return React.createElement(LyricLineItem, { handleLineClick: that.handleLineClick.bind(that, idx),
-	          key: idx,
-	          newAnnotationButton: buttonToggle,
-	          line: line,
-	          lineNumber: idx,
-	          annotations: that.state.annotations,
-	          songId: that.props.params.songId,
-	          isAnnotated: AnnotationStore.doesExist(idx),
-	          loggedIn: that.state.song.logged_in });
-	      });
-	
-	      var renderSelect = location.hash.split("?")[0] === "#/songs/" + this.props.params.songId ? React.createElement(
-	        'div',
-	        { className: 'about-the-artist-box' },
-	        React.createElement(
-	          'header',
-	          { className: 'about-the-artist' },
-	          'About the Artist'
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'artist-description' },
-	          this.state.song.description
-	        ),
-	        React.createElement(
-	          'button',
-	          { className: 'edit', type: 'button', onClick: this.editArtistDescription },
-	          'Edit?'
-	        ),
-	        ' '
-	      ) : this.props.children;
-	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'song-show', onClick: this.cancelClick },
-	      React.createElement(
-	        'div',
-	        { className: 'lyrics-box' },
-	        React.createElement(
-	          'header',
-	          { className: 'song-header' },
-	          this.state.song.title,
-	          ' ',
-	          React.createElement(
-	            'span',
-	            { className: 'break' },
-	            ' '
-	          ),
-	          ' ',
-	          this.state.song.artist
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'song-lyrics' },
-	          lines
-	        )
-	      ),
-	      renderSelect
-	    );
-	  }
-	});
-	
-	module.exports = SongShow;
-
-/***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(233).Store;
-	var AppDispatcher = __webpack_require__(219);
-	var AnnotationStore = new Store(AppDispatcher);
-	var _annotations = [];
-	
-	AnnotationStore.all = function () {
-	  return _annotations.slice();
-	};
-	
-	AnnotationStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "ANNOTATION_RECEIVED":
-	      addAnnotation(payload.annotation);
-	      AnnotationStore.__emitChange();
-	      break;
-	    case "ANNOTATIONS_RECEIVED":
-	      resetAnnotations(payload.annotations);
-	      AnnotationStore.__emitChange();
-	      break;
-	    case "ANNOTATION_UPDATED":
-	      updateAnnotation(payload.annotation);
-	      AnnotationStore.__emitChange();
-	      break;
-	
-	  }
-	};
-	
-	AnnotationStore.doesExist = function (lineNumber) {
-	  for (var i = 0; i < _annotations.length; i++) {
-	    if (_annotations[i].line_number === lineNumber) {
-	      return true;
-	    }
-	  }
-	  return false;
-	};
-	
-	AnnotationStore.find = function (lineNumber) {
-	  for (var i = 0; i < _annotations.length; i++) {
-	    if (_annotations[i].line_number === lineNumber) {
-	      return _annotations[i];
-	    }
-	  }
-	  return undefined;
-	};
-	
-	AnnotationStore.findById = function (id) {
-	  var annotation = {};
-	  for (var i = 0; i < _annotations.length; i++) {
-	    if (_annotations[i].id === id) {
-	      annotation = _annotations[i];
-	    }
-	  }
-	  return annotation;
-	};
-	
-	var addAnnotation = function (annotation) {
-	  _annotations.push(annotation);
-	};
-	
-	var resetAnnotations = function (annotations) {
-	  _annotations = annotations;
-	};
-	
-	var updateAnnotation = function (annotation) {
-	  for (var i = 0; i < _annotations.length; i++) {
-	    if (_annotations[i].id === annotation.id) {
-	      _annotations[i] = annotation;
-	    }
-	  }
-	};
-	
-	module.exports = AnnotationStore;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var AnnotationStore = __webpack_require__(256);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	
-	var LyricLineItem = React.createClass({
-	  displayName: 'LyricLineItem',
-	
-	  getInitialState: function () {
-	    var buttonState = this.props.loggedIn ? this.props.newAnnotationButton : "button-off";
-	    return {
-	      isAnnotated: AnnotationStore.doesExist(this.props.lineNumber),
-	      annotation: AnnotationStore.find(this.props.lineNumber),
-	      newAnnotationButton: buttonState,
-	      dontDoIt: false
-	
-	    };
-	  },
-	
-	  handleButtonClick: function (e) {
-	    e.preventDefault();
-	    this.setState({ newAnnotationButton: "button-off", dontDoIt: true });
-	    hashHistory.push({
-	      pathname: "songs/" + this.props.songId + "/annotations/new",
-	      query: { lineNumber: this.props.lineNumber }
-	    });
-	  },
-	
-	  componentWillReceiveProps: function (nextProps) {
-	    this.setState({ isAnnotated: AnnotationStore.doesExist(nextProps.lineNumber),
-	      annotation: AnnotationStore.find(nextProps.lineNumber)
-	    });
-	    if (!this.state.dontDoIt) {
-	      this.setState({ newAnnotationButton: nextProps.loggedIn ? nextProps.newAnnotationButton : "button-off" });
-	    }
-	    this.setState({ dontDoIt: false });
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'song-relative' },
-	      React.createElement(
-	        'div',
-	        { onClick: this.props.handleLineClick, className: this.props.isAnnotated + " song-line" },
-	        this.props.line
-	      ),
-	      React.createElement(
-	        'button',
-	        { type: 'button', className: this.state.newAnnotationButton, onClick: this.handleButtonClick },
-	        'Annotate This Line?'
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = LyricLineItem;
-
-/***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var AnnotationStore = __webpack_require__(256);
-	var Comments = __webpack_require__(259);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	
-	var AnnotationShow = React.createClass({
-	  displayName: 'AnnotationShow',
-	
-	  getInitialState: function () {
-	    return {
-	      annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId)),
-	      onOff: "on"
-	    };
-	  },
-	
-	  componentWillReceiveProps: function (nextProps) {
-	    this.setState({ annotation: AnnotationStore.findById(parseInt(nextProps.params.annotationId)) });
-	    if (location.hash.split("?")[0] === "#/songs/" + nextProps.params.songId + "/annotations/" + nextProps.params.annotationId) {
-	      this.setState({ onOff: this.state.annotation.logged_in ? "on" : "off" });
-	    }
-	  },
-	
-	  componentDidMount: function () {
-	    if (this.state.annotation === undefined) {
-	      ApiUtil.fetchAnnotation(this.props.params.songId, this.props.params.annotationId);
-	    } else {
-	      this.setState({ onOff: this.state.annotation.logged_in ? "on" : "off" });
-	    }
-	
-	    this.annotationToken = AnnotationStore.addListener(this._onChange);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.annotationToken.remove();
-	  },
-	
-	  _onChange: function () {
-	    this.setState({ annotation: AnnotationStore.findById(parseInt(this.props.params.annotationId)),
-	      onOff: this.state.annotation.logged_in ? "on" : "off" });
-	  },
-	  addComment: function () {
-	    this.setState({ onOff: "off" });
-	    hashHistory.push("/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId + "/comments/new");
-	  },
-	
-	  edit: function () {
-	    hashHistory.push("/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId + "/edit");
-	  },
-	
-	  render: function () {
-	    if (this.state.annotation === undefined) {
-	      return React.createElement('div', null);
-	    } else if (location.hash.split("?")[0] !== "#/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId && location.hash.split("?")[0] !== "#/songs/" + this.props.params.songId + "/annotations/" + this.props.params.annotationId + "/comments/new") {
-	      return React.createElement(
-	        'div',
-	        null,
-	        this.props.children
-	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        { className: 'annotation-box' },
-	        React.createElement(
-	          'div',
-	          { className: 'created-by' },
-	          this.state.annotation.username
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'annotation-body' },
-	          this.state.annotation.body,
-	          React.createElement(
-	            'div',
-	            { className: 'image' },
-	            React.createElement('img', { src: this.state.annotation.image_url })
-	          ),
-	          this.state.annotation.is_correct_user ? React.createElement(
-	            'button',
-	            { className: 'edit-annotation', onClick: this.edit },
-	            'Edit?'
-	          ) : React.createElement('div', null)
-	        ),
-	        React.createElement(Comments, { correctUser: this.state.is_correct_user, songId: this.props.params.songId, annotationId: this.props.params.annotationId }),
-	        React.createElement(
-	          'button',
-	          { className: "add-comment " + this.state.onOff, onClick: this.addComment },
-	          'Add Comment?'
-	        ),
-	        this.props.children
-	      );
-	    }
-	  }
-	});
-	
-	module.exports = AnnotationShow;
-
-/***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var CommentStore = __webpack_require__(260);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	
-	var Comments = React.createClass({
-	  displayName: 'Comments',
-	
-	
-	  getInitialState: function () {
-	    return {
-	      comments: CommentStore.all()
-	    };
-	  },
-	
-	  _onChange: function () {
-	    this.setState({ comments: CommentStore.all() });
-	  },
-	
-	  componentDidMount: function () {
-	    ApiUtil.fetchComments(this.props.songId, this.props.annotationId);
-	    this.commentTokens = CommentStore.addListener(this._onChange);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.commentTokens.remove();
-	  },
-	
-	  componentWillReceiveProps: function (nextProps) {
-	    ApiUtil.fetchComments(nextProps.songId, nextProps.annotationId);
-	  },
-	
-	  delete: function (commentId) {
-	    ApiUtil.deleteComment(commentId);
-	  },
-	
-	  edit: function (commentId) {
-	    hashHistory.push("songs/" + this.props.songId + "/annotations/" + this.props.annotationId + "/comments/" + commentId + "/edit");
-	  },
-	
-	  render: function () {
-	
-	    var that = this;
-	    var commentRows = this.state.comments.map(function (comment, idx) {
-	      return React.createElement(
-	        'li',
-	        { key: idx },
-	        React.createElement(
-	          'div',
-	          { className: 'comment-username' },
-	          comment.username
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'comment-body' },
-	          comment.body,
-	          React.createElement(
-	            'div',
-	            { className: 'comment-image' },
-	            React.createElement('img', { src: comment.image_url })
-	          ),
-	          comment.is_correct_user ? React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	              'button',
-	              { className: 'edit-annotation', onClick: that.edit.bind(null, comment.id) },
-	              'Edit?'
-	            ),
-	            React.createElement(
-	              'button',
-	              { className: 'delete', onClick: that.delete.bind(null, comment.id) },
-	              'Delete?'
-	            ),
-	            ' '
-	          ) : React.createElement('div', null)
-	        )
-	      );
-	    });
-	    return React.createElement(
-	      'ul',
-	      { className: 'comment-list' },
-	      commentRows
-	    );
-	  }
-	});
-	
-	module.exports = Comments;
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(233).Store;
-	var AppDispatcher = __webpack_require__(219);
-	var CommentStore = new Store(AppDispatcher);
-	var _comments = [];
-	
-	CommentStore.all = function () {
-	  return _comments.slice();
-	};
-	
-	CommentStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "COMMENTS_RECEIVED":
-	      resetComments(payload.comments);
-	      CommentStore.__emitChange();
-	      break;
-	    case "COMMENT_RECEIVED":
-	      addComment(payload.comment);
-	      CommentStore.__emitChange();
-	      break;
-	    case "COMMENT_UPDATED":
-	      updateComment(payload.comment);
-	      CommentStore.__emitChange();
-	      break;
-	    case "COMMENT_DELETED":
-	      deleteComment(payload.comment);
-	      CommentStore.__emitChange();
-	      break;
-	  }
-	};
-	
-	CommentStore.clear = function () {
-	  _comments = [];
-	};
-	
-	CommentStore.find = function (id) {
-	  var comment = {};
-	  for (var i = 0; i < _comments.length; i++) {
-	    if (_comments[i].id === parseInt(id)) {
-	      comment = _comments[i];
-	    }
-	  }
-	  return comment;
-	};
-	
-	var addComment = function (comment) {
-	  _comments.push(comment);
-	};
-	
-	var resetComments = function (comments) {
-	
-	  _comments = comments;
-	};
-	
-	var updateComment = function (comment) {
-	  for (var i = 0; i < _comments.length; i++) {
-	    if (_comments[i].id === comment.id) {
-	      _comments[i] = comment;
-	    }
-	  }
-	};
-	
-	var deleteComment = function (comment) {
-	  for (var i = 0; i < _comments.length; i++) {
-	    if (_comments[i].id === comment.id) {
-	      _comments.splice(i, 1);
-	      break;
-	    }
-	  }
-	};
-	
-	module.exports = CommentStore;
-
-/***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	
-	var AnnotationForm = React.createClass({
-	  displayName: 'AnnotationForm',
-	
-	  mixins: [LinkedStateMixin],
-	  getInitialState: function () {
-	    return { body: "", imageUrl: "" };
-	  },
-	
-	  handleSubmit: function (e) {
-	    e.preventDefault();
-	    var annotation = { body: this.state.body, song_id: this.props.params.songId, line_number: this.props.location.query.lineNumber, image_url: this.state.imageUrl };
-	    var that = this;
-	    ApiUtil.createAnnotation(annotation, function () {
-	      hashHistory.push({
-	        pathname: "/songs/" + that.props.params.songId
-	      });
-	    });
-	  },
-	
-	  handleCancel: function (e) {
-	    e.preventDefault();
-	    hashHistory.push({
-	      pathname: "/songs/" + this.props.params.songId
-	    });
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'annotations-form-box' },
-	      React.createElement(
-	        'div',
-	        { className: 'annotation-header' },
-	        'What Does it Mean?'
-	      ),
-	      React.createElement(
-	        'form',
-	        { className: 'annotations-form', onSubmit: this.handleSubmit },
-	        React.createElement('textarea', { className: 'annotation-input', valueLink: this.linkState('body') }),
-	        React.createElement(
-	          'label',
-	          { className: 'labels' },
-	          'Image Url (optional)'
-	        ),
-	        React.createElement('input', { type: 'text', className: 'image-input', valueLink: this.linkState('imageUrl') }),
-	        React.createElement(
-	          'button',
-	          { className: 'cancel-button', onClick: this.handleCancel },
-	          'x'
-	        ),
-	        React.createElement('input', { id: 'add-annotation', type: 'submit', value: '+' })
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = AnnotationForm;
-
-/***/ },
-/* 262 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	var SongStore = __webpack_require__(232);
-	var EditArtist = React.createClass({
-	  displayName: 'EditArtist',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return {
-	      description: SongStore.find(this.props.params.songId).description
-	    };
-	  },
-	
-	  handleSubmit: function () {
-	    var that = this;
-	    ApiUtil.editArtist(this.props.params.songId, this.props.params.artistId, this.state.description, function () {
-	      hashHistory.push("songs/" + that.props.params.songId);
-	    });
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'edit-artist-box' },
-	      React.createElement(
-	        'div',
-	        { className: 'edit-header' },
-	        'Edit Description'
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.handleSubmit },
-	        React.createElement('textarea', { className: 'edit-artist', valueLink: this.linkState('description') }),
-	        React.createElement('input', { type: 'submit', value: 'confirm changes' })
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = EditArtist;
-
-/***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	
-	var CommentForm = React.createClass({
-	  displayName: 'CommentForm',
-	
-	  mixins: [LinkedStateMixin],
-	  getInitialState: function () {
-	    return {
-	      body: "",
-	      image_url: ""
-	    };
-	  },
-	
-	  handleSubmit: function (e) {
-	    e.preventDefault();
-	    var comment = {
-	      image_url: this.state.image_url,
-	      body: this.state.body,
-	      annotation_id: this.props.params.annotationId
-	    };
-	    var that = this;
-	    ApiUtil.createComment(comment, this.props.params.songId, function () {
-	      hashHistory.push("/songs/" + that.props.params.songId + "/annotations/" + that.props.params.annotationId);
-	    });
-	  },
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      'form',
-	      { className: 'new-comment', onSubmit: this.handleSubmit },
-	      React.createElement(
-	        'label',
-	        { className: 'labels' },
-	        'Comment'
-	      ),
-	      React.createElement('textarea', { className: 'comment-input', valueLink: this.linkState('body') }),
-	      React.createElement(
-	        'label',
-	        { className: 'labels' },
-	        'Image Url (optional)'
-	      ),
-	      React.createElement('input', { type: 'text', className: 'image-input', valueLink: this.linkState('image_url') }),
-	      React.createElement('input', { type: 'submit', value: 'Add Comment' })
-	    );
-	  }
-	
-	});
-	
-	module.exports = CommentForm;
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	var CommentStore = __webpack_require__(260);
-	
-	var EditComment = React.createClass({
-	  displayName: 'EditComment',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    var comment = CommentStore.find(this.props.params.commentId);
-	    return {
-	      body: comment.body,
-	      image_url: comment.image_url
-	    };
-	  },
-	
-	  handleSubmit: function () {
-	    var comment = {
-	      body: this.state.body,
-	      image_url: this.state.image_url
-	    };
-	    var that = this;
-	    ApiUtil.editComment(comment, this.props.params.commentId, function () {
-	      hashHistory.push("songs/" + that.props.params.songId + "/annotations/" + that.props.params.annotationId);
-	    });
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'edit-artist-box' },
-	      React.createElement(
-	        'div',
-	        { className: 'edit-header' },
-	        'Edit Comment'
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.handleSubmit },
-	        React.createElement('textarea', { className: 'edit-artist', valueLink: this.linkState('body') }),
-	        React.createElement(
-	          'label',
-	          { className: 'labels' },
-	          'Image Url (optional)'
-	        ),
-	        React.createElement('input', { className: 'image-input', type: 'text', valueLink: this.linkState('image_url') }),
-	        React.createElement('input', { type: 'submit', value: 'confirm changes' })
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = EditComment;
-
-/***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(217);
-	var LinkedStateMixin = __webpack_require__(228);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	var AnnotationStore = __webpack_require__(256);
-	
-	var EditAnnotation = React.createClass({
-	  displayName: 'EditAnnotation',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    var annotation = AnnotationStore.findById(parseInt(this.props.params.annotationId));
-	    return {
-	      body: annotation.body,
-	      image_url: annotation.image_url
-	    };
-	  },
-	
-	  handleSubmit: function () {
-	    var annotation = {
-	      body: this.state.body,
-	      image_url: this.state.image_url
-	    };
-	    var that = this;
-	    ApiUtil.editAnnotation(annotation, this.props.params.annotationId, function () {
-	      hashHistory.push("songs/" + that.props.params.songId + "/annotations/" + that.props.params.annotationId);
-	    });
-	  },
-	
-	  _onChange: function () {
-	    this.setState({ body: this.state.body, image_url: this.state.image_url });
-	  },
-	
-	  componentDidMount: function () {
-	    this.annotationToken = AnnotationStore.addListener(this._onChange);
-	    ApiUtil.fetchAnnotation(this.props.params.songId, this.props.params.annotationId);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.annotationToken.remove();
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'edit-artist-box' },
-	      React.createElement(
-	        'div',
-	        { className: 'edit-header' },
-	        'Edit Annotation'
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.handleSubmit },
-	        React.createElement('textarea', { className: 'edit-artist', valueLink: this.linkState('body') }),
-	        React.createElement(
-	          'label',
-	          { className: 'labels' },
-	          'Image Url (optional)'
-	        ),
-	        React.createElement('input', { className: 'image-input', type: 'text', valueLink: this.linkState('image_url') }),
-	        React.createElement('input', { type: 'submit', value: 'confirm changes' })
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = EditAnnotation;
 
 /***/ }
 /******/ ]);

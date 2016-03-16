@@ -46,7 +46,7 @@ var SongShow = React.createClass( {
     }
 
     else{
-    if(location.hash.split("?")[0] !== ("#/songs/" + this.props.params.songId) {
+    if(location.hash.split("?")[0] !== ("#/songs/" + this.props.params.songId)) {
       hashHistory.push("songs/" + this.props.params.songId);
         }
     this.setState({lineClicked: idx});

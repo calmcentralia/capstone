@@ -42,11 +42,8 @@ var Splash = React.createClass({
   }
     return(
     <div>
-<<<<<<< HEAD
+
       <header className="welcome">Welcome to MusicGenius <br/>  To begin adding songs and annotating song lyrics, please log in</header>
-=======
-      <header className="welcome">Welcome to MusicGenius <br/>  To begin adding songs and annotating song lyrics, please log in</header>
->>>>>>> 765b10069b6ff5220599813cc326d23d5dabb1f9
       <SearchBar />
       <div className="splash-box">
         <div className= "recently-added-box">
