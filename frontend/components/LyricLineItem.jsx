@@ -31,7 +31,7 @@ var LyricLineItem= React.createClass( {
       annotation: AnnotationStore.find(nextProps.lineNumber)
     });
     if(!this.state.dontDoIt){
-    this.setState({newAnnotationButton: nextProps.newAnnotationButton);
+    this.setState({newAnnotationButton: nextProps.newAnnotationButton});
     }
     this.setState({ dontDoIt: false});
   },

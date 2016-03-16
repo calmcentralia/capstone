@@ -55,12 +55,12 @@
 	var ArtistForm = __webpack_require__(251);
 	var SongForm = __webpack_require__(254);
 	var SongShow = __webpack_require__(255);
-	var AnnotationShow = __webpack_require__(256);
-	var AnnotationForm = __webpack_require__(260);
-	var EditArtist = __webpack_require__(261);
-	var CommentForm = __webpack_require__(262);
-	var EditComment = __webpack_require__(263);
-	var EditAnnotation = __webpack_require__(264);
+	var AnnotationShow = __webpack_require__(258);
+	var AnnotationForm = __webpack_require__(261);
+	var EditArtist = __webpack_require__(262);
+	var CommentForm = __webpack_require__(263);
+	var EditComment = __webpack_require__(264);
+	var EditAnnotation = __webpack_require__(265);
 	var App = React.createClass({
 	  displayName: 'App',
 	
@@ -32750,8 +32750,8 @@
 	var ApiUtil = __webpack_require__(217);
 	var LinkedStateMixin = __webpack_require__(228);
 	var SongStore = __webpack_require__(232);
-	var AnnotationStore = __webpack_require__(257);
-	var LyricLineItem = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./LyricLineItem\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var AnnotationStore = __webpack_require__(256);
+	var LyricLineItem = __webpack_require__(257);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	var SongShow = React.createClass({
 	  displayName: 'SongShow',
@@ -32894,10 +32894,151 @@
 /* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Store = __webpack_require__(233).Store;
+	var AppDispatcher = __webpack_require__(219);
+	var AnnotationStore = new Store(AppDispatcher);
+	var _annotations = [];
+	
+	AnnotationStore.all = function () {
+	  return _annotations.slice();
+	};
+	
+	AnnotationStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "ANNOTATION_RECEIVED":
+	      addAnnotation(payload.annotation);
+	      AnnotationStore.__emitChange();
+	      break;
+	    case "ANNOTATIONS_RECEIVED":
+	      resetAnnotations(payload.annotations);
+	      AnnotationStore.__emitChange();
+	      break;
+	    case "ANNOTATION_UPDATED":
+	      updateAnnotation(payload.annotation);
+	      AnnotationStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	
+	AnnotationStore.doesExist = function (lineNumber) {
+	  for (var i = 0; i < _annotations.length; i++) {
+	    if (_annotations[i].line_number === lineNumber) {
+	      return true;
+	    }
+	  }
+	  return false;
+	};
+	
+	AnnotationStore.find = function (lineNumber) {
+	  for (var i = 0; i < _annotations.length; i++) {
+	    if (_annotations[i].line_number === lineNumber) {
+	      return _annotations[i];
+	    }
+	  }
+	  return undefined;
+	};
+	
+	AnnotationStore.findById = function (id) {
+	  var annotation = {};
+	  for (var i = 0; i < _annotations.length; i++) {
+	    if (_annotations[i].id === id) {
+	      annotation = _annotations[i];
+	    }
+	  }
+	  return annotation;
+	};
+	
+	var addAnnotation = function (annotation) {
+	  _annotations.push(annotation);
+	};
+	
+	var resetAnnotations = function (annotations) {
+	  _annotations = annotations;
+	};
+	
+	var updateAnnotation = function (annotation) {
+	  for (var i = 0; i < _annotations.length; i++) {
+	    if (_annotations[i].id === annotation.id) {
+	      _annotations[i] = annotation;
+	    }
+	  }
+	};
+	
+	module.exports = AnnotationStore;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var React = __webpack_require__(1);
 	var ApiUtil = __webpack_require__(217);
-	var AnnotationStore = __webpack_require__(257);
-	var Comments = __webpack_require__(258);
+	var LinkedStateMixin = __webpack_require__(228);
+	var AnnotationStore = __webpack_require__(256);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	var LyricLineItem = React.createClass({
+	  displayName: 'LyricLineItem',
+	
+	  getInitialState: function () {
+	    var buttonState = this.props.newAnnotationButton;
+	    return {
+	      isAnnotated: AnnotationStore.doesExist(this.props.lineNumber),
+	      annotation: AnnotationStore.find(this.props.lineNumber),
+	      newAnnotationButton: buttonState,
+	      dontDoIt: false
+	
+	    };
+	  },
+	
+	  handleButtonClick: function (e) {
+	    e.preventDefault();
+	    this.setState({ newAnnotationButton: "button-off", dontDoIt: true });
+	    hashHistory.push({
+	      pathname: "songs/" + this.props.songId + "/annotations/new",
+	      query: { lineNumber: this.props.lineNumber }
+	    });
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    this.setState({ isAnnotated: AnnotationStore.doesExist(nextProps.lineNumber),
+	      annotation: AnnotationStore.find(nextProps.lineNumber)
+	    });
+	    if (!this.state.dontDoIt) {
+	      this.setState({ newAnnotationButton: nextProps.newAnnotationButton });
+	    }
+	    this.setState({ dontDoIt: false });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'song-relative' },
+	      React.createElement(
+	        'div',
+	        { onClick: this.props.handleLineClick, className: this.props.isAnnotated + " song-line" },
+	        this.props.line
+	      ),
+	      React.createElement(
+	        'button',
+	        { type: 'button', className: this.state.newAnnotationButton, onClick: this.handleButtonClick },
+	        this.props.loggedIn ? "Annotate This Line?" : "Please Log In To Annotate"
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = LyricLineItem;
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(217);
+	var AnnotationStore = __webpack_require__(256);
+	var Comments = __webpack_require__(259);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	var AnnotationShow = React.createClass({
@@ -32992,89 +33133,12 @@
 	module.exports = AnnotationShow;
 
 /***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(233).Store;
-	var AppDispatcher = __webpack_require__(219);
-	var AnnotationStore = new Store(AppDispatcher);
-	var _annotations = [];
-	
-	AnnotationStore.all = function () {
-	  return _annotations.slice();
-	};
-	
-	AnnotationStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "ANNOTATION_RECEIVED":
-	      addAnnotation(payload.annotation);
-	      AnnotationStore.__emitChange();
-	      break;
-	    case "ANNOTATIONS_RECEIVED":
-	      resetAnnotations(payload.annotations);
-	      AnnotationStore.__emitChange();
-	      break;
-	    case "ANNOTATION_UPDATED":
-	      updateAnnotation(payload.annotation);
-	      AnnotationStore.__emitChange();
-	      break;
-	
-	  }
-	};
-	
-	AnnotationStore.doesExist = function (lineNumber) {
-	  for (var i = 0; i < _annotations.length; i++) {
-	    if (_annotations[i].line_number === lineNumber) {
-	      return true;
-	    }
-	  }
-	  return false;
-	};
-	
-	AnnotationStore.find = function (lineNumber) {
-	  for (var i = 0; i < _annotations.length; i++) {
-	    if (_annotations[i].line_number === lineNumber) {
-	      return _annotations[i];
-	    }
-	  }
-	  return undefined;
-	};
-	
-	AnnotationStore.findById = function (id) {
-	  var annotation = {};
-	  for (var i = 0; i < _annotations.length; i++) {
-	    if (_annotations[i].id === id) {
-	      annotation = _annotations[i];
-	    }
-	  }
-	  return annotation;
-	};
-	
-	var addAnnotation = function (annotation) {
-	  _annotations.push(annotation);
-	};
-	
-	var resetAnnotations = function (annotations) {
-	  _annotations = annotations;
-	};
-	
-	var updateAnnotation = function (annotation) {
-	  for (var i = 0; i < _annotations.length; i++) {
-	    if (_annotations[i].id === annotation.id) {
-	      _annotations[i] = annotation;
-	    }
-	  }
-	};
-	
-	module.exports = AnnotationStore;
-
-/***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ApiUtil = __webpack_require__(217);
-	var CommentStore = __webpack_require__(259);
+	var CommentStore = __webpack_require__(260);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	var Comments = React.createClass({
@@ -33162,7 +33226,7 @@
 	module.exports = Comments;
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(233).Store;
@@ -33238,7 +33302,7 @@
 	module.exports = CommentStore;
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33306,7 +33370,7 @@
 	module.exports = AnnotationForm;
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33355,7 +33419,7 @@
 	module.exports = EditArtist;
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33413,14 +33477,14 @@
 	module.exports = CommentForm;
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ApiUtil = __webpack_require__(217);
 	var LinkedStateMixin = __webpack_require__(228);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var CommentStore = __webpack_require__(259);
+	var CommentStore = __webpack_require__(260);
 	
 	var EditComment = React.createClass({
 	  displayName: 'EditComment',
@@ -33475,14 +33539,14 @@
 	module.exports = EditComment;
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ApiUtil = __webpack_require__(217);
 	var LinkedStateMixin = __webpack_require__(228);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var AnnotationStore = __webpack_require__(257);
+	var AnnotationStore = __webpack_require__(256);
 	
 	var EditAnnotation = React.createClass({
 	  displayName: 'EditAnnotation',
