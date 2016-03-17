@@ -12,13 +12,14 @@ var ArtistForm = React.createClass({
     return {
       name: "",
       description: "",
-      errors: ErrorStore.all()
+      errors: ""
     };
   },
 
   componentDidMount: function() {
-    this.errorToken = ErrorStore.addListener(this._onError);
     ErrorStore.clear();
+    this.errorToken = ErrorStore.addListener(this._onError);
+
   },
 
   _onError: function() {

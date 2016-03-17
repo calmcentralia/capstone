@@ -3,17 +3,19 @@ var ApiUtil = require('../util/api_util');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var hashHistory = require('react-router').hashHistory;
 var ErrorStore = require('../stores/error');
+var SongStore = require('../stores/song');
 
 var SongForm = React.createClass({
   mixins: [LinkedStateMixin],
 
   getInitialState: function(){
     return {
+      songs: SongStore.all()
       artist: this.props.location.query.name,
       title: "",
       lyrics: "",
       albumName: "",
-      errors: ErrorStore.all()
+      errors: ""
     };
   },
 
@@ -22,8 +24,13 @@ var SongForm = React.createClass({
   },
 
   componentDidMount: function() {
-    this.errorToken = ErrorStore.addListener(this._onError);
     ErrorStore.clear();
+    this.errorToken = ErrorStore.addListener(this._onError);
+    if(this.state.songs) {
+      if (!this.state.songs.logged_in) {
+        window.location.href= "/session/new";
+      }
+    }
   },
 
   componentWillUnmount: function() {

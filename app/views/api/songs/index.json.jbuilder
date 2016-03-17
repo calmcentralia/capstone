@@ -15,3 +15,5 @@ json.recently_annotated do
     json.id song[:id]
   end
 end
+
+json.logged_in signed_in?
