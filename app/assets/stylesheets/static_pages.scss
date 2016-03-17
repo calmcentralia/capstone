@@ -263,20 +263,20 @@ input[type="submit"]:focus,
 }
 
 .explanation-box{
+  background-color: #8e6ec6;
   height: 100px;
   width: 25%;
   min-width: 272px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  border: 2px solid #483d8b;
-  border-left: 2px solid #483d8b;
-  border-right: 2px solid #483d8b;
+  border: none;
   box-shadow: 5px 5px 5px 0px #947DC4;
 
 }
 
 .annotate-the-world{
+  padding-top: 20px;
   display: block;
   color: white;
   text-align: center;

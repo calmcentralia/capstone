@@ -36,7 +36,9 @@ var SearchBar = React.createClass({
     if(e.target.value === ""){
       this.setState({shouldAppear: "dont-appear", matches: []});
     } else {
-    this.setState({shouldAppear: "appear", matches: SearchStore.findByTitle(results.map(function(el) {return el.string;}))});
+    this.setState({matches: SearchStore.findByTitle(results.map(function(el) {return el.string;}))});
+    if (this.state.matches.length !== 0)
+      this.setState({shouldAppear: "appear"});
   }
   },
 
