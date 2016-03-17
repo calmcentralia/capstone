@@ -33,12 +33,10 @@ var SearchBar = React.createClass({
 
   getResults: function(e) {
     var results = fuzzy.filter(e.target.value, this.state.allItems);
-    if(e.target.value === ""){
+    if(e.target.value === "" || results.length === 0){
       this.setState({shouldAppear: "dont-appear", matches: []});
     } else {
-    this.setState({matches: SearchStore.findByTitle(results.map(function(el) {return el.string;}))});
-    if (this.state.matches.length !== 0)
-      this.setState({shouldAppear: "appear"});
+    this.setState({shouldAppear: "appear", matches: SearchStore.findByTitle(results.map(function(el) {return el.string;}))});
   }
   },
 
