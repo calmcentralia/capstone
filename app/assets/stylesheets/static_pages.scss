@@ -472,9 +472,10 @@ input[type="submit"]:focus,
   border: none;
   box-shadow: 5px 5px 5px #c7c5e6;
   border-radius: 10px;
+  transition: all 0.3s;
 }
 
-.button-on:hover {
+.button-on:hover, .button-logged{
   background-color: #7852bb;
   cursor: pointer;
 }
