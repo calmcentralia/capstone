@@ -32477,13 +32477,13 @@
 	    return {
 	      name: "",
 	      description: "",
-	      errors: ErrorStore.all()
+	      errors: ""
 	    };
 	  },
 	
 	  componentDidMount: function () {
-	    this.errorToken = ErrorStore.addListener(this._onError);
 	    ErrorStore.clear();
+	    this.errorToken = ErrorStore.addListener(this._onError);
 	  },
 	
 	  _onError: function () {
@@ -32640,6 +32640,7 @@
 	var LinkedStateMixin = __webpack_require__(228);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	var ErrorStore = __webpack_require__(253);
+	var SongStore = __webpack_require__(232);
 	
 	var SongForm = React.createClass({
 	  displayName: 'SongForm',
@@ -32648,11 +32649,12 @@
 	
 	  getInitialState: function () {
 	    return {
+	      songs: SongStore.all(),
 	      artist: this.props.location.query.name,
 	      title: "",
 	      lyrics: "",
 	      albumName: "",
-	      errors: ErrorStore.all()
+	      errors: ""
 	    };
 	  },
 	
@@ -32661,8 +32663,13 @@
 	  },
 	
 	  componentDidMount: function () {
-	    this.errorToken = ErrorStore.addListener(this._onError);
 	    ErrorStore.clear();
+	    this.errorToken = ErrorStore.addListener(this._onError);
+	    if (this.state.songs) {
+	      if (!this.state.songs.logged_in) {
+	        window.location.href = "/session/new";
+	      }
+	    }
 	  },
 	
 	  componentWillUnmount: function () {

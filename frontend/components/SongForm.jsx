@@ -10,7 +10,7 @@ var SongForm = React.createClass({
 
   getInitialState: function(){
     return {
-      songs: SongStore.all()
+      songs: SongStore.all(),
       artist: this.props.location.query.name,
       title: "",
       lyrics: "",
