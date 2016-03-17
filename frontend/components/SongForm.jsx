@@ -15,7 +15,7 @@ var SongForm = React.createClass({
       title: "",
       lyrics: "",
       albumName: "",
-      errors: ""
+      errors: []
     };
   },
 

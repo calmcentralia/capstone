@@ -12,7 +12,7 @@ var ArtistForm = React.createClass({
     return {
       name: "",
       description: "",
-      errors: ""
+      errors: []
     };
   },
 
