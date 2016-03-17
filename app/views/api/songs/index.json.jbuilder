@@ -5,6 +5,7 @@ json.recently_added do
     json.title song.title
     json.artist song.artist.name
     json.id song.id
+    json.logged_in signed_in?
   end
 end
 
@@ -15,5 +16,3 @@ json.recently_annotated do
     json.id song[:id]
   end
 end
-
-json.logged_in signed_in?
