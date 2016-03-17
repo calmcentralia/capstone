@@ -243,6 +243,7 @@ input[type="submit"]:focus,
 }
 
 .welcome {
+  font-family: 'Inconsolata';
   padding-top: 10px;
   color: white;
   text-shadow: 2px 2px 1px black;
@@ -276,14 +277,16 @@ input[type="submit"]:focus,
 }
 
 .annotate-the-world{
+  font-family: 'Inconsolata';
   padding-top: 20px;
   display: block;
   color: white;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .explanation{
+  font-family: 'Inconsolata';
   display: block;
   color: white;
   text-align: center;
@@ -309,6 +312,7 @@ input[type="submit"]:focus,
 }
 
 .song-header{
+  font-family: 'Inconsolata';
   display: block;
   width: 100%;
   border: 2px solid #483d8b;
@@ -361,6 +365,7 @@ input[type="submit"]:focus,
 }
 
 .about-the-artist, .edit-header{
+  font-family: 'Inconsolata';
   display: block;
   width: 100%;
   border: 2px solid #483d8b;
