@@ -27,6 +27,7 @@ var SongForm = React.createClass({
     ErrorStore.clear();
     this.errorToken = ErrorStore.addListener(this._onError);
     if(this.state.songs) {
+      debugger;
       if (!this.state.songs.logged_in) {
         window.location.href= "/session/new";
       }
