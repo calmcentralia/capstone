@@ -475,7 +475,7 @@ input[type="submit"]:focus,
   transition: all 0.3s;
 }
 
-.button-on:hover, .button-logged{
+.button-on:hover, .button-logged:hover{
   background-color: #7852bb;
   cursor: pointer;
 }
