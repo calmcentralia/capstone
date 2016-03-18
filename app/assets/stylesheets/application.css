@@ -14,6 +14,7 @@
  *= require_self
  */
 .background{
+
   background-image:url("sparkling-snow-texture.jpg");
 }
 
@@ -70,7 +71,6 @@
 
  .page {
    display: block;
-   background-color: #edf0f5;
    z-index: -1;
    height:100%;
  }
