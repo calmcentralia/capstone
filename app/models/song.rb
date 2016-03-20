@@ -12,7 +12,7 @@ class Song < ActiveRecord::Base
   def self.recently_annotated
     unique_songs = {}
     Song.joins(:annotations).order("annotations.created_at desc").each do |song|
-      unique_songs[song.id] = {artist: song.artist.name, title: song.title, id: song.id}
+      unique_songs[song.id] = {artist: song.artist.name, title: song.title, id: song.id, image: song.artist.image_url}
     end
     unique_songs.values
 
