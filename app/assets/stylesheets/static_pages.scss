@@ -244,7 +244,8 @@ input[type="submit"]:focus,
 
 .welcome {
   font-family: 'Inconsolata';
-  background-image: image('images.jpeg');
+  background-image: url('images.jpeg');
+  background-size: 200px 80px;
   padding-top: 10px;
   color: white;
   text-shadow: 2px 2px 1px black;
@@ -265,7 +266,7 @@ input[type="submit"]:focus,
 
 .explanation-box{
   background-color: #8e6ec6;
-  height: 100px;
+  height: 50px;
   width: 25%;
   min-width: 272px;
   margin: 0 auto;
@@ -745,6 +746,7 @@ input[type="submit"]:focus,
 }
 
 .search-bar{
+  background: url('search-icon-hi.png') no-repeat 8px 6px;
   display: block;
   height: 100%;
   width: 30%;
