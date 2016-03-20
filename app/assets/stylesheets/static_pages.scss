@@ -746,18 +746,19 @@ input[type="submit"]:focus,
 }
 
 .search-bar{
-  background: url('search-icon-hi.png') no-repeat 8px 6px;
+  position: relative;
+  background: url("search-icon-hi.png") no-repeat 31px 9px;
+  background-size: 20px;
   display: block;
-  height: 100%;
-  width: 30%;
-  min-width: 576px;
+  height: 35px;
+  width: 400px;
   background-color: #815fc0;
   border: none;
   margin: 0 auto;
-  border-radius: 0 50% 0 50%;
+  border-radius: 15px;
   color: white;
   font-size: 16px;
-  text-align: center;
+  text-indent: 50px;
 }
 
 .search-bar:focus{
