@@ -38,8 +38,9 @@ var Splash = React.createClass({
   }
     var recentAnnotatedSongs = [];
     for (var i = 0 ; i < this.state.songs[1].length; i++) {
-    recentAnnotatedSongs.push(<li key={i} className="individual-song-right" id={this.state.songs[1][i].id} onClick={this.handleClick}> <a>
-    {this.state.songs[1][i].title}<span className="break"></span>{this.state.songs[1][i].artist}</a></li>);
+    recentAnnotatedSongs.push(<li key={i} className="individual-song-right" id={this.state.songs[1][i].id} onClick={this.handleClick}>
+    <img className= "artist_icon" src={this.state.songs[1][i].image} />
+    <a>{this.state.songs[1][i].title}<span className="break"></span>{this.state.songs[1][i].artist}</a></li>);
   }
     return(
     <div>
