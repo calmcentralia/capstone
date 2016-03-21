@@ -89,7 +89,7 @@ var SongShow = React.createClass( {
                                isAnnotated={AnnotationStore.doesExist(idx)}
                              loggedIn={that.state.song.logged_in}/>);
       });
-      var off = ""
+      var off = "edit";
       if(!this.state.song.logged_in) {
         off = "button-off";
       }
@@ -98,7 +98,7 @@ var SongShow = React.createClass( {
       <div className="about-the-artist-box"><header className="about-the-artist">About the Artist</header>
       <img className="artist-image" src={this.state.song.image}/>
       <div className="artist-description">{this.state.song.description}</div>
-      <button className={"edit " + off} type="button" onClick={this.editArtistDescription}>Edit?</button> </div> :
+      <button className={off} type="button" onClick={this.editArtistDescription}>Edit?</button> </div> :
         this.props.children;
     }
     return(
