@@ -61,7 +61,7 @@ var ApiUtil = {
       data: {annotation: data},
       success: function(annotation) {
         AnnotationActions.receiveOne(annotation);
-        callback && callback();
+        callback && callback(annotation.id);
       }
     });
   },

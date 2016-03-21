@@ -13,9 +13,9 @@ var AnnotationForm = React.createClass({
     e.preventDefault();
     var annotation = {body: this.state.body, song_id: this.props.params.songId, line_number: this.props.location.query.lineNumber, image_url: this.state.imageUrl};
     var that = this;
-    ApiUtil.createAnnotation(annotation, function() {
+    ApiUtil.createAnnotation(annotation, function(id) {
       hashHistory.push({
-        pathname: "/songs/" + that.props.params.songId
+        pathname: "/songs/" + that.props.params.songId + "/annotations/" + id
       });
     });
   },
