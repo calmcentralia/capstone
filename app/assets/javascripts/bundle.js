@@ -24810,7 +24810,7 @@
 	      recentSongRows.push(React.createElement(
 	        'li',
 	        { key: i, className: 'individual-song-left', id: this.state.songs[0][i].id, onClick: this.handleClick },
-	        ' ',
+	        React.createElement('img', { className: 'artist-icon', src: this.state.songs[0][i].image }),
 	        React.createElement(
 	          'a',
 	          null,
@@ -24825,7 +24825,7 @@
 	      recentAnnotatedSongs.push(React.createElement(
 	        'li',
 	        { key: i, className: 'individual-song-right', id: this.state.songs[1][i].id, onClick: this.handleClick },
-	        ' ',
+	        React.createElement('img', { className: 'artist-icon', src: this.state.songs[1][i].image }),
 	        React.createElement(
 	          'a',
 	          null,
@@ -24841,9 +24841,16 @@
 	      React.createElement(
 	        'header',
 	        { className: 'welcome' },
-	        'Welcome to MusicGenius ',
-	        React.createElement('br', null),
-	        '  To begin adding songs and annotating song lyrics, please log in'
+	        'Welcome to MusicGenius'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'explanation-box' },
+	        React.createElement(
+	          'div',
+	          { className: 'annotate-the-world' },
+	          ' Share Your Lyrical Knowledge '
+	        )
 	      ),
 	      React.createElement(SearchBar, null),
 	      React.createElement(
@@ -24951,7 +24958,7 @@
 	      data: { annotation: data },
 	      success: function (annotation) {
 	        AnnotationActions.receiveOne(annotation);
-	        callback && callback();
+	        callback && callback(annotation.id);
 	      }
 	    });
 	  },
@@ -32219,7 +32226,7 @@
 	
 	  getResults: function (e) {
 	    var results = fuzzy.filter(e.target.value, this.state.allItems);
-	    if (e.target.value === "") {
+	    if (e.target.value === "" || results.length === 0) {
 	      this.setState({ shouldAppear: "dont-appear", matches: [] });
 	    } else {
 	      this.setState({ shouldAppear: "appear", matches: SearchStore.findByTitle(results.map(function (el) {
@@ -32662,9 +32669,15 @@
 	    this.setState({ errors: ErrorStore.all() });
 	  },
 	
+	  _onChange: function () {
+	    this.setState({ songs: SongStore.all() });
+	  },
+	
 	  componentDidMount: function () {
 	    ErrorStore.clear();
 	    this.errorToken = ErrorStore.addListener(this._onError);
+	    this.songToken = SongStore.addListener(this._onChange);
+	    ApiUtil.fetchSomeSongs({ flag: "For Splash" });
 	    if (this.state.songs) {
 	      if (!this.state.songs[0][0].logged_in) {
 	        window.location.href = "/session/new";
@@ -32850,6 +32863,7 @@
 	          { className: 'about-the-artist' },
 	          'About the Artist'
 	        ),
+	        React.createElement('img', { className: 'artist-image', src: this.state.song.image }),
 	        React.createElement(
 	          'div',
 	          { className: 'artist-description' },
@@ -33332,9 +33346,9 @@
 	    e.preventDefault();
 	    var annotation = { body: this.state.body, song_id: this.props.params.songId, line_number: this.props.location.query.lineNumber, image_url: this.state.imageUrl };
 	    var that = this;
-	    ApiUtil.createAnnotation(annotation, function () {
+	    ApiUtil.createAnnotation(annotation, function (id) {
 	      hashHistory.push({
-	        pathname: "/songs/" + that.props.params.songId
+	        pathname: "/songs/" + that.props.params.songId + "/annotations/" + id
 	      });
 	    });
 	  },

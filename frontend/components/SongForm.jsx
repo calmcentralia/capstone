@@ -23,9 +23,15 @@ var SongForm = React.createClass({
     this.setState({errors: ErrorStore.all()});
   },
 
+  _onChange: function() {
+    this.setState({songs: SongStore.all()});
+  },
+
   componentDidMount: function() {
     ErrorStore.clear();
     this.errorToken = ErrorStore.addListener(this._onError);
+    this.songToken = SongStore.addListener(this._onChange);
+    ApiUtil.fetchSomeSongs({flag: "For Splash"});
     if(this.state.songs) {
       if (!this.state.songs[0][0].logged_in) {
         window.location.href= "/session/new";
