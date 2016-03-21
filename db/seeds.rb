@@ -10,11 +10,11 @@ Annotation.create!([
   {user_id: 2, song_id: 1, body: "Probably shouldn't do that", line_number: 18, image_url: ""},
   {user_id: 2, song_id: 5, body: "They never want the dancing to end.", line_number: 8, image_url: "https://media.giphy.com/media/UTlUCyGX93D3i/giphy.gif"},
   {user_id: 2, song_id: 5, body: "You really can't", line_number: 18, image_url: "https://media.giphy.com/media/taY77dqqXKpri/giphy.gif"},
-  {user_id: 2, song_id: 3, body: "This coupled with the next line is commentary on how sure people are that there is a god", line_number: 8, image_url: ""},
-  {user_id: 2, song_id: 3, body: "Brock uses the word eye to convey how silly he feels the notion of going to heaven and meeting God is", line_number: 11, image_url: ""},
-  {user_id: 2, song_id: 3, body: "This suggests that this family either had a miscarriage or a child die at a young age", line_number: 21, image_url: ""},
-  {user_id: 2, song_id: 3, body: "World refers to their family here.  It began with the conception or birth of their child", line_number: 22, image_url: ""},
-  {user_id: 2, song_id: 3, body: "And it ends with whatever tradgedy befell the child", line_number: 23, image_url: ""},
+  {user_id: 2, song_id: 3, body: "This coupled with the next line is commentary on how sure people are that there is a god", line_number: 7, image_url: ""},
+  {user_id: 2, song_id: 3, body: "Brock uses the word eye to convey how silly he feels the notion of going to heaven and meeting God is", line_number: 10, image_url: ""},
+  {user_id: 2, song_id: 3, body: "This suggests that this family either had a miscarriage or a child die at a young age", line_number: 20, image_url: ""},
+  {user_id: 2, song_id: 3, body: "World refers to their family here.  It began with the conception or birth of their child", line_number: 21, image_url: ""},
+  {user_id: 2, song_id: 3, body: "And it ends with whatever tradgedy befell the child", line_number: 22, image_url: ""},
 ])
 Artist.create!([
   {name: "Kanye West", decription: "nah\n", image_url: "https://consequenceofsound.files.wordpress.com/2015/04/screen-shot-2015-04-16-at-8-54-18-am.png"},
