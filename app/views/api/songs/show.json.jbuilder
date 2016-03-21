@@ -2,6 +2,7 @@
 json.extract! @song, :lyrics, :title, :album_name, :id
 json.username @song.user.username
 json.artist @song.artist.name
+json.image @song.artist.image_url
 json.description @song.artist.decription
 json.artist_id @song.artist.id
 json.logged_in signed_in?
