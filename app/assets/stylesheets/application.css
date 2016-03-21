@@ -38,11 +38,10 @@
  .nav{
    display: block;
    height: 61px;
-   min-width: 1000px;
+   width: 680px;
    list-style-type: none;
    margin: 0 auto;
    background-color: #6441a5;
-   padding-left: 33%;
  }
  .nav-logo{
    padding-left: 5px;
