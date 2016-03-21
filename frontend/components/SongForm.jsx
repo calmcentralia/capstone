@@ -25,6 +25,9 @@ var SongForm = React.createClass({
 
   _onChange: function() {
     this.setState({songs: SongStore.all()});
+    if (!this.state.songs[0][0].logged_in) {
+      window.location.href= "/session/new";
+    }
   },
 
   componentDidMount: function() {
