@@ -250,18 +250,21 @@ input[type="submit"]:focus,
   color: white;
   text-shadow: 2px 2px 1px black;
   text-align: center;
-  font-size: 24px;
   display: block;
   height: 50px;
-  width: 25%;
-  min-width: 272px;
+  width: 40%;
+  min-width: 741px;
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 65px;
   border: 2px solid #483d8b;
   border-left: 2px solid #483d8b;
   border-right: 2px solid #483d8b;
   box-shadow: 5px 5px 5px 0px #947DC4;
+}
 
+.welcome-text{
+  display: block;
+  font-size: 24px;
 }
 
 .explanation-box{
@@ -278,11 +281,8 @@ input[type="submit"]:focus,
 }
 
 .annotate-the-world{
-  font-family: 'Inconsolata';
   padding-top: 20px;
   display: block;
-  color: white;
-  text-align: center;
   font-size: 18px;
 }
 
