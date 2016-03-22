@@ -786,6 +786,10 @@ input[type="search"]::-webkit-search-cancel-button, {
   display: none;
 }
 
+.matches{
+  padding-bottom: 7px;
+}
+
 .matches:hover{
   cursor: pointer;
 }
