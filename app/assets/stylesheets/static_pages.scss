@@ -256,10 +256,6 @@ input[type="submit"]:focus,
   min-width: 741px;
   margin: 0 auto;
   margin-top: 65px;
-  border: 2px solid #483d8b;
-  border-left: 2px solid #483d8b;
-  border-right: 2px solid #483d8b;
-  box-shadow: 5px 5px 5px 0px #947DC4;
   padding: 30px;
 }
 
@@ -427,22 +423,11 @@ input[type="submit"]:focus,
   min-height: 50px;
   min-width: 741px;
   background-color: #e6e8fa;
-  margin: 50px auto;
+  margin: 0px auto;
+  margin-bottom: 30px;
   box-shadow: 5px 16px 8px -5px #c7c5e6;
 }
 
-.splash-box:before{
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-width: 0 16px 16px 0;
- border-style: solid;
- border-color: #828be5 #edf0f5;
- -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
- -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
- box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
-}
 
 //annotations styling
 
