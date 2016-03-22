@@ -798,6 +798,7 @@ input[type="search"]::-webkit-search-cancel-button, {
   color: white;
   font-size: 20px;
   display: block;
+  padding: 0 8px;
   background-color: #848ABD;
 }
 
@@ -807,8 +808,10 @@ input[type="search"]::-webkit-search-cancel-button, {
   min-height: 50px;
   background-color: #9ca1ca;
   font-size: 16px;
+  padding: 0 8px;
   padding-top: 16px;
   margin-bottom: 20px;
+
 }
 
 .comment-body, .new-comment{
