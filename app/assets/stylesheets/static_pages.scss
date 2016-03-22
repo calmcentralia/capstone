@@ -804,7 +804,7 @@ input[type="search"]::-webkit-search-cancel-button, {
 
 .created-by, .comment-username{
   width: 100%;
-  height: 20px;
+  height: 25px;
   margin: 0;
   text-align: center;
   color: white;
@@ -816,7 +816,7 @@ input[type="search"]::-webkit-search-cancel-button, {
 .annotation-body, .comment-body, .new-comment{
   position: relative;
   width: 100%;
-  min-height: 200px;
+  min-height: 50px;
   background-color: #9ca1ca;
   font-size: 16px;
   padding-top: 16px;
@@ -833,7 +833,7 @@ input[type="search"]::-webkit-search-cancel-button, {
 
 .image, .comment-image{
   text-align: center;
-  padding: 50px 0;
+  padding: 25px 0;
 }
 
 img{
