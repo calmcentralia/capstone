@@ -48,8 +48,9 @@ var Splash = React.createClass({
       <div className="welcome-text">Welcome to MusicGenius</div>
       <div className="annotate-the-world"> Share Your Lyrical Knowledge </div>
       </div>
-      <SearchBar />
+
       <div className="splash-box">
+      <SearchBar />
         <div className= "recently-added-box">
         <header className="recently-added-header"> Recently Added Songs</header>
         <ul className="song-list">
