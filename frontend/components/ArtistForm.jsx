@@ -44,6 +44,7 @@ var ArtistForm = React.createClass({
 
   componentWillUnmount: function() {
     this.errorToken.remove();
+    this.songToken.remove();
   },
 
   handleSubmit: function(e){
